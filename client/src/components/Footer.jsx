@@ -5,11 +5,11 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
 // Footer component
-function Footer() {
+export default function Footer() {
     return (
             <Box sx={{ flexGrow: 1,
                 width: '100%',
-                position: 'fixed',
+                position: 'absolute',
                 bottom: 0,
                 left: 0}}>
                 <AppBar position="static" sx = {{ padding: '0.7rem' }}>
@@ -21,5 +21,3 @@ function Footer() {
             </Box>
     )
 }
-
-export default Footer

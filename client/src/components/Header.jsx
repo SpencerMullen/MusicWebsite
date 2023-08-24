@@ -10,17 +10,19 @@ export default function ButtonAppBar() {
     return (
       <Box sx={{ flexGrow: 1,
         width: '100%',
-        position: 'fixed',
+        // position: 'fixed',
         top: 0,
         left: 0}}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" component="header" sx={{ flexGrow: 1}}>
-              Music List
+            <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
+              <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+                Music List
+              </Link>
             </Typography>
             <Button color="inherit" component={Link} to = "/">Home</Button>
-            <Button color="inherit" component={Link} to = "/About">About</Button>
-            <Button color="inherit" component={Link} to = "/Login">Login</Button>
+            <Button color="inherit" component={Link} to = "/about">About</Button>
+            <Button color="inherit" component={Link} to = "/login">Login</Button>
           </Toolbar>
         </AppBar>
       </Box>

@@ -2,8 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
-
-// Use the dark theme
+import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 
@@ -31,9 +30,11 @@ function RootLayout() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Header />
-            <main><Outlet /></main>
-            <Footer />
+            <Grid container>
+              <Grid item xs={12}><Header /></Grid>
+              <Grid item xs={12}><Outlet /></Grid>
+              <Grid item xs={12}><Footer /></Grid>
+            </Grid>
         </ThemeProvider>
     )}
 
