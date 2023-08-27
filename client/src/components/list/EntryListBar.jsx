@@ -53,8 +53,8 @@ const EntryListBar = () => {
         <InputLabel>Sort by</InputLabel>
         <Select label="Sort by" value={selectedSort} onChange={handleSortChange}>
           <MenuItem value="artist">Artist</MenuItem>
-          <MenuItem value="genre">Rating</MenuItem>
-          <MenuItem value="album">Title</MenuItem>
+          <MenuItem value="rating">Rating</MenuItem>
+          <MenuItem value="title">Title</MenuItem>
           <MenuItem value="date">Review Date</MenuItem>
         </Select>
       </FormControl>

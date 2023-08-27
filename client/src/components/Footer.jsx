@@ -9,9 +9,10 @@ export default function Footer() {
     return (
             <Box sx={{ flexGrow: 1,
                 width: '100%',
-                position: 'absolute',
+                position: 'relative',
                 bottom: 0,
-                left: 0}}>
+                left: 0
+                }}>
                 <AppBar position="static" sx = {{ padding: '0.7rem' }}>
                     <Typography component="footer" 
                         sx={{ flexGrow: 1 }}>

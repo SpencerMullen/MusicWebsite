@@ -1,9 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import styled from 'styled-components'
 
 // Routes
 import RootLayout from './routes/Root.jsx'
 import HomePage from './routes/Home.jsx'
+import ListPage from './routes/List.jsx'
 import EntryPage from './routes/Entry.jsx'
 import AboutPage from './routes/About.jsx'
 import LoginPage from './routes/Login.jsx'
@@ -24,6 +24,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [ 
       { path: '/', element: <HomePage /> },
+      { path: '/list', element: <ListPage />},
       { path: '/entry/:id', element: <EntryPage /> },
       { path: '/about', element: <AboutPage /> },
       { path: '/login', element: <LoginPage /> },

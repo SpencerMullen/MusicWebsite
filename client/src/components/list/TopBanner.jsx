@@ -27,7 +27,7 @@ const TopBanner = () => {
   return (
     <div>
       <TopBannerPaper elevation={2}>
-        <Typography variant="h5">Welcome to the music review site!</Typography>
+        <Typography variant="h5">Welcome to my music review site!</Typography>
         <br />
         <Button
           variant="contained"

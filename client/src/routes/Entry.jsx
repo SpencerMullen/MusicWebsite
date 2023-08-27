@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
+import EntryContent from '../components/entry/EntryContent';
 
-function EntryPage() {
-    return (
-        <>
-        </>
-    )}
+const EntryPage = () => {
+    return (    
+        <EntryContent />
+  );
+};
 
-export default EntryPage
+export default EntryPage;
