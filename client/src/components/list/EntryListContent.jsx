@@ -33,7 +33,7 @@ for(let i = 0; i < 100; i++) {
 
 const EntryListContent = () => {
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', padding: '16px' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', padding: '16px' }}>
       {sampleData.map((entry) => (
         <EntryCard key={entry.id} entry={entry} />
       ))}

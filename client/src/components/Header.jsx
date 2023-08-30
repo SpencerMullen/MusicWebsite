@@ -16,7 +16,7 @@ export default function ButtonAppBar() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" color="inherit" sx={{ flexGrow: 1 }}>
-              <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+              <Link to="/" style={{ textDecoration: "none", color: "inherit", fontWeight: 'bold' }}>
                 Music List
               </Link>
             </Typography>

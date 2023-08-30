@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Typography, Paper, Button } from '@mui/material';
+import { Typography, Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import CreateEntryDialog from './CreateEntry';
 
-const TopBannerPaper = styled(Paper)(({ theme }) => ({
-  height: '15vh',
+const TopBannerBox = styled(Box)(({ theme }) => ({
+  minHeight: '15vh',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: '#30475e',
   color: '#eeeeee',
+  border: 'none',
+  borderRadius: 0,
 }));
 
 const TopBanner = () => {
@@ -26,20 +28,24 @@ const TopBanner = () => {
 
   return (
     <div>
-      <TopBannerPaper elevation={2}>
-        <Typography variant="h5">Welcome to my music review site!</Typography>
-        <br />
+      <TopBannerBox elevation={2}>
+        <Typography variant="h5" sx = {{ marginTop: '16px' }}>
+          Welcome to my music review site!
+        </Typography>
+
         <Button
           variant="contained"
           onClick={handleDialogOpen}
           style={{
             backgroundColor: '#ffffff',
             color: '#000000',
+            marginTop: '16px',
+            marginBottom: '16px',
           }}
         >
           Create New Entry
         </Button>
-      </TopBannerPaper>
+      </TopBannerBox>
       <CreateEntryDialog open={open} onClose={handleDialogClose} />
     </div>
   );
