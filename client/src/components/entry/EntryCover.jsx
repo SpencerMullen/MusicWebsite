@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Paper, Box } from '@mui/material';
 
-const EntryCover = ({ exCover }) => {
+const EntryCover = ({ entry, exCover }) => {
   return (
     <Grid item xs={12} md={4}>
       <Paper>

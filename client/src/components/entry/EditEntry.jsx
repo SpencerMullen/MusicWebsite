@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -16,9 +16,9 @@ import {
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-const CreateEntryDialog = ({ open, onClose }) => {
+const EditEntryDialog = ({ open, onClose, entry }) => {
   const [isTitleFocused, setIsTitleFocused] = useState(false);
-  const [selectedType, setSelectedType] = useState('album');
+  const [selectedType, setSelectedType] = useState(entry.type);
   const [file, setFile] = useState(null);
 
   const handleTitleFocus = () => {
@@ -40,7 +40,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Create New Entry</DialogTitle>
+      <DialogTitle>Edit Entry</DialogTitle>
       <DialogContent>
         <Grid container spacing={2}>
           {/* Entry Type */}
@@ -78,6 +78,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
                 onFocus={handleTitleFocus}
                 onBlur={handleTitleBlur}
                 fullWidth
+                defaultValue={entry ? entry.title : ''} // Set the initial title based on entry
               />
             </FormControl>
           </Grid>
@@ -86,7 +87,11 @@ const CreateEntryDialog = ({ open, onClose }) => {
           <Grid item xs={12}>
             <FormControl fullWidth sx={{ marginTop: '10px' }}>
               <InputLabel htmlFor="artist">Artist</InputLabel>
-              <Input id="artist" fullWidth />
+              <Input
+                id="artist"
+                fullWidth
+                defaultValue={entry ? entry.artist : ''} // Set the initial artist based on entry
+              />
             </FormControl>
           </Grid>
 
@@ -96,7 +101,12 @@ const CreateEntryDialog = ({ open, onClose }) => {
               Release Date
             </Typography>
             <FormControl fullWidth>
-              <Input type="date" id="release-date" fullWidth />
+              <Input
+                type="date"
+                id="release-date"
+                fullWidth
+                defaultValue={entry ? entry.releaseDate : ''} // Set the initial release date based on entry
+              />
             </FormControl>
           </Grid>
 
@@ -104,14 +114,18 @@ const CreateEntryDialog = ({ open, onClose }) => {
           <Grid item xs={12}>
             <FormControl fullWidth sx={{ marginTop: '10px' }}>
               <InputLabel htmlFor="genre">Genre</InputLabel>
-              <Input id="genre" fullWidth />
+              <Input
+                id="genre"
+                fullWidth
+                defaultValue={entry ? entry.genre : ''} // Set the initial genre based on entry
+              />
             </FormControl>
           </Grid>
 
           {/* Image Upload */}
           <Grid item xs={12}>
             <Typography variant="body2" sx={{ marginBottom: '5px' }}>
-              Upload Cover Image
+              Upload New Cover Image
             </Typography>
             <label htmlFor="file-upload">
               <input
@@ -135,10 +149,11 @@ const CreateEntryDialog = ({ open, onClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
+        {/* TODO: Handle new image upload */}
         <Button onClick={onClose}>Create</Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default CreateEntryDialog;
+export default EditEntryDialog;

@@ -7,6 +7,7 @@ function ListPage() {
   return (
     <Grid container>
       <Grid item xs={12}>
+        { /* TODO: Render only if admin auth */}
         <TopBanner />
       </Grid>
       <Grid item xs={12}>

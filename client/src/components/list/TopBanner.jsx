@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Box, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { styled } from '@mui/system';
 import CreateEntryDialog from './CreateEntry';
 
@@ -26,27 +26,22 @@ const TopBanner = () => {
   };
 
   return (
-    <div>
+    <>
       <TopBannerBox elevation={2}>
-        <Typography variant="h5" sx = {{ marginTop: '16px' }}>
-          Welcome to my music review site!
-        </Typography>
-
         <Button
           variant="contained"
           onClick={handleDialogOpen}
           style={{
             backgroundColor: '#ffffff',
             color: '#000000',
-            marginTop: '16px',
-            marginBottom: '16px',
+            margin: '1rem',
           }}
         >
           Create New Entry
         </Button>
       </TopBannerBox>
       <CreateEntryDialog open={open} onClose={handleDialogClose} />
-    </div>
+    </>
   );
 };
 

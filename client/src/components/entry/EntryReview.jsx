@@ -1,11 +1,11 @@
 import React from 'react';
-import { Grid, Typography, Divider } from '@mui/material';
-import { formatDate } from '../../utils/formatDate';
+import { Grid, Typography, Divider, Button } from '@mui/material';
+import { formatDate } from '../../utils/formatUtils';
 
 const EntryReview = ({ entry }) => {
   return (
     <Grid item xs={12}>
-      <Divider sx={{ marginY: '1rem' }} /> {/* Horizontal bar */}
+      <Divider sx={{ marginY: '1rem' }} />
       {entry.reviewed ? (
         <Grid container spacing={2}>
           <Grid item xs={12} md={3}>
@@ -38,10 +38,13 @@ const EntryReview = ({ entry }) => {
           </Grid>
         </Grid>
       ) : (
-        <Typography variant="body2" sx={{ fontStyle: 'italic', marginTop: '1rem' }}>
-          Not yet reviewed
-        </Typography>
+        <Grid item xs={12}>
+          <Typography variant="body2" sx={{ fontStyle: 'italic', marginTop: '1rem' }}>
+            Not yet reviewed
+          </Typography>
+        </Grid>
       )}
+      <Divider sx={{ marginY: '1rem' }} />
     </Grid>
   );
 };

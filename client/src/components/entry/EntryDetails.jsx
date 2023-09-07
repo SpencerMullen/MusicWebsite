@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Typography, Divider } from '@mui/material';
-import { formatDate } from '../../utils/formatDate';
+import { Grid, Typography, Divider, Button } from '@mui/material';
+import { formatDate, formatType } from '../../utils/formatUtils';
 
 const EntryDetails = ({ entry }) => {
   return (
@@ -26,10 +26,10 @@ const EntryDetails = ({ entry }) => {
         {/* Entry Type */}
         <Grid item xs={12}>
           <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-            Type
+              Type
           </Typography>
           <Typography variant="body2" sx={{fontSize: '1.2rem'}}>
-            {entry.type}
+            {formatType(entry.type)}
           </Typography>
         </Grid>
         {/* Release Date */}
