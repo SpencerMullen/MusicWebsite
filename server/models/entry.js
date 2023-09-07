@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 // Schema for the entry
 const EntrySchema = new Schema({
     id: String,
-    addedBy: {
+    /*addedBy: {
         userId: String,
         username: String
-    },
+    },*/
     reviewed: Boolean,
     type: String,
     title: String,

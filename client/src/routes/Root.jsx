@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
@@ -25,17 +25,55 @@ const theme = createTheme({
     },
 });
 
-// Layout for all pages
+// Layout for all pages, root handles loading content between header+footer
 function RootLayout() {
+  const [headerHeight, setHeaderHeight] = useState(0);
+  const [footerHeight, setFooterHeight] = useState(0);
+
+  useEffect(() => {
+    const header = document.querySelector('#header');
+    const footer = document.querySelector('#footer');
+    const main = document.querySelector('#main');
+
+    if (header && footer && main) {
+      setHeaderHeight(header.offsetHeight);
+      setFooterHeight(footer.offsetHeight);
+    }
+
+    // Handle window resize
+    const handleResize = () => {
+      if (header && footer && main) {
+        setHeaderHeight(header.offsetHeight);
+        setFooterHeight(footer.offsetHeight);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const main = document.querySelector('#main');
+
+    if (main) {
+      main.style.paddingTop = `${headerHeight}px`;
+      main.style.paddingBottom = `${footerHeight}px`;
+    }
+  }, [headerHeight, footerHeight]);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Grid container>
               <Grid item xs={12}><Header /></Grid>
-              <Grid item xs={12}><Outlet /></Grid>
+              <Grid item xs={12}><main id="main"><Outlet /></main></Grid>
               <Grid item xs={12}><Footer /></Grid>
             </Grid>
         </ThemeProvider>
-    )}
+    )
+}
 
 export default RootLayout

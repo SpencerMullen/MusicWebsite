@@ -90,13 +90,13 @@ const CreateEntryDialog = ({ open, onClose }) => {
             </FormControl>
           </Grid>
 
-          {/* Review Date */}
+          {/* Release Date */}
           <Grid item xs={12}>
             <Typography variant="body2" sx={{ marginBottom: '5px' }}>
-              Review Date
+              Release Date
             </Typography>
             <FormControl fullWidth>
-              <Input type="date" id="review-date" fullWidth />
+              <Input type="date" id="release-date" fullWidth />
             </FormControl>
           </Grid>
 

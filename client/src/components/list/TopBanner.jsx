@@ -4,7 +4,6 @@ import { styled } from '@mui/system';
 import CreateEntryDialog from './CreateEntry';
 
 const TopBannerBox = styled(Box)(({ theme }) => ({
-  minHeight: '15vh',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

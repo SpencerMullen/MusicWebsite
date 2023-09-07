@@ -1,17 +1,18 @@
 import React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
 // Footer component
 export default function Footer() {
     return (
-            <Box sx={{ flexGrow: 1,
+            <Box id="footer"
+                sx={{ flexGrow: 1,
                 width: '100%',
-                position: 'relative',
+                position: 'fixed',
                 bottom: 0,
-                left: 0
+                left: 0,
+                zIndex: 1
                 }}>
                 <AppBar position="static" sx = {{ padding: '0.7rem' }}>
                     <Typography component="footer" 

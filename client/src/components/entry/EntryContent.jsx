@@ -1,58 +1,43 @@
 import React from 'react';
-import { Container, Grid, Typography, Paper, Box } from '@mui/material';
+import { Container, Grid } from '@mui/material';
+import exCover from '../../assets/vbird.jpg'; // Import the default image
+import EntryCover from './EntryCover';
+import EntryDetails from './EntryDetails';
+import EntryReview from './EntryReview';
 
 const EntryContent = () => {
 // Replace this with actual entry data
   const entry = {
-    title: 'The Idler Wheel Is Wiser Than the Driver of the Screw and Whipping Cords Will Serve You More Than Ropes Will Ever Do',
-    artist: 'Sample Artist',
-    releaseDate: '2023-08-14',
+    id: '1',
+    /*addedBy: {
+      userId: '1',
+      username: 'sampleUser',
+    },*/
+    reviewed: true,
+    type: 'Album',
+    title: 'Volcanic Bird Enemy and the Voiced Concern',
+    artist: 'Lil Ugly Mane',
+    releaseDate: '2010-05-15',
+    genre: 'Folk',
     cover: {
-      url: 'sample-image.jpg',
+      url: 'google.com',
+      fileName: 'sample-image.jpg',
     },
-    rating: 4.5,
-    review:
-      'This is a sample review for the album. It can be quite long and contain detailed information about the album.',
+    review: {
+      rating: 8,
+      reviewText: "Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. This is a sample review. It's not a real review, but it's a review nonetheless. Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time.  Fiona Apple is a big fan of incredibly long album titles, even holding the world record with When the Pawn… for some time. ",
+      reviewDate: '2023-08-14',
+    }
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box sx={{ backgroundColor: '#f0f0f0', padding: '1rem' }}>
-        <Typography variant="h4" sx={{ textAlign: 'center', width: '100%' }}>
-          {entry.title}
-        </Typography>
-      </Box>
-      <Container maxWidth="md">
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={4}>
-            <Paper>
-              {/* Album Image */}
-              <img src={entry.cover.url} alt={entry.title} style={{ width: '100%', height: 'auto' }} />
-            </Paper>
-          </Grid>
-          <Grid item xs={12} md={8}>
-            <Paper>
-              {/* Album Information */}
-              <Typography variant="h6">Artist: {entry.artist}</Typography>
-              <Typography variant="subtitle1">
-                Release Date: {new Date(entry.releaseDate).toLocaleDateString()}
-              </Typography>
-              {/* You can add more album details here */}
-            </Paper>
-          </Grid>
-        </Grid>
-        <Paper style={{ marginTop: '16px', padding: '16px' }}>
-          {/* Album Review */}
-          <Typography variant="h5" gutterBottom>
-            Album Review
-          </Typography>
-          <Typography variant="body1">{entry.review}</Typography>
-          <Typography variant="h6" style={{ marginTop: '16px' }}>
-            Rating: {entry.rating}
-          </Typography>
-        </Paper>
-      </Container>
-    </Container>
+  <Container maxWidth="lg" sx={{ marginTop: '2rem', marginBottom: '2rem' }}>
+    <Grid container spacing={2}>
+      <EntryCover exCover={exCover} />
+      <EntryDetails entry={entry} />
+      <EntryReview entry={entry} />
+    </Grid>
+  </Container>
   );
 };
 
