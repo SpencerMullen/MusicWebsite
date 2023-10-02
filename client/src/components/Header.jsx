@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import HeaderButton from './HeaderButton';
 
 export default function ButtonAppBar() {
     return (
@@ -23,10 +24,27 @@ export default function ButtonAppBar() {
                 Music List
               </Link>
             </Typography>
-            <Button color="inherit" component={Link} to = "/">Home</Button>
-            <Button color="inherit" component={Link} to = "/list">List</Button>
-            <Button color="inherit" component={Link} to = "/about">About</Button>
-            <Button color="inherit" component={Link} to = "/login">Login</Button>
+            {/* Home, List, and About buttons */}
+            <HeaderButton text="Home" link="/" />
+            <HeaderButton text="List" link="/list" />
+            <HeaderButton text="About" link="/about" />
+            {/* Login and Logout buttons */}
+            {/*TODO: conditionally render correct button */}
+            <HeaderButton text="Login" link="/login" />
+            <Button color="inherit"
+            component={Link}
+            to="/"
+            sx={{
+              backgroundColor: '#3f51b5',
+              color: 'white',
+              borderRadius: '20px',
+              fontWeight: 'bold',
+              transition: 'background-color 0.3s ease, color 0.3s ease',
+              marginLeft: '10px',
+              '&:hover': {
+                backgroundColor: '#304ffe',
+              },
+            }}>Logout</Button>
           </Toolbar>
         </AppBar>
       </Box>

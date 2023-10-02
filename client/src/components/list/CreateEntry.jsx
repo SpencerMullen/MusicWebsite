@@ -15,10 +15,15 @@ import {
   Typography,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import axios from 'axios';
 
 const CreateEntryDialog = ({ open, onClose }) => {
   const [isTitleFocused, setIsTitleFocused] = useState(false);
   const [selectedType, setSelectedType] = useState('album');
+  const [title, setTitle] = useState('');
+  const [artist, setArtist] = useState('');
+  const [releaseDate, setReleaseDate] = useState('');
+  const [genre, setGenre] = useState('');
   const [file, setFile] = useState(null);
 
   const handleTitleFocus = () => {
@@ -33,9 +38,50 @@ const CreateEntryDialog = ({ open, onClose }) => {
     setSelectedType(event.target.value);
   };
 
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleArtistChange = (event) => {
+    setArtist(event.target.value);
+  };
+
+  const handleReleaseDateChange = (event) => {
+    setReleaseDate(event.target.value);
+  };
+
+  const handleGenreChange = (event) => {
+    setGenre(event.target.value);
+  };
+
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = {
+      entry: {
+        selectedType,
+        title,
+        artist,
+        releaseDate,
+        genre,
+      },
+      file, // Add the selected file to the form data
+    };
+
+    try {
+      const response = await axios.post('/entry', formData);
+      console.log('New entry created:', response.data);
+
+      // Close the dialog or perform other actions on success
+      onClose();
+    } catch (error) {
+      console.error('Error creating entry:', error);
+    }
   };
 
   return (
@@ -77,6 +123,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
                 id="entry-title"
                 onFocus={handleTitleFocus}
                 onBlur={handleTitleBlur}
+                onChange={handleTitleChange}
                 fullWidth
               />
             </FormControl>
@@ -86,7 +133,11 @@ const CreateEntryDialog = ({ open, onClose }) => {
           <Grid item xs={12}>
             <FormControl fullWidth sx={{ marginTop: '10px' }}>
               <InputLabel htmlFor="artist">Artist</InputLabel>
-              <Input id="artist" fullWidth />
+              <Input
+                id="artist"
+                fullWidth
+                onChange={handleArtistChange}
+              />
             </FormControl>
           </Grid>
 
@@ -96,7 +147,12 @@ const CreateEntryDialog = ({ open, onClose }) => {
               Release Date
             </Typography>
             <FormControl fullWidth>
-              <Input type="date" id="release-date" fullWidth />
+              <Input
+                type="date"
+                id="release-date"
+                fullWidth
+                onChange={handleReleaseDateChange}
+              />
             </FormControl>
           </Grid>
 
@@ -104,7 +160,11 @@ const CreateEntryDialog = ({ open, onClose }) => {
           <Grid item xs={12}>
             <FormControl fullWidth sx={{ marginTop: '10px' }}>
               <InputLabel htmlFor="genre">Genre</InputLabel>
-              <Input id="genre" fullWidth />
+              <Input
+                id="genre"
+                fullWidth
+                onChange={handleGenreChange}
+              />
             </FormControl>
           </Grid>
 
@@ -135,7 +195,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={onClose}>Create</Button>
+        <Button onClick={handleFormSubmit}>Create</Button>
       </DialogActions>
     </Dialog>
   );

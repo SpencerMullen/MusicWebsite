@@ -4,15 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.5.0",
     "cloudinary": "^1.40.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "joi": "^17.9.2",
     "mongoose": "^7.4.3",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^8.0.0",
     "uuid": "^9.0.0"
   }
 }

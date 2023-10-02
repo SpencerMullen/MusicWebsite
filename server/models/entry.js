@@ -3,26 +3,67 @@ const Schema = mongoose.Schema;
 
 // Schema for the entry
 const EntrySchema = new Schema({
-    id: String,
-    /*addedBy: {
-        userId: String,
-        username: String
-    },*/
-    reviewed: Boolean,
-    type: String,
-    title: String,
-    artist: String,
-    releaseDate: Date,
-    genre: String,
+    id: {
+        type: String,
+        required: true,
+        unqiue: true
+    },
+    reviewed: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    artist: {
+        type: String,
+        required: true
+    },
+    releaseDate: {
+        type: Date,
+        required: true
+    },
+    genre: {
+        type: String,
+        required: true
+    },
     cover: {
-        url: String,
-        filename: String
+        url: {
+            type: String,
+            required: true
+        },
+        filename: {
+            type: String,
+            required: true
+        }
     },
     review: {
-        rating: Number,
-        reviewText: String,
-        reviewDate: Date,
+        rating: {
+            type: Number,
+            min: 0,
+            max: 10
+        },
+        reviewDate: {
+            type: Date
+        },
+        reviewText: {
+            type: String
+        }
     }
+}, {
+    toJSON: {
+        transform: (doc, ret) => {
+            // Hide the MongoDB _id and rename id to entryId
+            delete ret._id;
+            return ret;
+        },
+    },
 });
 
 // Export the model
