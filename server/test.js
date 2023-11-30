@@ -19,11 +19,13 @@ const newEntry = {
     }
 };
 
+const file = {}
+
 // Create a new entry
 const apiUrl = 'http://localhost:8080/entry'; // Adjust the URL to match your Express routes
 
 // Send a POST request to create a new entry
-/*axios.post(apiUrl, { entry : newEntry })
+/*axios.post(apiUrl, { entry : newEntry, file : newFile })
   .then(response => {
     console.log('New entry created:', response.data);
   })

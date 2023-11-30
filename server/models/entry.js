@@ -67,4 +67,4 @@ const EntrySchema = new Schema({
 });
 
 // Export the model
-module.exports = mongoose.model('Entry', EntrySchema);
+module.exports = mongoose.model('Entry', EntrySchema, 'entries');

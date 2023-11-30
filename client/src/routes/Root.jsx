@@ -5,12 +5,11 @@ import Footer from '../components/Footer.jsx'
 import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+// Change theme here
+import { gray_dark_blue as colors } from '../colors';
 
 // Color theme
-const primary = '#393E46';
-const dark = '#222831';
-const light = '#bec8d2';
-const contrastText = '#EEEEEE';
+const { primary, dark, light, contrastText } = colors;
 const theme = createTheme({
     palette: {
       primary: {

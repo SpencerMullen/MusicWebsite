@@ -2,6 +2,7 @@ if(process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 const express = require('express');
+const cors = require('cors');
 const session = require('express-session');
 const port = 8080;
 const mongoose = require('mongoose');
@@ -34,6 +35,8 @@ const app = express();
 const server = require('http').createServer(app);
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 // app.use(methodOverride('_method'));
 
 // Configure express-session
@@ -54,9 +57,10 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Middleware to parse JSON and urlencoded request bodies
-app.use(express.json());
+// Use express and cors
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(cors());
 
 // Use routes
 app.use('/entry', entryRoutes);

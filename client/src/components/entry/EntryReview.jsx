@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Divider, Button } from '@mui/material';
+import { Grid, Typography, Divider } from '@mui/material';
 import { formatDate } from '../../utils/formatUtils';
 
 const EntryReview = ({ entry }) => {

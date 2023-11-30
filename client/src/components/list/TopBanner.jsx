@@ -14,7 +14,9 @@ const TopBannerBox = styled(Box)(({ theme }) => ({
   borderRadius: 0,
 }));
 
-const TopBanner = () => {
+const TopBanner = (props) => {
+  const { onCreateEntry } = props;
+
   const [open, setOpen] = useState(false);
 
   const handleDialogOpen = () => {
@@ -23,6 +25,7 @@ const TopBanner = () => {
 
   const handleDialogClose = () => {
     setOpen(false);
+    onCreateEntry();
   };
 
   return (

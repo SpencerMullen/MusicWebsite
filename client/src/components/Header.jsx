@@ -31,7 +31,7 @@ export default function ButtonAppBar() {
             {/* Login and Logout buttons */}
             {/*TODO: conditionally render correct button */}
             <HeaderButton text="Login" link="/login" />
-            <Button color="inherit"
+            {/*<Button color="inherit"
             component={Link}
             to="/"
             sx={{
@@ -44,7 +44,7 @@ export default function ButtonAppBar() {
               '&:hover': {
                 backgroundColor: '#304ffe',
               },
-            }}>Logout</Button>
+            }}>Logout</Button>*/}
           </Toolbar>
         </AppBar>
       </Box>

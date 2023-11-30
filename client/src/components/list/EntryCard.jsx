@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import defaultImage from '../../assets/default.jpg'; // Import the default image
 
 const cardStyles = {
@@ -16,9 +17,9 @@ const imgSectionStyles = {
 };
 
 const imgStyles = {
-  width: '100%', 
-  height: '100%', 
-  objectFit: 'contain', 
+  width: '100%',
+  height: '100%',
+  objectFit: 'contain',
 };
 
 const titleStyles = {
@@ -55,23 +56,25 @@ const EntryCard = ({ entry }) => {
 
   return (
     <Card style={cardStyles}>
-      <div style={imgSectionStyles}>
-        <CardMedia
-          component="img"
-          height="0"
-          image={imageUrl}
-          alt={entry.title} // Use the title if available, or a default alt text
-          style={imgStyles}
-        />
-      </div>
-      <CardContent>
-        <Typography variant="h6" sx={titleStyles}>
-          {entry.title}
-        </Typography>
-        <Typography variant="subtitle2" sx={subtitleStyles}>
-          {`${truncatedArtist} | ${new Date(entry.releaseDate).getFullYear()}`}
-        </Typography>
-      </CardContent>
+      <Link to={`/entry/${entry.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <div style={imgSectionStyles}>
+          <CardMedia
+            component="img"
+            height="0"
+            image={imageUrl}
+            alt={entry.title}
+            style={imgStyles}
+          />
+        </div>
+        <CardContent>
+          <Typography variant="h6" sx={titleStyles}>
+            {entry.title}
+          </Typography>
+          <Typography variant="subtitle2" sx={subtitleStyles}>
+            {`${truncatedArtist} | ${new Date(entry.releaseDate).getFullYear()}`}
+          </Typography>
+        </CardContent>
+      </Link>
     </Card>
   );
 };

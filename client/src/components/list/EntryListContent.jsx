@@ -1,40 +1,81 @@
 import React from 'react';
 import EntryCard from './EntryCard';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-// Sample data for testing
-const sampleData = [
-  {
-    id: 1,
-    type: 'album',
-    title: 'The Idler Wheel Is Wiser Than the Driver of the Screw and Whipping Cords Will Serve You More Than Ropes Will Ever Do WOOOOOOOOOOW',
-    artist: 'Fiona MFING APPLE SHE MAKES THE NAMES TOO DAMN LONG WTF',
-    releaseDate: '2022-01-15',
-    genre: 'Folk',
-    cover: {
-      url: 'pizzapie.com',
-      fileName: "EITHEROR"
-    }
-  },
-];
 
-for(let i = 0; i < 100; i++) {
-  sampleData.push({
-    id: i + 2,
-    type: 'album',
-    title: 'Sample Entry ' + (i + 2),
-    artist: 'Sample Artist ' + (i + 2),
-    releaseDate: '2022-01-15',
-    cover: {
-      url: 'facbook.com',
-      fileName: "VBIRD"
+const EntryListContent = (props) => {
+  const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked, entries } = props;
+
+  // Filter entries based on search query and checkboxes
+  const filteredEntries = entries.filter((entry) => {
+    const { title, artist, type } = entry;
+    const isLiveAlbum = type === 'livealbum';
+    const isEP = type === 'ep';
+
+    // Filter by search query (case insensitive)
+    if (searchQuery) {
+      const searchTerm = searchQuery.toLowerCase();
+      if (!title.toLowerCase().includes(searchTerm) && !artist.toLowerCase().includes(searchTerm)) {
+        return false;
+      }
     }
+
+    // Filter by checkboxes
+    if (onlyChecked) {
+      if (!liveChecked && !epChecked) {
+        return false;
+      }
+      if (liveChecked && !isLiveAlbum && !isEP) {
+        return false; // Show only live albums when "Only?" checkbox is selected and "Live" checkbox is checked
+      }
+      if (epChecked && !isEP && !isLiveAlbum) {
+        return false; // Show only EPs when "Only?" checkbox is selected and "EP" checkbox is checked
+      }
+    } else {
+      // Show entries based on individual checkbox selections
+      if (!liveChecked && isLiveAlbum) {
+        return false; // Exclude live albums when "Live" checkbox is not checked
+      }
+      if (!epChecked && isEP) {
+        return false; // Exclude EPs when "EP" checkbox is not checked
+      }
+    }
+
+    return true;
   });
-}
 
-const EntryListContent = () => {
+  // Sort filtered entries based on selected sort
+  filteredEntries.sort((a, b) => {
+    const { title: titleA, artist: artistA } = a;
+    const { title: titleB, artist: artistB } = b;
+
+    if (selectedSort === 'title') {
+      return titleA.localeCompare(titleB);
+    }
+    if (selectedSort === 'artist') {
+      return artistA.localeCompare(artistB);
+    }
+    if (selectedSort === 'releaseDate') {
+      return new Date(a.releaseDate) - new Date(b.releaseDate);
+    }
+    if (selectedSort === 'rating') {
+      const ratingA = a.review?.rating || 11;
+      const ratingB = b.review?.rating || 11;
+      return ratingA - ratingB;
+    }
+    if (selectedSort === 'reviewDate') {
+      const reviewDateA = a.review?.reviewDate || '9999-99-99';
+      const reviewDateB = b.review?.reviewDate || '9999-99-99';
+      return new Date(reviewDateB) - new Date(reviewDateA);
+    }
+
+    return 0;
+  });
+
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', padding: '16px' }}>
-      {sampleData.map((entry) => (
+      {filteredEntries.map((entry) => (
         <EntryCard key={entry.id} entry={entry} />
       ))}
     </div>

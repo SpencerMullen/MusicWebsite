@@ -1,43 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import EntryContent from '../components/entry/EntryContent';
 import EntryButtons from '../components/entry/EntryButtons';
 import { Grid } from '@mui/material';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const EntryPage = () => {
-  // Replace this with actual entry data
-  const entry = {
-    id: '1',
-    /*addedBy: {
-      userId: '1',
-      username: 'sampleUser',
-    },*/
-    reviewed: true,
-    type: 'livealbum',
-    title: 'Volcanic Bird Enemy and the Voiced Concern',
-    artist: 'Lil Ugly Mane',
-    releaseDate: '2010-05-15',
-    genre: 'Harisnt',
-    cover: {
-      url: 'google.com',
-      fileName: 'sample-image.jpg',
-    },
-    review: {
-      rating: 8,
-      reviewText: "Volcanic Bird Enemy and the Voiced Concern is outstanding. It's a masterpiece (the cover).",
-      reviewDate: '2023-08-14',
-    }
-  };
+  const { id } = useParams();
 
-    return (    
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          {/* TODO: Render only if admin auth, also send props into entrybuttons and entry content */}
-          <EntryButtons entry = {entry} />
-        </Grid>
-        <Grid item xs={12}>
-          <EntryContent entry = {entry} />
-        </Grid>
-      </Grid>
+  // Fetch entry from server
+  const [entry, setEntry] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/entry/${id}`);
+        setEntry(response.data);
+        console.log('Entry:', response.data);
+      } catch (error) {
+        console.error('Error getting entry:', error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  return (
+    <Grid container spacing={2}>
+      {entry && (
+        <>
+          <Grid item xs={12}>
+            {/* TODO: Render only if admin auth */}
+            <EntryButtons entry={entry} />
+          </Grid>
+          <Grid item xs={12}>
+            <EntryContent entry={entry} />
+          </Grid>
+        </>
+      )}
+    </Grid>
   );
 };
 

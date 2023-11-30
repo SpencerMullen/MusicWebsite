@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Grid,
-  FormControl,
-  InputLabel,
-  Input,
-  Slider,
-  TextField, // Import TextField component
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button,
+    Grid,
+    InputLabel,
+    Input,
+    Slider,
+    TextField, // Import TextField component
 } from '@mui/material';
+import axios from 'axios';
 
 const AddEditReviewDialog = ({ open, onClose, entry }) => {
-    const [rating, setRating] = useState(entry.review.rating);
-    const [reviewDate, setReviewDate] = useState(entry.review.reviewDate);
-    const [reviewText, setReviewText] = useState(entry.review.reviewText);
+    const [rating, setRating] = useState(entry.review.rating ? entry.review.rating : 0);
+    const [reviewDate, setReviewDate] = useState(entry.review.reviewDate ? new Date(entry.review.reviewDate).toISOString().split('T')[0] : '');
+    const [reviewText, setReviewText] = useState(entry.review.reviewText ? entry.review.reviewText : '');
 
     const handleRatingChange = (event, newValue) => {
         setRating(newValue);
@@ -30,13 +30,39 @@ const AddEditReviewDialog = ({ open, onClose, entry }) => {
         setReviewText(event.target.value);
     };
 
+    const handleSave = () => {
+        const review = {
+            rating: rating,
+            reviewDate: reviewDate,
+            reviewText: reviewText,
+        };
+
+        const updatedEntry = {
+            ...entry,
+            reviewed: true,
+            review: review,
+        };
+
+        const formData = new FormData();
+        formData.append('entry', JSON.stringify(updatedEntry));
+
+        axios.put(`http://localhost:8080/entry/${entry.id}`, formData)
+            .then((res) => {
+                console.log(res);
+                onClose();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     return (
         <Dialog open={open} onClose={onClose} PaperProps={{ sx: { width: '720px', maxHeight: '70vh' } }}>
             <DialogTitle>Add/Edit Review</DialogTitle>
             <DialogContent>
                 <Grid container spacing={2}>
                     {/* Rating Slider */}
-                    <Grid item xs={12} sx={{marginTop:'1rem'}}>
+                    <Grid item xs={12} sx={{ marginTop: '1rem' }}>
                         <InputLabel htmlFor="rating">Rating</InputLabel>
                         <Slider
                             value={rating}
@@ -50,7 +76,7 @@ const AddEditReviewDialog = ({ open, onClose, entry }) => {
                     </Grid>
 
                     {/* Review Date Datepicker */}
-                    <Grid item xs={12} sx={{marginBottom:'1rem'}}>
+                    <Grid item xs={12} sx={{ marginBottom: '1rem' }}>
                         <InputLabel htmlFor="reviewDate">Review Date</InputLabel>
                         <Input
                             type="date"
@@ -77,7 +103,7 @@ const AddEditReviewDialog = ({ open, onClose, entry }) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button onClick={onClose}>Save</Button>
+                <Button onClick={handleSave}>Save</Button>
             </DialogActions>
         </Dialog>
     );

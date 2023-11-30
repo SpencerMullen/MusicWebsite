@@ -1,32 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem, Checkbox, ListItemText, TextField, Box } from '@mui/material';
 
-const EntryListBar = () => {
-  const [selectedSort, setSelectedSort] = useState('artist');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [liveChecked, setLiveChecked] = useState(true);
-  const [epChecked, setEpChecked] = useState(true);
-  const [onlyChecked, setOnlyChecked] = useState(false);
+const EntryListBar = (props) => {
+  const {
+    selectedSort,
+    searchQuery,
+    liveChecked,
+    epChecked,
+    onlyChecked,
+    handleSortChange,
+    handleSearchChange,
+    handleLiveCheckboxChange,
+    handleEpCheckboxChange,
+    handleOnlyCheckboxChange,
+  } = props;
 
-  const handleSortChange = (event) => {
-    setSelectedSort(event.target.value);
-  };
+  /*useEffect(() => {
+    // Set a timer to trigger the search after 500 milliseconds
+    const timer = setTimeout(() => {
+      handleSearchChange(searchQuery);
+    }, 500);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
-  const handleLiveCheckboxChange = (event) => {
-    setLiveChecked(event.target.checked);
-  };
-
-  const handleEpCheckboxChange = (event) => {
-    setEpChecked(event.target.checked);
-  };
-
-  const handleOnlyCheckboxChange = (event) => {
-    setOnlyChecked(event.target.checked);
-  };
+    // Clear the timer if the search query changes
+    return () => clearTimeout(timer);
+  }, [searchQuery, handleSearchChange]);*/
 
   return (
     <Box
@@ -53,9 +50,10 @@ const EntryListBar = () => {
         <InputLabel>Sort by</InputLabel>
         <Select label="Sort by" value={selectedSort} onChange={handleSortChange}>
           <MenuItem value="artist">Artist</MenuItem>
-          <MenuItem value="rating">Rating</MenuItem>
           <MenuItem value="title">Title</MenuItem>
-          <MenuItem value="date">Review Date</MenuItem>
+          <MenuItem value="releaseDate">Release Date</MenuItem>
+          <MenuItem value="rating">Rating</MenuItem>
+          <MenuItem value="reviewDate">Review Date</MenuItem>
         </Select>
       </FormControl>
 

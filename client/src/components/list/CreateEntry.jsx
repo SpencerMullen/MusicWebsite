@@ -22,7 +22,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
   const [selectedType, setSelectedType] = useState('album');
   const [title, setTitle] = useState('');
   const [artist, setArtist] = useState('');
-  const [releaseDate, setReleaseDate] = useState('');
+  const [releaseDate, setReleaseDate] = useState();
   const [genre, setGenre] = useState('');
   const [file, setFile] = useState(null);
 
@@ -62,27 +62,31 @@ const CreateEntryDialog = ({ open, onClose }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = {
-      entry: {
-        selectedType,
-        title,
-        artist,
-        releaseDate,
-        genre,
-      },
-      file, // Add the selected file to the form data
+    const entry = {
+      type: selectedType,
+      title: title,
+      artist: artist,
+      releaseDate: releaseDate,
+      genre: genre,
     };
-
+    const formData = new FormData();
+    formData.append('entry', JSON.stringify(entry));
+    formData.append('image', file);
     try {
-      const response = await axios.post('/entry', formData);
-      console.log('New entry created:', response.data);
-
+      const response = await axios.post('http://localhost:8080/entry', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      // console.log('New entry created:', response.data);
+  
       // Close the dialog or perform other actions on success
       onClose();
     } catch (error) {
       console.error('Error creating entry:', error);
     }
   };
+  
 
   return (
     <Dialog open={open} onClose={onClose}>
