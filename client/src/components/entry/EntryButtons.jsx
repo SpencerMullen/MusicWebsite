@@ -17,40 +17,48 @@ const EntryButtonsBox = styled(Box)(({ theme }) => ({
     borderRadius: 0,
   }));
 
-const EntryButtons = ({ entry }) => {
+const EntryButtons = ({ entry, reloadEntry }) => {
     // State for opening/closing edit entry dialog
     const [editOpen, setEditOpen] = useState(false);
     const handleEditOpen = () => {
+        reloadEntry();
         setEditOpen(true);
     };
     const handleEditClose = () => {
+        reloadEntry();
         setEditOpen(false);
     };
 
     // State for opening/closing delete dialog
     const [deleteEntryOpen, setDeleteEntryOpen] = useState(false);
     const handleDeleteEntryOpen = () => {
+        reloadEntry();
         setDeleteEntryOpen(true);
     };
     const handleDeleteEntryClose = () => {
+        reloadEntry();
         setDeleteEntryOpen(false);
     };
 
     // State for opening/closing add/edit review dialog
     const [reviewOpen, setReviewOpen] = useState(false);
     const handleReviewOpen = () => {
+        reloadEntry();
         setReviewOpen(true);
     };
     const handleReviewClose = () => {
+        reloadEntry();
         setReviewOpen(false);
     };
 
     // State for opening/closing delete review dialog
     const [deleteReviewOpen, setDeleteReviewOpen] = useState(false);
     const handleDeleteReviewOpen = () => {
+        reloadEntry();
         setDeleteReviewOpen(true);
     };
     const handleDeleteReviewClose = () => {
+        reloadEntry();
         setDeleteReviewOpen(false);
     };
 

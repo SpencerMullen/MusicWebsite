@@ -23,15 +23,11 @@ function ListPage() {
     fetchData();
   }, []);
 
-  const handleCreateEntry = () => {
-    fetchData();
-  }
-
   return (
     <Grid container>
       <Grid item xs={12}>
         { /* TODO: Render only if admin auth */}
-        <TopBanner onCreateEntry={handleCreateEntry} />
+        <TopBanner onCreateEntry={fetchData} />
       </Grid>
       <Grid item xs={12}>
         <EntryList entries={entries}/>

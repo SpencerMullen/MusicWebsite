@@ -24,8 +24,8 @@ const TopBanner = (props) => {
   };
 
   const handleDialogClose = () => {
-    setOpen(false);
     onCreateEntry();
+    setOpen(false);
   };
 
   return (

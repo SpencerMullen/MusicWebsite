@@ -64,6 +64,7 @@ const EntrySchema = new Schema({
             return ret;
         },
     },
+    versionKey: false, // Don't add the MongoDB version key
 });
 
 // Export the model

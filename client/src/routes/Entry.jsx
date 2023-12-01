@@ -11,17 +11,17 @@ const EntryPage = () => {
   // Fetch entry from server
   const [entry, setEntry] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/entry/${id}`);
-        setEntry(response.data);
-        console.log('Entry:', response.data);
-      } catch (error) {
-        console.error('Error getting entry:', error);
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/entry/${id}`);
+      setEntry(response.data);
+      // console.log('Entry:', response.data);
+    } catch (error) {
+      console.error('Error getting entry:', error);
+    }
+  }
 
+  useEffect(() => {
     fetchData();
   }, [id]);
 
@@ -31,10 +31,10 @@ const EntryPage = () => {
         <>
           <Grid item xs={12}>
             {/* TODO: Render only if admin auth */}
-            <EntryButtons entry={entry} />
+            <EntryButtons entry={entry} reloadEntry={fetchData} />
           </Grid>
           <Grid item xs={12}>
-            <EntryContent entry={entry} />
+            <EntryContent entry={entry} reloadEntry={fetchData} />
           </Grid>
         </>
       )}

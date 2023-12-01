@@ -76,6 +76,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
       const response = await axios.post('http://localhost:8080/entry', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          // TODO: Add authorization header
         },
       });
       // console.log('New entry created:', response.data);

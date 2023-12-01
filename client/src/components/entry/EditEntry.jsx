@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -11,31 +11,65 @@ import {
   Input,
   Select,
   MenuItem,
-  IconButton,
+  // IconButton,
   Typography,
 } from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import axios from 'axios';
 
 const EditEntryDialog = ({ open, onClose, entry }) => {
-  const [isTitleFocused, setIsTitleFocused] = useState(false);
-  const [selectedType, setSelectedType] = useState(entry.type);
-  const [file, setFile] = useState(null);
-
-  const handleTitleFocus = () => {
-    setIsTitleFocused(true);
-  };
-
-  const handleTitleBlur = () => {
-    setIsTitleFocused(false);
-  };
+  const [selectedType, setSelectedType] = useState(entry.type ? entry.type : 'album');
+  const [title, setTitle] = useState(entry.title ? entry.title : '');
+  const [artist, setArtist] = useState(entry.artist ? entry.artist : '');
+  const [releaseDate, setReleaseDate] = useState(entry.releaseDate ? entry.releaseDate : '');
+  const [genre, setGenre] = useState(entry.genre ? entry.genre : '');
+  // const [file, setFile] = useState(null);
 
   const handleTypeChange = (event) => {
     setSelectedType(event.target.value);
   };
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+  const handleArtistChange = (event) => {
+    setArtist(event.target.value);
+  };
+  const handleReleaseDateChange = (event) => {
+    setReleaseDate(event.target.value);
+  };
+  const handleGenreChange = (event) => {
+    setGenre(event.target.value);
+  };
 
-  const handleFileChange = (event) => {
+  /* const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
+  }; */
+
+  const handleSave = async (e) => {
+    e.preventDefault();
+
+    const updatedEntry = {
+      ...entry,
+      type: selectedType,
+      title: title,
+      artist: artist,
+      releaseDate: releaseDate,
+      genre: genre,
+    };
+    // console.log('Updated entry: ', updatedEntry);
+    try {
+      const response = await axios.put(`http://localhost:8080/entry/${entry.id}`, { entry: JSON.stringify(updatedEntry) }, {
+        headers: {
+          'Content-Type': 'application/json'
+          // TODO: Add authorization header
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+
+    onClose();
   };
 
   return (
@@ -67,18 +101,14 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
           {/* Entry Title */}
           <Grid item xs={12}>
             <FormControl fullWidth sx={{ marginTop: '10px' }}>
-              <InputLabel
-                focused={isTitleFocused}
-                htmlFor="entry-title"
-              >
+              <InputLabel htmlFor="entry-title">
                 Title
               </InputLabel>
               <Input
                 id="entry-title"
-                onFocus={handleTitleFocus}
-                onBlur={handleTitleBlur}
                 fullWidth
-                defaultValue={entry ? entry.title : ''} // Set the initial title based on entry
+                defaultValue={title}
+                onChange={handleTitleChange}
               />
             </FormControl>
           </Grid>
@@ -90,7 +120,8 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
               <Input
                 id="artist"
                 fullWidth
-                defaultValue={entry ? entry.artist : ''} // Set the initial artist based on entry
+                defaultValue={artist}
+                onChange={handleArtistChange}
               />
             </FormControl>
           </Grid>
@@ -105,7 +136,8 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
                 type="date"
                 id="release-date"
                 fullWidth
-                defaultValue={entry ? entry.releaseDate : ''} // Set the initial release date based on entry
+                defaultValue={releaseDate.split('T')[0]}
+                onChange={handleReleaseDateChange}
               />
             </FormControl>
           </Grid>
@@ -117,13 +149,14 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
               <Input
                 id="genre"
                 fullWidth
-                defaultValue={entry ? entry.genre : ''} // Set the initial genre based on entry
+                defaultValue={entry.genre}
+                onChange={handleGenreChange}
               />
             </FormControl>
           </Grid>
 
           {/* Image Upload */}
-          <Grid item xs={12}>
+          {/*<Grid item xs={12}>
             <Typography variant="body2" sx={{ marginBottom: '5px' }}>
               Upload New Cover Image
             </Typography>
@@ -144,13 +177,12 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
               </IconButton>
               {file ? file.name : 'No file selected'}
             </label>
-          </Grid>
+          </Grid>*/}
         </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        {/* TODO: Handle new image upload */}
-        <Button onClick={onClose}>Create</Button>
+        <Button onClick={handleSave}>Create</Button>
       </DialogActions>
     </Dialog>
   );
