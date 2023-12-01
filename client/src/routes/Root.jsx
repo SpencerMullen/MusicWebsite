@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Header from '../components/Header.jsx'
 import Footer from '../components/Footer.jsx'
 import Grid from '@mui/material/Grid';
@@ -7,25 +7,44 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 // Change theme here
 import { gray_dark_blue as colors } from '../colors';
+import homeBg from '../assets/homebg.jpg';
 
 // Color theme
 const { primary, dark, light, contrastText } = colors;
 const theme = createTheme({
-    palette: {
-      primary: {
-        main: primary,
-        light: light,
-        dark: dark,
-        contrastText: contrastText
-      },
-      background: {
-        default: light,
-      }
+  palette: {
+    primary: {
+      main: primary,
+      light: light,
+      dark: dark,
+      contrastText: contrastText
     },
+    background: {
+      default: light,
+    }
+  },
 });
 
 // Layout for all pages, root handles loading content between header+footer
 function RootLayout() {
+  // Find the location and render the background if it's the home page
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  const homeBackground = {
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundImage: `url(${homeBg})`,
+    backgroundSize: 'cover',
+    color: 'white',
+    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+    margin: 0, // Add this line to set margin to 0
+    padding: 0, // Add this line to set padding to 0
+  };
+
   const [headerHeight, setHeaderHeight] = useState(0);
   const [footerHeight, setFooterHeight] = useState(0);
 
@@ -63,16 +82,17 @@ function RootLayout() {
     }
   }, [headerHeight, footerHeight]);
 
-    return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Grid container>
-              <Grid item xs={12}><Header /></Grid>
-              <Grid item xs={12}><main id="main"><Outlet /></main></Grid>
-              <Grid item xs={12}><Footer /></Grid>
-            </Grid>
-        </ThemeProvider>
-    )
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      {/* Render the background if it's the home page */}
+      <Grid container style={isHomePage ? homeBackground : {}}>
+        <Grid item xs={12}><Header /></Grid>
+        <Grid item xs={12}><main id="main"><Outlet /></main></Grid>
+        <Grid item xs={12}><Footer /></Grid>
+      </Grid>
+    </ThemeProvider>
+  )
 }
 
 export default RootLayout

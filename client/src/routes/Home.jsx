@@ -6,17 +6,17 @@ import Grid from '@mui/material/Grid';
 
 function HomePage() {
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around', background: 'linear-gradient(to bottom, #222, #000)' }}>
-      <Grid container spacing={2} justifyContent="center" style={{ flex: '1', width: '100%' }} flexDirection="column" alignItems="center">
-        {/*<Grid item xs={12} sm={4} style={{ border: '1px solid black' }} width='100%'>
+    <div> {/*style={backgroundStyle}>*/}
+      <Grid container spacing={2} justifyContent="center">
+        {/*<Grid item xs={12} sm={4}>
           <FeaturedAlbum />
         </Grid>*/}
-        <Grid item xs={12} sm={4} style={{ border: '1px solid black', padding: '10px' }}>
+        <Grid item xs={12} sm={4}>
           <FullListLink />
         </Grid>
-        {/*<Grid item xs={12} sm={4} style={{ border: '1px solid black', padding: '10px' }}>
+        {/*<Grid item xs={12} sm={4}>
           <RandomAlbum />
-        </Grid>*/}
+      </Grid>*/}
       </Grid>
     </div>
   );
