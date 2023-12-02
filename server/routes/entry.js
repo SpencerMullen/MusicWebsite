@@ -5,6 +5,8 @@ const Entry = require('../models/entry');
 const catchAsync = require('../utils/catchAsync');
 const convertToUTC = require('../utils/convertToUTC');
 const validateEntry = require('../middleware/validateEntry');
+// const userAuth = require('../middleware/userAuth').ensureAuthenticated;
+const adminAuth = require('../middleware/userAuth').ensureAuthenticatedAndAdmin;
 const { storage } = require('../cloudinary');
 const multer = require('multer');
 const upload = multer({ storage: storage });
@@ -19,7 +21,7 @@ router.route('/')
         res.json(entries);
     }))
     // Create a new entry
-    .post(upload.single('image'), validateEntry, catchAsync(async (req, res, next) => {
+    .post(adminAuth, upload.single('image'), validateEntry, catchAsync(async (req, res, next) => {
         try {
             // Get the file from the request
             const result = req.file;
@@ -64,7 +66,7 @@ router.route('/:id')
         res.json(entry);
     }))
     // Replace / update an entry
-    .put(validateEntry, catchAsync(async (req, res, next) => {
+    .put(adminAuth, validateEntry, catchAsync(async (req, res, next) => {
         // Entry from the request and add releaseDate and reviewDate to prevent day errors
         reqEntry = JSON.parse(req.body.entry);
         // If dates aren't in UTC change them
@@ -95,7 +97,7 @@ router.route('/:id')
         res.json(entry);
     }))
     // Delete an entry
-    .delete(catchAsync(async (req, res, next) => {
+    .delete(adminAuth, catchAsync(async (req, res, next) => {
         const { id } = req.params;
         // Find the Entry by ID
         const entry = await Entry.findOne({ id });

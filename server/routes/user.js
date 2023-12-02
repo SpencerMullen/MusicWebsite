@@ -1,42 +1,64 @@
 const express = require('express');
 const passport = require('passport');
-const User = require('../models/user');
 const router = express.Router();
 
-// Register Route
-router.post('/register', async (req, res) => {
-  try {
-    const { email, username, password } = req.body;
-    const user = new User({ email, username });
-    const registeredUser = await User.register(user, password);
-    req.login(registeredUser, (err) => {
+// Login route
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', { keepSessionInfo: true }, (err, user, info) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid username or password' });
+    }
+
+    req.logIn(user, (err) => {
       if (err) {
-        return res.status(500).json({ error: 'Internal server error' });
+        console.error(err);
+        return res.status(500).json({ error: 'Internal Server Error' });
       }
-      res.json({ message: 'Registration successful' });
+      req.session.user = user;
+      // console.log('Logging in');
+      // console.log(req.user);
+      // console.log(req.session);
+      res.json(req.user);
     });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  })(req, res, next);
 });
 
-// Login Route
-router.post(
-  '/login',
-  passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }),
-  (req, res) => {
-    req.flash('success', 'Welcome back!');
-    const redirectUrl = req.session.returnTo || '/dashboard'; // Redirect to dashboard or another route
-    delete req.session.returnTo;
-    res.json({ message: 'Login successful', redirectUrl });
-  }
-);
 
-// Logout Route
+// Logout route
 router.get('/logout', (req, res) => {
-  req.logout();
-  req.flash('success', 'Logged out successfully');
-  res.redirect('/'); // Redirect to the home page or another route
+  req.logout({ keepSessionInfo: true });
+  console.log('Logging out');
+  res.json({ message: 'Logged out' });
+});
+
+// User status route
+router.get('/user', (req, res) => {
+  try {
+    // console.log("Getting user status");
+    // console.log(req.user);
+    // console.log(req.session);
+    // Check if the user is authenticated
+    const isAuthenticated = req.isAuthenticated();
+
+    // If the user is authenticated, send user information
+    if (isAuthenticated && req.user) {
+      res.json({
+        username: req.user.username,
+        role: req.user.role,
+        isAuthenticated: true
+      });
+    } else {
+      // If the user is not authenticated
+      res.json({ isAuthenticated: false });
+    }
+  } catch (err) {
+  console.error(err);
+  res.status(500).json({ error: 'Internal Server Error' });
+}
 });
 
 module.exports = router;

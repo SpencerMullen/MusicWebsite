@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
+const MongoDBStore = require('connect-mongodb-session')(session);
 const ExpressError = require('./utils/ExpressError');
 // const methodOverride = require('method-override');
 
@@ -36,15 +37,35 @@ const server = require('http').createServer(app);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 // app.use(methodOverride('_method'));
 
-// Configure express-session
+// Configure express-session with env
+const sessionSecret = process.env.EXPRESS_SESSION_SECRET;
+const store = new MongoDBStore({
+  uri: dbURL,
+  collection: 'sessions'
+});
 app.use(session({
-  secret: 'secret', // Add a secret key for session management
+  secret: sessionSecret,
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
+  // store: store,
+  cookie: { 
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 1000 * 60 * 60 * 24 // 1 day
+  }
 }));
+
+// Middleware to log session
+/*app.use((req, res, next) => {
+  console.log('Session:', req.session);
+  console.log('User:', req.user);
+  next();
+});*/
 
 // Initialize Passport and session support
 app.use(passport.initialize());
@@ -56,11 +77,6 @@ passport.use(new LocalStrategy(User.authenticate()));
 // Serialize and deserialize user instances to maintain user sessions
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-// Use express and cors
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors());
 
 // Use routes
 app.use('/entry', entryRoutes);

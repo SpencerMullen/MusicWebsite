@@ -15,7 +15,8 @@ import axios from 'axios';
 
 const AddEditReviewDialog = ({ open, onClose, entry }) => {
     const [rating, setRating] = useState(entry.review.rating ? entry.review.rating : 0);
-    const [reviewDate, setReviewDate] = useState(entry.review.reviewDate ? entry.review.reviewDate : '');
+    const today = new Date().toISOString().split('T')[0];
+    const [reviewDate, setReviewDate] = useState(entry.review.reviewDate ? entry.review.reviewDate : today);
     const [reviewText, setReviewText] = useState(entry.review.reviewText ? entry.review.reviewText : '');
 
     const handleRatingChange = (event, newValue) => {

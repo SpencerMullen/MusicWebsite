@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import EntryListBar from './EntryListBar';
 import EntryListContent from './EntryListContent';
 
 const EntryList = (props) => {
   const { entries } = props;
-  const [selectedSort, setSelectedSort] = useState('artist_asc');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [liveChecked, setLiveChecked] = useState(true);
-  const [epChecked, setEpChecked] = useState(true);
-  const [onlyChecked, setOnlyChecked] = useState(false);
+  const [selectedSort, setSelectedSort] = useState(localStorage.getItem('selectedSort') || 'artist_asc');
+  const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') || '');
+  const [liveChecked, setLiveChecked] = useState(
+    localStorage.getItem('liveChecked') !== 'false'
+  );
+  const [epChecked, setEpChecked] = useState(
+    localStorage.getItem('epChecked') !== 'false'
+  );
+  const [onlyChecked, setOnlyChecked] = useState(localStorage.getItem('onlyChecked') === 'true' || false);
+
+  useEffect(() => {
+    // Update localStorage when state values change
+    localStorage.setItem('selectedSort', selectedSort);
+    localStorage.setItem('searchQuery', searchQuery);
+    localStorage.setItem('liveChecked', liveChecked);
+    localStorage.setItem('epChecked', epChecked);
+    localStorage.setItem('onlyChecked', onlyChecked);
+  }, [selectedSort, searchQuery, liveChecked, epChecked, onlyChecked]);
 
   // Pass state values and update functions as props to EntryListBar
   const handleSortChange = (event) => {

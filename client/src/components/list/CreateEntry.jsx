@@ -16,8 +16,10 @@ import {
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CreateEntryDialog = ({ open, onClose }) => {
+  const navigate = useNavigate();
   const [isTitleFocused, setIsTitleFocused] = useState(false);
   const [selectedType, setSelectedType] = useState('album');
   const [title, setTitle] = useState('');
@@ -80,8 +82,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
         },
       });
       // console.log('New entry created:', response.data);
-  
-      // Close the dialog or perform other actions on success
+      navigate(`/entry/${response.data.id}`);
       onClose();
     } catch (error) {
       console.error('Error creating entry:', error);

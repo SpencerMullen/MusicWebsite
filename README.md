@@ -20,18 +20,18 @@ npm install
 npm run dev
 ```
 ## Frontend
-
 - Vite - I used Vite for setting up my React project.
 - React.js - React is the JavaScript framework that I leveraged to develop responsive, user-friendly UI for my site.
 - Material UI - I used the React library Material UI to utilize components like sliders and app bars.
-## Backend
 
+## Backend
 - Node.js - JavaScript was the server side language I chose for this project.
 - Express.js - The Express framework helped me set up RESTful APIs that my frontend could communicate to the backend with using axios.
 - MongoDB - The database I chose to host entry and user data was MongoDB. I utilized the Mongoose library to create models and schemas for validating data and saving data from the frontend to the database.
 - Joi - Joi helped me sanitize any user input data as well as validate the data against the schemas I created.
 - Cloudinary - To host images that represent the album cover, I used Cloudinary, an online image hosting service. Their Node API as well as Multer helped facilitate the image upload process. The database objects store a Cloudinary link to the image file.
-- Passport - I used the Passport Local Strategy to implement Authentication on my site.
+- Passport - I used the Passport Local Strategy to implement Authentication on my site. Using passport and express-session, I can authenticate users using the browser session once they have logged in.
+
 ## Pages
 Here are what each of the pages on my site look like. Some features may change in the future but the overall structure should look the same.
 
@@ -44,11 +44,11 @@ The list page contains all of the entries on my site. You can search for any spe
 ### Entry
 The entry page contains information on the specific entry including cover art, title, artist, genre, release date and more. If I reviewed the album it also shows that information.
 
-### Login
 ## CRUD Operations
+For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. Therefore, I am basically the only user (for now). This may change in the future if I decide to add support for other users being able to leave reviews on my site.
 
-For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. This may change in the future if I decide to add support for other users being able to leave reviews on my site.
 ## Potential Features
+- Helmet - Add more security
 - Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
 - Home Page Random Album - Add a component in the home page that has a random album picker.
 - User Register - Implement support for additional user signup.
