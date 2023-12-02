@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import defaultImage from '../../assets/default.jpg'; // Import the default image
+import { getFormatDateYear } from '../../utils/formatUtils';
 
 const cardStyles = {
   width: '300px',
@@ -71,7 +72,7 @@ const EntryCard = ({ entry }) => {
             {entry.title}
           </Typography>
           <Typography variant="subtitle2" sx={subtitleStyles}>
-            {`${truncatedArtist} | ${new Date(entry.releaseDate).getFullYear()}`}
+            {`${truncatedArtist} | ${getFormatDateYear(entry.releaseDate)}`}
           </Typography>
         </CardContent>
       </Link>

@@ -3,6 +3,11 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
+const getFormatDateYear = (dateString) => {
+  const options = { year: 'numeric', timeZone: 'UTC' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}
+
 const formatType = (type) => {
   if (type.toLowerCase() === 'album') {
     return 'Album';
@@ -13,4 +18,4 @@ const formatType = (type) => {
   }
 };
 
-export { formatDate, formatType };
+export { formatDate, getFormatDateYear, formatType };

@@ -1,18 +1,55 @@
-# MusicWebsite
-Music website for reviews!
+# Music Review Website
+This site was made by Spencer Mullen to track some of his music reviews! 
 
+## Site Deployment
+<>
+## Quick Start
+If you want to run the site UI locally follow the steps listed below:
+
+```bash
+# Clone the repository
+git clone https://github.com/SpencerMullen/MusicWebsite
+
+# Navigate to the frontend directory
+cd client
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
 ## Frontend
-Vite - quickstart react
-React - javascript framework
-MaterialUI - react components
 
+- Vite - I used Vite for setting up my React project.
+- React.js - React is the JavaScript framework that I leveraged to develop responsive, user-friendly UI for my site.
+- Material UI - I used the React library Material UI to utilize components like sliders and app bars.
 ## Backend
-Express - server
-MongoDB - database
-Cloudinary - image storage
-Joi - schema validation
 
-## To-Do Features
-Home Page Recommendations
-Other User Signup
-User Comments
+- Node.js - JavaScript was the server side language I chose for this project.
+- Express.js - The Express framework helped me set up RESTful APIs that my frontend could communicate to the backend with using axios.
+- MongoDB - The database I chose to host entry and user data was MongoDB. I utilized the Mongoose library to create models and schemas for validating data and saving data from the frontend to the database.
+- Joi - Joi helped me sanitize any user input data as well as validate the data against the schemas I created.
+- Cloudinary - To host images that represent the album cover, I used Cloudinary, an online image hosting service. Their Node API as well as Multer helped facilitate the image upload process. The database objects store a Cloudinary link to the image file.
+- Passport - I used the Passport Local Strategy to implement Authentication on my site.
+## Pages
+Here are what each of the pages on my site look like. Some features may change in the future but the overall structure should look the same.
+
+### Home
+The home page features a stock image of a vinyl record and a link to the list page.
+
+### List
+The list page contains all of the entries on my site. You can search for any specific entries using the search bar or filter the list using the checkboxes. You can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry takes you to that entry's page.
+
+### Entry
+The entry page contains information on the specific entry including cover art, title, artist, genre, release date and more. If I reviewed the album it also shows that information.
+
+### Login
+## CRUD Operations
+
+For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. This may change in the future if I decide to add support for other users being able to leave reviews on my site.
+## Potential Features
+- Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
+- Home Page Random Album - Add a component in the home page that has a random album picker.
+- User Register - Implement support for additional user signup.
+- User Comments/Reviews - Implement support for user comments / reviews on albums.

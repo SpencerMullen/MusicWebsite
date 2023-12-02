@@ -1,7 +1,5 @@
 import React from 'react';
 import EntryCard from './EntryCard';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
 
 
 const EntryListContent = (props) => {
@@ -50,23 +48,42 @@ const EntryListContent = (props) => {
     const { title: titleA, artist: artistA } = a;
     const { title: titleB, artist: artistB } = b;
 
-    if (selectedSort === 'title') {
+    if (selectedSort === 'title_asc') {
       return titleA.localeCompare(titleB);
     }
-    if (selectedSort === 'artist') {
+    if (selectedSort === 'title_dsc') {
+      return titleB.localeCompare(titleA);
+    }
+    if (selectedSort === 'artist_asc') {
       return artistA.localeCompare(artistB);
     }
-    if (selectedSort === 'releaseDate') {
+    if (selectedSort === 'artist_dsc') {
+      return artistB.localeCompare(artistA);
+    }
+    if (selectedSort === 'releaseDate_asc') {
       return new Date(a.releaseDate) - new Date(b.releaseDate);
     }
-    if (selectedSort === 'rating') {
-      const ratingA = a.review?.rating || 11;
-      const ratingB = b.review?.rating || 11;
+    if (selectedSort === 'releaseDate_dsc') {
+      return new Date(b.releaseDate) - new Date(a.releaseDate);
+    }
+    if (selectedSort === 'rating_asc') {
+      const ratingA = a.reviewed ? a.review.rating : 11;
+      const ratingB = b.reviewed ? b.review.rating : 11;
       return ratingA - ratingB;
     }
-    if (selectedSort === 'reviewDate') {
-      const reviewDateA = a.review?.reviewDate || '9999-99-99';
-      const reviewDateB = b.review?.reviewDate || '9999-99-99';
+    if (selectedSort === 'rating_dsc') {
+      const ratingA = a.reviewed ? a.review.rating : -1;
+      const ratingB = b.reviewed ? b.review.rating : -1;
+      return ratingB - ratingA;
+    }
+    if (selectedSort === 'reviewDate_asc') {
+      const reviewDateA = a.reviewed ? a.review.reviewDate : '9999-12-31';
+      const reviewDateB = b.reviewed ? b.review.reviewDate : '9999-12-31';
+      return new Date(reviewDateA) - new Date(reviewDateB);
+    }
+    if (selectedSort === 'reviewDate_dsc') {
+      const reviewDateA = a.reviewed ? a.review.reviewDate : '0001-01-01';
+      const reviewDateB = b.reviewed ? b.review.reviewDate : '0001-01-01';
       return new Date(reviewDateB) - new Date(reviewDateA);
     }
 

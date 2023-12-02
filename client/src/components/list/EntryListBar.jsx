@@ -49,11 +49,16 @@ const EntryListBar = (props) => {
       <FormControl sx={{ width: '20%', marginLeft: '1rem' }}>
         <InputLabel>Sort by</InputLabel>
         <Select label="Sort by" value={selectedSort} onChange={handleSortChange}>
-          <MenuItem value="artist">Artist</MenuItem>
-          <MenuItem value="title">Title</MenuItem>
-          <MenuItem value="releaseDate">Release Date</MenuItem>
-          <MenuItem value="rating">Rating</MenuItem>
-          <MenuItem value="reviewDate">Review Date</MenuItem>
+          <MenuItem value="artist_asc">Artist (A-Z)</MenuItem>
+          <MenuItem value="artist_dsc">Artist (Z-A)</MenuItem>
+          <MenuItem value="title_asc">Title (A-Z)</MenuItem>
+          <MenuItem value="title_dsc">Title (Z-A)</MenuItem>
+          <MenuItem value="releaseDate_dsc">Release Date (New-Old)</MenuItem>
+          <MenuItem value="releaseDate_asc">Release Date (Old-New)</MenuItem>
+          <MenuItem value="rating_asc">Rating (Low-High)</MenuItem>
+          <MenuItem value="rating_dsc">Rating (High-Low)</MenuItem>
+          <MenuItem value="reviewDate_dsc">Review Date (New-Old)</MenuItem>
+          <MenuItem value="reviewDate_asc">Review Date (Old-New)</MenuItem>
         </Select>
       </FormControl>
 

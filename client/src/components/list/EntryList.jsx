@@ -4,7 +4,7 @@ import EntryListContent from './EntryListContent';
 
 const EntryList = (props) => {
   const { entries } = props;
-  const [selectedSort, setSelectedSort] = useState('artist');
+  const [selectedSort, setSelectedSort] = useState('artist_asc');
   const [searchQuery, setSearchQuery] = useState('');
   const [liveChecked, setLiveChecked] = useState(true);
   const [epChecked, setEpChecked] = useState(true);
