@@ -10,7 +10,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const ExpressError = require('./utils/ExpressError');
+const ExpressError = require('./utils/expressError');
 // const methodOverride = require('method-override');
 
 // Routes
