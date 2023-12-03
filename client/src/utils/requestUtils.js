@@ -5,7 +5,7 @@ let API_URL;
 if (process.env.NODE_ENV !== 'production') {
     API_URL = 'http://localhost:8080';
 } else {
-    API_URL = '';
+    API_URL = process.env.BACKEND_URL;
 }
 
 /* Entry API calls */
@@ -68,6 +68,7 @@ const login = async (username, password) => {
     return response.data;
 };
 
+// Logout
 const logout = async () => {
     const url = API_URL + '/logout';
     const response = await axios.get(url, { withCredentials: true });

@@ -3,7 +3,8 @@
     "install-server": "cd server && npm install",
     "install-client": "cd client && npm install",
     "start-server": "cd server && npm run dev",
-    "start-client": "cd client && npm run dev"
+    "start-client": "cd client && npm run dev",
+    "build-client": "cd client && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.1"
