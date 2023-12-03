@@ -3,6 +3,7 @@ if(process.env.NODE_ENV !== 'production') {
 }
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const session = require('express-session');
 const port = 8080;
 const mongoose = require('mongoose');
@@ -45,11 +46,12 @@ if(process.env.NODE_ENV !== 'production') {
 } else {
   frontendURL = process.env.FRONTEND_URL;
 }
+// Serve frontend
+const frontendBuildPath = path.join(__dirname, '../client/build');
+app.use(express.static(frontendBuildPath));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
 app.use(express.json());
 app.use(cors({
-  origin: frontendURL,
   credentials: true,
 }));
 // app.use(methodOverride('_method'));
