@@ -40,6 +40,12 @@ db.once('open', () => {
 const app = express();
 const server = require('http').createServer(app);
 
+// If production, set trust proxy to true
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
+// Configure CORS with frontend URL
 let frontendURL;
 if(process.env.NODE_ENV !== 'production') {
   frontendURL = 'http://localhost:5173';
@@ -74,6 +80,8 @@ app.use(session({
     secure: true,
     maxAge: 1000 * 60 * 60 * 24, // 1 day
     sameSite: 'none',
+    domain: '.onrender.com',
+
   }
 }));
 
