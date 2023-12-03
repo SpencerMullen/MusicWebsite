@@ -14,7 +14,7 @@ function RegisterPage() {
             const response = await register(username, password);
 
             // Check if the registration was successful
-            if (response.success) {
+            if (response.username) {
                 // Handle registration success
                 navigate('/login');
             } else {

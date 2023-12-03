@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // process.env does not work for static sites on render so manually input the URL
-// API_URL = 'https://music-list-backend-qwa5.onrender.com';
+API_URL = 'https://music-list-backend-qwa5.onrender.com';
 
 /* Entry API calls */
 
