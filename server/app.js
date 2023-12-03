@@ -52,6 +52,7 @@ app.use(express.static(frontendBuildPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
+  origin: frontendURL,
   credentials: true,
 }));
 // app.use(methodOverride('_method'));
