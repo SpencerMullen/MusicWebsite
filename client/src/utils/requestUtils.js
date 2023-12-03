@@ -8,6 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
     API_URL = process.env.BACKEND_URL;
 }
 
+API_URL = 'https://music-list-backend-qwa5.onrender.com/';
+
 /* Entry API calls */
 
 // Get all entries
