@@ -9,7 +9,7 @@ function ensureAuthenticated(req, res, next) {
 
 // Ensure that the user is authenticated and is an admin
 function ensureAuthenticatedAndAdmin(req, res, next) {
-    // console.log("ensureAuthenticatedAndAdmin: ", req.isAuthenticated() + " " + req.user.role);
+    console.log("ensureAuthenticatedAndAdmin: ", req.isAuthenticated() + " " + req.user.role);
     if (req.isAuthenticated() && req.user.role === 'admin') {
         return next();
     }
