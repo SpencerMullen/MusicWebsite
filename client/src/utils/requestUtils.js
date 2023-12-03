@@ -8,6 +8,8 @@ if (process.env.NODE_ENV !== 'production') {
     API_URL = process.env.BACKEND_URL;
 }
 
+// process.env does not work for static sites on render so manually input the URL
+API_URL = 'https://musicdb-spencer.herokuapp.com';
 
 /* Entry API calls */
 
@@ -58,6 +60,17 @@ const deleteEntry = async (id) => {
 
 /* User API calls */
 
+// Register
+const register = async (username, password, role) => {
+    const url = API_URL + '/register';
+    const credentials = {
+        username: username,
+        password: password
+    };
+    const response = await axios.post(url, credentials, { withCredentials: true });
+    return response.data;
+};
+
 // Login
 const login = async (username, password) => {
     const url = API_URL + '/login';
@@ -90,4 +103,4 @@ const getUserStatus = async () => {
 };
 
 export { getEntries, createEntry, getEntry, updateEntry, deleteEntry,
-    login, logout, getUserStatus };
+    register, login, logout, getUserStatus };

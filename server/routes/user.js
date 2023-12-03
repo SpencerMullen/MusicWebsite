@@ -2,6 +2,22 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 
+// Register route
+router.post('/register', async (req, res) => {
+  try {
+    // console.log("Registering user");
+    // console.log(req.body);
+    // Register the user with the credentials with role 'user'
+    const newUser = await User.register({ username: req.body.username, role: 'user' }, req.body.password);
+    // console.log("User registered");
+    // console.log(newUser);
+    res.json(newUser);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Login route
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', /*{ keepSessionInfo: true },*/ (err, user, info) => {

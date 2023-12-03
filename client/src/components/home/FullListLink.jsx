@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { getUserStatus } from '../../utils/requestUtils';
+import { register } from '../utils/requestUtils';
 
 export default function FullListLink({ userStatus }) {
   const containerStyle = {
@@ -31,25 +31,23 @@ export default function FullListLink({ userStatus }) {
   const hoverStyle = {
     backgroundColor: 'rgba(255, 255, 255, 0.5)', // Adjust the alpha value for the hover color
   };
+  
+  const registerNewUser = async () => {
+    const credentials = {
+      username: "Spencer",
+      password: "talonted2",
+    };
+    const response = await register(credentials);
+    console.log("RESPONSE: " + JSON.stringify(response));
 
-  const addUser = async (user) => {
-    try {
-      await User.register(user, 'password');
-      console.log('User added to the database');
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  }
+
 
   const clickButton = async (e) => {
     e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'; // Adjust the alpha value for the click color
     // const status = await getUserStatus();
     // console.log("STATUS: " + JSON.stringify(status));
-    const user = {
-      username: 'spencer',
-      password: 'password'
-    }
-    await addUser(user);
+    await registerNewUser();
   };
 
   const welcomeText = userStatus.isAuthenticated ? `Welcome, ${userStatus.username}` : 'Welcome';
