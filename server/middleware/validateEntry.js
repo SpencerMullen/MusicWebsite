@@ -1,5 +1,5 @@
 const { entrySchema } = require('../schemas/entry.js');
-const ExpressError = require('../utils/ExpressError');
+const ExpressError = require('../utils/expressError');
 const { cloudinary } = require('../cloudinary');
 
 // Custom validation middleware using Joi schema
