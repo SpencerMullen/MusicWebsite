@@ -2,7 +2,9 @@
 This site was made by Spencer Mullen to track some of his music reviews! 
 
 ## Site Deployment
-<>
+Frontend and Backend are both hosted on render
+- https://music-list-frontend.onrender.com/
+
 ## Quick Start
 If you want to run the site UI locally follow the steps listed below:
 
@@ -48,6 +50,7 @@ The entry page contains information on the specific entry including cover art, t
 For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. Therefore, I am basically the only user (for now). This may change in the future if I decide to add support for other users being able to leave reviews on my site.
 
 ## Potential Features
+- UI Update - Make better UI since it looks pretty basic
 - Helmet - Add more security
 - Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
 - Home Page Random Album - Add a component in the home page that has a random album picker.
