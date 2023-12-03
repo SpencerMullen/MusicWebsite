@@ -8,6 +8,7 @@ import ListPage from './routes/List.jsx'
 import EntryPage from './routes/Entry.jsx'
 import AboutPage from './routes/About.jsx'
 import LoginPage from './routes/Login.jsx'
+import RegisterPage from './routes/Register.jsx'
 import ErrorPage from './routes/Error.jsx'
 
 // Font
@@ -44,6 +45,8 @@ function App() {
         { path: '/entry/:id', element: <EntryPage userStatus={userStatus} /> },
         { path: '/about', element: <AboutPage /> },
         { path: '/login', element: <LoginPage userStatus={userStatus} handleUserStatus={handleUserStatus} /> },
+        { path: '/register', element: <RegisterPage userStatus={userStatus} handleUserStatus={handleUserStatus} /> },
+        { path: '/error', element: <ErrorPage /> },
         { path: '*', element: <ErrorPage /> }
       ]
     }

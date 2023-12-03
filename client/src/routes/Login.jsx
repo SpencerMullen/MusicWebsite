@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Container, Paper, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { TextField, Button, Container, Paper, Typography, Link } from '@mui/material';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { login } from '../utils/requestUtils';
 
 function LoginPage({ userStatus, handleUserStatus }) {
@@ -67,6 +67,9 @@ function LoginPage({ userStatus, handleUserStatus }) {
                 <Button variant="contained" color="primary" fullWidth onClick={handleLogin}>
                     Login
                 </Button>
+                <Typography variant="body2" style={{ marginTop: '10px' }}>
+                    Don't have an account? <Link component={RouterLink} to="/register">Register</Link>
+                </Typography>
             </Paper>
         </Container>
     );

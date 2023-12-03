@@ -11,7 +11,7 @@ const db = mongoose.connection;
 // Add a user to the database
 const addUser = async (user) => {
     try {
-        await User.register(user, 'secretman1312');
+        await User.register(user, '123');
         console.log('User added to the database');
     } catch (err) {
         console.log(err);

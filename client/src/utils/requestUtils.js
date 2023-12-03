@@ -61,7 +61,7 @@ const deleteEntry = async (id) => {
 /* User API calls */
 
 // Register
-const register = async (username, password, role) => {
+const register = async (username, password) => {
     const url = API_URL + '/register';
     const credentials = {
         username: username,
