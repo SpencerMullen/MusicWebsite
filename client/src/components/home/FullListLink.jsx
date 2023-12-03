@@ -32,10 +32,24 @@ export default function FullListLink({ userStatus }) {
     backgroundColor: 'rgba(255, 255, 255, 0.5)', // Adjust the alpha value for the hover color
   };
 
+  const addUser = async (user) => {
+    try {
+      await User.register(user, 'password');
+      console.log('User added to the database');
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const clickButton = async (e) => {
     e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'; // Adjust the alpha value for the click color
     // const status = await getUserStatus();
     // console.log("STATUS: " + JSON.stringify(status));
+    const user = {
+      username: 'spencer',
+      password: 'password'
+    }
+    await addUser(user);
   };
 
   const welcomeText = userStatus.isAuthenticated ? `Welcome, ${userStatus.username}` : 'Welcome';
