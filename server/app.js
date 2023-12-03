@@ -46,6 +46,7 @@ if(process.env.NODE_ENV !== 'production') {
   frontendURL = process.env.FRONTEND_URL;
 }
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(express.json());
 app.use(cors({
   origin: frontendURL,

@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-const dbURL = 'mongodb://localhost:27017/musicdb'; // Adjust the URL to match your MongoDB setup
+const dbURL = process.env.MONGODB_URL;
 const User = require('./models/user');
-const axios = require('axios');
 
 mongoose.connect(dbURL, { useUnifiedTopology: true, useNewUrlParser: true });
 
