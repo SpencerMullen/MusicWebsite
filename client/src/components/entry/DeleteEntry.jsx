@@ -7,20 +7,15 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
+import { deleteEntry } from '../../utils/requestUtils';
 import { useNavigate } from 'react-router-dom';
 
 const DeleteEntryDialog = ({ open, onClose, entry }) => {
   const navigate = useNavigate();
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:8080/entry/${entry.id}`, {
-        headers: {
-          'Content-Type': 'application/json'
-          // TODO: Add authorization header
-        },
-      });
-      // console.log("Deleted entry: ", response.data);
+      const response = await deleteEntry(entry.id);
+      // console.log("Deleted entry: ", response);
       navigate('/list');
       onClose();
     }

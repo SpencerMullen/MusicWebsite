@@ -15,8 +15,8 @@ import {
   Typography,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { createEntry } from '../../utils/requestUtils';
 
 const CreateEntryDialog = ({ open, onClose }) => {
   const navigate = useNavigate();
@@ -75,14 +75,9 @@ const CreateEntryDialog = ({ open, onClose }) => {
     formData.append('entry', JSON.stringify(entry));
     formData.append('image', file);
     try {
-      const response = await axios.post('http://localhost:8080/entry', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          // TODO: Add authorization header
-        },
-      });
+      const response = await createEntry(formData);
       // console.log('New entry created:', response.data);
-      navigate(`/entry/${response.data.id}`);
+      navigate(`/entry/${response.id}`);
       onClose();
     } catch (error) {
       console.error('Error creating entry:', error);

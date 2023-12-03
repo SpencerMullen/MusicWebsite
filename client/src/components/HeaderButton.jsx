@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
-export default function HeaderButton( {text, link, logout} ) {
+export default function HeaderButton( {text, link, logout, clicked} ) {
     return (<Button color="inherit"
               component={Link}
               to={link}
+              onClick={clicked}
               sx={{
                 marginLeft: '10px',
                 '&:hover': {

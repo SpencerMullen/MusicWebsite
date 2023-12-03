@@ -4,7 +4,7 @@ import FullListLink from '../components/home/FullListLink';
 // import RandomAlbum from '../components/home/RandomAlbum';
 import Grid from '@mui/material/Grid';
 
-function HomePage() {
+function HomePage({ userStatus }) {
   return (
     <div> {/*style={backgroundStyle}>*/}
       <Grid container spacing={2} justifyContent="center">
@@ -12,7 +12,7 @@ function HomePage() {
           <FeaturedAlbum />
         </Grid>*/}
         <Grid item xs={12} sm={4}>
-          <FullListLink />
+          <FullListLink userStatus={userStatus} />
         </Grid>
         {/*<Grid item xs={12} sm={4}>
           <RandomAlbum />

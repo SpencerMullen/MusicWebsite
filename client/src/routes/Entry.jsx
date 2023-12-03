@@ -3,35 +3,40 @@ import EntryContent from '../components/entry/EntryContent';
 import EntryButtons from '../components/entry/EntryButtons';
 import { Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { getEntry } from '../utils/requestUtils';
 
-const EntryPage = () => {
+const EntryPage = ({ userStatus }) => {
   const { id } = useParams();
 
   // Fetch entry from server
   const [entry, setEntry] = useState(null);
 
   const fetchData = async () => {
-    try {
-      const response = await axios.get(`http://localhost:8080/entry/${id}`);
-      setEntry(response.data);
-      // console.log('Entry:', response.data);
-    } catch (error) {
-      console.error('Error getting entry:', error);
-    }
+    const response = await getEntry(id);
+    setEntry(response);
   }
 
   useEffect(() => {
     fetchData();
   }, [id]);
 
+  // Render the entry buttons if the user is an admin
+  const renderAuthButtons = () => {
+    if (!userStatus.isAuthenticated) return null;
+    const isAdmin = userStatus.role === 'admin';
+    if (isAdmin) {
+      return <EntryButtons entry={entry} reloadEntry={fetchData} />;
+    } else {
+      return null;
+    }
+  }
+
   return (
     <Grid container spacing={2}>
       {entry && (
         <>
           <Grid item xs={12}>
-            {/* TODO: Render only if admin auth */}
-            <EntryButtons entry={entry} reloadEntry={fetchData} />
+            {renderAuthButtons()}
           </Grid>
           <Grid item xs={12}>
             <EntryContent entry={entry} reloadEntry={fetchData} />

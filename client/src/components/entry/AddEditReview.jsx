@@ -11,7 +11,7 @@ import {
     Slider,
     TextField,
 } from '@mui/material';
-import axios from 'axios';
+import { updateEntry } from '../../utils/requestUtils';
 
 const AddEditReviewDialog = ({ open, onClose, entry }) => {
     const [rating, setRating] = useState(entry.review.rating ? entry.review.rating : 0);
@@ -44,13 +44,9 @@ const AddEditReviewDialog = ({ open, onClose, entry }) => {
         };
         // console.log("Updated entry: ", updatedEntry);
         try {
-            const response = await axios.put(`http://localhost:8080/entry/${entry.id}`, { entry: JSON.stringify(updatedEntry) }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                    // TODO: Add authorization header
-                },
-            }); 
-            // console.log("Updated entry: ", response.data);
+            const stringifiedEntry = JSON.stringify(updatedEntry);
+            const response = await updateEntry(entry.id, stringifiedEntry);
+            // console.log("Updated entry: ", response);
             onClose();
         } catch (err) {
             console.log(err);

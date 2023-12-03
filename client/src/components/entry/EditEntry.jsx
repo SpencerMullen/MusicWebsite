@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -15,8 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 // import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import axios from 'axios';
-
+import { updateEntry } from '../../utils/requestUtils';
 const EditEntryDialog = ({ open, onClose, entry }) => {
   const [selectedType, setSelectedType] = useState(entry.type ? entry.type : 'album');
   const [title, setTitle] = useState(entry.title ? entry.title : '');
@@ -26,7 +25,8 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
   // const [file, setFile] = useState(null);
 
   const handleTypeChange = (event) => {
-    setSelectedType(event.target.value);
+    setSelectedTy
+    pe(event.target.value);
   };
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -59,12 +59,9 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
     };
     // console.log('Updated entry: ', updatedEntry);
     try {
-      const response = await axios.put(`http://localhost:8080/entry/${entry.id}`, { entry: JSON.stringify(updatedEntry) }, {
-        headers: {
-          'Content-Type': 'application/json'
-          // TODO: Add authorization header
-        },
-      });
+      const stringifiedEntry = JSON.stringify(updatedEntry);
+      const response = await updateEntry(entry.id, stringifiedEntry);
+      // console.log('Updated entry: ', response);
     } catch (err) {
       console.log(err);
     }
@@ -182,7 +179,7 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={handleSave}>Create</Button>
+        <Button onClick={handleSave}>Save</Button>
       </DialogActions>
     </Dialog>
   );

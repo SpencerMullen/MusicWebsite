@@ -8,7 +8,6 @@ import { CssBaseline } from '@mui/material';
 // Change theme here
 import { gray_dark_blue as colors } from '../colors';
 import homeBg from '../assets/homebg.jpg';
-import axios from 'axios';
 
 // Color theme
 const { primary, dark, light, contrastText } = colors;
@@ -27,7 +26,7 @@ const theme = createTheme({
 });
 
 // Layout for all pages, root handles loading content between header+footer
-function RootLayout() {
+function RootLayout({ userStatus, handleUserStatus }) {
   // Find the location and render the background if it's the home page
   const location = useLocation();
   const isHomePage = location.pathname === '/';
@@ -49,32 +48,6 @@ function RootLayout() {
   // Set header and footer height
   const [headerHeight, setHeaderHeight] = useState(0);
   const [footerHeight, setFooterHeight] = useState(0);
-
-  // Fetch user status
-  const [userStatus, setUserStatus] = useState(null);
-  const handleUserStatus = (userInfo) => {
-    setUserStatus(userInfo);
-    console.log("User status:", userInfo);
-  };
-
-  useEffect(() => {
-    // Fetch user status when the component mounts
-    const fetchUserStatus = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/user', { withCredentials: true });
-        const userInfo = {
-          username: response.username || null,
-          role: response.role || null,
-          isAuthenticated: response.username ? true : false
-        }
-        handleUserStatus(userInfo);
-      } catch (error) {
-        console.error('Error fetching user status:', error.message);
-      }
-    };
-
-    fetchUserStatus();
-  }, []);
 
   useEffect(() => {
     const header = document.querySelector('#header');
@@ -115,10 +88,8 @@ function RootLayout() {
       <CssBaseline />
       {/* Render the background if it's the home page */}
       <Grid container style={isHomePage ? homeBackground : {}}>
-        <Grid item xs={12}><Header userStatus={userStatus} setUserStatus={handleUserStatus} /></Grid>
-        <Grid item xs={12}><main id="main">
-          <Outlet context={[userStatus, handleUserStatus]} />
-        </main></Grid>
+        <Grid item xs={12}><Header userStatus={userStatus} handleUserStatus={handleUserStatus} /></Grid>
+        <Grid item xs={12}><main id="main"><Outlet /></main></Grid>
         <Grid item xs={12}><Footer /></Grid>
       </Grid>
     </ThemeProvider>

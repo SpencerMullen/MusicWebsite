@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Login route
 router.post('/login', (req, res, next) => {
-  passport.authenticate('local', { keepSessionInfo: true }, (err, user, info) => {
+  passport.authenticate('local', /*{ keepSessionInfo: true },*/ (err, user, info) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: 'Internal Server Error' });
@@ -18,7 +18,6 @@ router.post('/login', (req, res, next) => {
         console.error(err);
         return res.status(500).json({ error: 'Internal Server Error' });
       }
-      req.session.user = user;
       // console.log('Logging in');
       // console.log(req.user);
       // console.log(req.session);
@@ -30,8 +29,15 @@ router.post('/login', (req, res, next) => {
 
 // Logout route
 router.get('/logout', (req, res) => {
-  req.logout({ keepSessionInfo: true });
-  console.log('Logging out');
+  req.logout(/*{ keepSessionInfo: true }*/);
+  // console.log('Logging out');
+  // Delete the session from the database
+  req.session.destroy((err) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
   res.json({ message: 'Logged out' });
 });
 
@@ -45,7 +51,7 @@ router.get('/user', (req, res) => {
     const isAuthenticated = req.isAuthenticated();
 
     // If the user is authenticated, send user information
-    if (isAuthenticated && req.user) {
+    if (isAuthenticated) {
       res.json({
         username: req.user.username,
         role: req.user.role,

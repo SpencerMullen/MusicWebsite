@@ -7,8 +7,7 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import axios from 'axios';
-
+import { updateEntry } from '../../utils/requestUtils';
 const DeleteReviewDialog = ({ open, onClose, entry }) => {
   const handleDeleteReview = async (e) => {
     e.preventDefault();
@@ -19,12 +18,8 @@ const DeleteReviewDialog = ({ open, onClose, entry }) => {
     };
     // console.log("Updated entry: ", updatedEntry);
     try {
-      const response = await axios.put(`http://localhost:8080/entry/${entry.id}`, { entry: JSON.stringify(updatedEntry) }, {
-        headers: {
-          'Content-Type': 'application/json'
-          // TODO: Add authorization header
-        },
-      });
+      const stringifiedEntry = JSON.stringify(updatedEntry);
+      const response = await updateEntry(entry.id, stringifiedEntry);
       // console.log("Updated entry: ", response.data);
       onClose();
     }

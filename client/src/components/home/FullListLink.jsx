@@ -1,8 +1,9 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
+import { getUserStatus } from '../../utils/requestUtils';
 
-export default function FullListLink() {
+export default function FullListLink({ userStatus }) {
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
@@ -14,6 +15,7 @@ export default function FullListLink() {
 
   const welcomeTextStyle = {
     fontSize: '4em',
+    whiteSpace: 'nowrap',
   };
 
   const visitButtonStyle = {
@@ -30,15 +32,23 @@ export default function FullListLink() {
     backgroundColor: 'rgba(255, 255, 255, 0.5)', // Adjust the alpha value for the hover color
   };
 
+  const clickButton = async (e) => {
+    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'; // Adjust the alpha value for the click color
+    // const status = await getUserStatus();
+    // console.log("STATUS: " + JSON.stringify(status));
+  };
+
+  const welcomeText = userStatus.isAuthenticated ? `Welcome, ${userStatus.username}` : 'Welcome';
+
   return (
     <div style={containerStyle}>
-      <div style={welcomeTextStyle}>Welcome</div>
+      <div style={welcomeTextStyle}>{welcomeText}</div>
       <Link to="/list" style={{ textDecoration: 'none' }}>
         <Button
           style={visitButtonStyle}
           onMouseEnter={(e) => e.target.style.backgroundColor = hoverStyle.backgroundColor}
           onMouseLeave={(e) => e.target.style.backgroundColor = visitButtonStyle.backgroundColor}
-        >
+          onClick={clickButton} >
           Visit the Full List
         </Button>
       </Link>

@@ -6,25 +6,25 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import HeaderButton from './HeaderButton';
 import axios from 'axios';
-
+import { logout } from '../utils/requestUtils';
 export default function ButtonAppBar({ userStatus, handleUserStatus }) {
   const navigate = useNavigate();
   // Logout
   const handleLogout = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/logout', {}, { withCredentials: true });
+      const response = await logout();
       // console.log('Logout response:', response);
       handleUserStatus({ isAuthenticated: false });
       navigate('/');
     } catch (err) {
       console.error('Logout error:', err.message);
     }
-  };
+  };    
 
   const renderAuthButton = () => {
     if (userStatus && userStatus.isAuthenticated) {
       // User is authenticated, render Logout button
-      return <HeaderButton text="Logout" link="/" logout={true} onClick={handleLogout} />;
+      return <HeaderButton text="Logout" link="/" logout={true} clicked={handleLogout} />;
     } else {
       // User is not authenticated, render Login button
       return <HeaderButton text="Login" link="/login" />;

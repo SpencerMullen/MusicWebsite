@@ -1,34 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Container, Paper, Typography } from '@mui/material';
-import { useNavigate, useOutletContext } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../utils/requestUtils';
 
-function LoginPage() {
+function LoginPage({ userStatus, handleUserStatus }) {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    // Redirect to home page if user is already logged in
-    if(userStatus.isAuthenticated) {
-        navigate('/');
-    }
+    // Check authentication status when the component mounts
+    useEffect(() => {
+        // If user is already authenticated, redirect to home
+        if (userStatus.isAuthenticated) {
+            navigate('/');
+        }
+    }, [userStatus, navigate]);
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/login', {
-                username: username,
-                password: password
-            }, { withCredentials: true });
+            const response = await login(username, password);
 
             // Check if the login was successful based on your server response
-            if (response.data.username) {
-                // const userStatus = await axios.get('http://localhost:8080/user', { withCredentials: true });
-                // setUserStatus({ username: userStatus.data.username, role: userStatus.data.role, isAuthenticated: true });
-                // console.log('User status:', userStatus.data);
+            if (response.username) {
+                // Handle login success
+                // const status = await getUserStatus();
+                const status = { isAuthenticated: true, username: response.username, role: response.role };
+                handleUserStatus(status);
                 navigate('/');
             } else {
                 // Handle login failure (invalid username or password)
-                console.error('Login failed:', response.data.message);
+                console.error('Login failed:', response.message);
             }
         } catch (err) {
             console.error('Error during login:', err.message);
