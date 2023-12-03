@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import { register } from '../utils/requestUtils';
+import { register } from '../../utils/requestUtils';
 
 export default function FullListLink({ userStatus }) {
   const containerStyle = {
