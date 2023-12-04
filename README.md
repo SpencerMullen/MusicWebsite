@@ -47,12 +47,11 @@ The list page contains all of the entries on my site. You can search for any spe
 The entry page contains information on the specific entry including cover art, title, artist, genre, release date and more. If I reviewed the album it also shows that information.
 
 ## CRUD Operations
-For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. Therefore, I am basically the only user (for now). This may change in the future if I decide to add support for other users being able to leave reviews on my site.
+For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. Therefore, I am basically the only user (for now). This may change in the future if I decide to add support for other users being able to leave reviews on my site. Other users can still register but they have no commands.
 
 ## Potential Features
 - UI Update - Make better UI since it looks pretty basic
 - Helmet - Add more security
 - Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
 - Home Page Random Album - Add a component in the home page that has a random album picker.
-- User Register - Implement support for additional user signup.
 - User Comments/Reviews - Implement support for user comments / reviews on albums.
