@@ -70,11 +70,6 @@ const CreateEntryDialog = ({ open, onClose }) => {
       artist: artist,
       releaseDate: releaseDate,
       genre: genre,
-      review: {
-        rating: 0,
-        reviewDate: null,
-        reviewText: "",
-      }
     };
     const formData = new FormData();
     formData.append('entry', JSON.stringify(entry));

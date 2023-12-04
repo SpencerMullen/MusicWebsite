@@ -44,7 +44,7 @@ router.route('/')
                 review: {
                     rating: 0,
                     reviewDate: null,
-                    reviewText: ""
+                    reviewText: " "
                 }
             });
             // console.log("newEntry: " + newEntry);
