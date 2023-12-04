@@ -40,6 +40,11 @@ db.once('open', () => {
 const app = express();
 const server = require('http').createServer(app);
 
+// Try trusting proxy
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
 let frontendURL;
 if(process.env.NODE_ENV !== 'production') {
   frontendURL = 'http://localhost:5173';
