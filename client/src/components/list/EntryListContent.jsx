@@ -58,11 +58,11 @@ const EntryListContent = (props) => {
     }
     if (selectedSort === 'artist_asc') {
       const artistComparison = removeThePrefix(artistA).localeCompare(removeThePrefix(artistB));
-      return artistComparison !== 0 ? artistComparison : new Date(a.review.reviewDate) - new Date(b.review.reviewDate);
+      return artistComparison !== 0 ? artistComparison : new Date(a.releaseDate) - new Date(b.releaseDate);
     }
     if (selectedSort === 'artist_dsc') {
       const artistComparison = removeThePrefix(artistB).localeCompare(removeThePrefix(artistA));
-      return artistComparison !== 0 ? artistComparison : new Date(b.review.reviewDate) - new Date(a.review.reviewDate);
+      return artistComparison !== 0 ? artistComparison : new Date(a.releaseDate) - new Date(b.releaseDate);
     }
     if (selectedSort === 'releaseDate_asc') {
       return new Date(a.releaseDate) - new Date(b.releaseDate);
