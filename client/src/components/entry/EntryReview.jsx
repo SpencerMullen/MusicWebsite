@@ -2,17 +2,18 @@ import React from 'react';
 import { Grid, Typography, Divider } from '@mui/material';
 import { formatDate } from '../../utils/formatUtils';
 
+const processMarkdown = (text) => {
+  // Replace bold syntax (*text*) with <strong>text</strong>
+  const textWithBold = text.replace(/\*(.*?)\*/g, (_, match) => `<strong>${match}</strong>`);
+
+  // Replace italic syntax (_text_) with <em>text</em>
+  const textWithItalic = textWithBold.replace(/_(.*?)_/g, (_, match) => `<em>${match}</em>`);
+
+  return textWithItalic;
+};
+
 const EntryReview = ({ entry }) => {
-  const processMarkdown = (text) => {
-    // Replace bold syntax (*text*) with <strong>text</strong>
-    const textWithBold = text.replace(/\*(.*?)\*/g, (_, match) => `<strong>${match}</strong>`);
-  
-    // Replace italic syntax (_text_) with <em>text</em>
-    const textWithItalic = textWithBold.replace(/_(.*?)_/g, (_, match) => `<em>${match}</em>`);
-  
-    return textWithItalic;
-  };
-  const processedReviewText = processMarkdown(entry.review.reviewText);
+  const processedReviewText = entry.review.reviewText ? processMarkdown(entry.review.reviewText) : '';
 
   return (
     <Grid item xs={12}>
@@ -42,9 +43,11 @@ const EntryReview = ({ entry }) => {
               <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
                 Review
               </Typography>
-              <Typography variant="body2" sx={{ fontSize: '1.2rem' }}>
-                {processedReviewText}
-              </Typography>
+              <Typography
+                variant="body2"
+                sx={{ fontSize: '1.2rem' }}
+                dangerouslySetInnerHTML={{ __html: processedReviewText }}
+              />
             </div>
           </Grid>
         </Grid>
