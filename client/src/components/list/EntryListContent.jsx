@@ -57,10 +57,12 @@ const EntryListContent = (props) => {
       return removeThePrefix(titleB).localeCompare(removeThePrefix(titleA));
     }
     if (selectedSort === 'artist_asc') {
-      return removeThePrefix(artistA).localeCompare(removeThePrefix(artistB));
+      const artistComparison = removeThePrefix(artistA).localeCompare(removeThePrefix(artistB));
+      return artistComparison !== 0 ? artistComparison : new Date(a.review.reviewDate) - new Date(b.review.reviewDate);
     }
     if (selectedSort === 'artist_dsc') {
-      return removeThePrefix(artistB).localeCompare(removeThePrefix(artistA));
+      const artistComparison = removeThePrefix(artistB).localeCompare(removeThePrefix(artistA));
+      return artistComparison !== 0 ? artistComparison : new Date(b.review.reviewDate) - new Date(a.review.reviewDate);
     }
     if (selectedSort === 'releaseDate_asc') {
       return new Date(a.releaseDate) - new Date(b.releaseDate);
