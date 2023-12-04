@@ -3,6 +3,17 @@ import { Grid, Typography, Divider } from '@mui/material';
 import { formatDate } from '../../utils/formatUtils';
 
 const EntryReview = ({ entry }) => {
+  const processMarkdown = (text) => {
+    // Replace bold syntax (*text*) with <strong>text</strong>
+    const textWithBold = text.replace(/\*(.*?)\*/g, (_, match) => `<strong>${match}</strong>`);
+  
+    // Replace italic syntax (_text_) with <em>text</em>
+    const textWithItalic = textWithBold.replace(/_(.*?)_/g, (_, match) => `<em>${match}</em>`);
+  
+    return textWithItalic;
+  };
+  const processedReviewText = processMarkdown(entry.review.reviewText);
+
   return (
     <Grid item xs={12}>
       <Divider sx={{ marginY: '1rem' }} />
@@ -32,7 +43,7 @@ const EntryReview = ({ entry }) => {
                 Review
               </Typography>
               <Typography variant="body2" sx={{ fontSize: '1.2rem' }}>
-                {entry.review.reviewText}
+                {processedReviewText}
               </Typography>
             </div>
           </Grid>

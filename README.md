@@ -55,3 +55,7 @@ For my site, I developed it so that I was the only one making create, update, an
 - Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
 - Home Page Random Album - Add a component in the home page that has a random album picker.
 - User Comments/Reviews - Implement support for user comments / reviews on albums.
+
+## Other Notes
+- I finished this site in 2023 but have saved reviews for a couple of years.
+- Surround text using asterisks for bold and underscore for italics.
