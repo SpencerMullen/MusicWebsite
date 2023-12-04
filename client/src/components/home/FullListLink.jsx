@@ -15,10 +15,10 @@ export default function FullListLink({ userStatus }) {
   const welcomeTextStyle = {
     fontSize: '4em',
     whiteSpace: 'nowrap',
+    marginBottom: '30px',
   };
 
   const visitButtonStyle = {
-    marginTop: '30px',
     color: 'white',
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
     fontSize: '2em',
