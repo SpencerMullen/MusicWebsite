@@ -25,8 +25,7 @@ const EditEntryDialog = ({ open, onClose, entry }) => {
   // const [file, setFile] = useState(null);
 
   const handleTypeChange = (event) => {
-    setSelectedTy
-    pe(event.target.value);
+    setSelectedType(event.target.value);
   };
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
