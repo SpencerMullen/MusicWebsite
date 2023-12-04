@@ -48,17 +48,19 @@ const EntryListContent = (props) => {
     const { title: titleA, artist: artistA } = a;
     const { title: titleB, artist: artistB } = b;
 
+    const removeThePrefix = (str) => str.replace(/^The\s+/i, '');
+
     if (selectedSort === 'title_asc') {
-      return titleA.localeCompare(titleB);
+      return removeThePrefix(titleA).localeCompare(removeThePrefix(titleB));
     }
     if (selectedSort === 'title_dsc') {
-      return titleB.localeCompare(titleA);
+      return removeThePrefix(titleB).localeCompare(removeThePrefix(titleA));
     }
     if (selectedSort === 'artist_asc') {
-      return artistA.localeCompare(artistB);
+      return removeThePrefix(artistA).localeCompare(removeThePrefix(artistB));
     }
     if (selectedSort === 'artist_dsc') {
-      return artistB.localeCompare(artistA);
+      return removeThePrefix(artistB).localeCompare(removeThePrefix(artistA));
     }
     if (selectedSort === 'releaseDate_asc') {
       return new Date(a.releaseDate) - new Date(b.releaseDate);
