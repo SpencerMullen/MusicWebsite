@@ -16,7 +16,7 @@ module.exports.entrySchema = Joi.object({
     review: Joi.object({
         rating: Joi.number().min(0).max(10),
         reviewText: Joi.string().allow(''),
-        reviewDate: Joi.date()
+        reviewDate: Joi.date().allow('')
     }),
     _id: Joi.string(),
 });
