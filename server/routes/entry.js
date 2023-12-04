@@ -44,7 +44,7 @@ router.route('/')
                 review: {
                     rating: 0,
                     reviewDate: null,
-                    reviewText: " "
+                    reviewText: ""
                 }
             });
             // console.log("newEntry: " + newEntry);
@@ -68,6 +68,7 @@ router.route('/:id')
     // Replace / update an entry
     .put(adminAuth, validateEntry, catchAsync(async (req, res, next) => {
         // Entry from the request and add releaseDate and reviewDate to prevent day errors
+        // console.log("REQ", req.body.entry);
         reqEntry = JSON.parse(req.body.entry);
         // If dates aren't in UTC change them
         const updatedEntry = {
