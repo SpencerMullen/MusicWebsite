@@ -37,18 +37,16 @@ const buildPipeline = (filters) => {
             pipeline.push({ $match: { _id: null } });
         }
     } else {
-        // If onlyChecked is false, include albums by default
-        pipeline.push({ $match: { type: 'album', } });
+        let checkboxFilters = [];
+        if (liveChecked) checkboxFilters.push({ type: 'livealbum' });
+        if (epChecked) checkboxFilters.push({ type: 'ep' });
+        checkboxFilters.push({ type: 'album' });
 
-        // Include live albums if liveChecked is true
-        if (liveChecked) {
-            pipeline.push({ $match: { type: 'livealbum' } });
-        }
-
-        // Include EPs if epChecked is true
-        if (epChecked) {
-            pipeline.push({ $match: { type: 'ep' } });
-        }
+        pipeline.push({
+            $match: {
+                $or: checkboxFilters,
+            },
+        });
     }
 
     // Add sorting logic
