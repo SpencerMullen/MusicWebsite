@@ -4,17 +4,30 @@ const { Entry } = require('../models/entry');
 const buildQuery = (filters) => {
     const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
 
+    // Remove the prefix "The " from the artist
+    const removeThePrefix = (str) => str.replace(/^The\s+/i, '');
+
     // Add sorting logic
-    if(selectedSort === 'title_asc') sortOption = { title: 1 }
-    else if(selectedSort === 'title_dsc') sortOption = { title: -1 }
-    else if(selectedSort === 'artist_asc') sortOption = { artist: 1, releaseDate: 1 }
-    else if(selectedSort === 'artist_dsc') sortOption = { artist: -1, releaseDate: 1 }
-    else if(selectedSort === 'releaseDate_asc') sortOption = { releaseDate: 1 }
-    else if(selectedSort === 'releaseDate_dsc') sortOption = { releaseDate: -1 }
-    else if(selectedSort === 'rating_asc') sortOption = { 'review.rating': 1 }
-    else if(selectedSort === 'rating_dsc') sortOption = { 'review.rating': -1 }
-    else if(selectedSort === 'reviewDate_asc') sortOption = { 'review.reviewDate': 1 }
-    else if(selectedSort === 'reviewDate_dsc') sortOption = { 'review.reviewDate': -1 }
+    if (selectedSort === 'title_asc') sortOption = { title: 1 }
+    else if (selectedSort === 'title_dsc') sortOption = { title: -1 }
+    else if (selectedSort === 'artist_asc') sortOption = { artist: 1, releaseDate: 1 }
+    else if (selectedSort === 'artist_dsc') sortOption = { artist: -1, releaseDate: 1 }
+    else if (selectedSort === 'releaseDate_asc') sortOption = { releaseDate: 1 }
+    else if (selectedSort === 'releaseDate_dsc') sortOption = { releaseDate: -1 }
+    else if (selectedSort === 'rating_asc') sortOption = { 'review.rating': 1 }
+    else if (selectedSort === 'rating_dsc') sortOption = { 'review.rating': -1 }
+    else if (selectedSort === 'reviewDate_asc') sortOption = { 'review.reviewDate': 1 }
+    else if (selectedSort === 'reviewDate_dsc') sortOption = { 'review.reviewDate': -1 }
+
+    // Modify sortOption to handle "The" prefix
+    if (sortOption.artist) {
+        const originalSortFunction = sortOption.artist;
+        sortOption.artist = (a, b) => {
+            const artistA = removeThePrefix(a.artist);
+            const artistB = removeThePrefix(b.artist);
+            return originalSortFunction(artistA, artistB);
+        };
+    }
 
     // Add searching logic
     /*if (searchQuery) {
