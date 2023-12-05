@@ -32,10 +32,30 @@ const buildPipeline = (filters) => {
                     $or: checkboxFilters,
                 },
             });
+        } else {
+            // If onlyChecked is true but neither liveChecked nor epChecked is selected, include nothing
+            pipeline.push({ $match: { _id: null } });
         }
     } else {
-        if (!liveChecked) pipeline.push({ $match: { type: { $ne: 'livealbum' } } });
-        if (!epChecked) pipeline.push({ $match: { type: { $ne: 'ep' } } });
+        // If onlyChecked is false, include albums by default
+        pipeline.push({
+            $match: {
+                $or: [
+                    { type: 'album' },
+                    { type: { $exists: false } }, // Include documents with no 'type' field
+                ],
+            },
+        });
+
+        // Include live albums if liveChecked is true
+        if (liveChecked) {
+            pipeline.push({ $match: { type: 'livealbum' } });
+        }
+
+        // Include EPs if epChecked is true
+        if (epChecked) {
+            pipeline.push({ $match: { type: 'ep' } });
+        }
     }
 
     // Add sorting logic
