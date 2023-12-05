@@ -3,7 +3,6 @@ const { Entry } = require('../models/entry');
 // Helper function to build the MongoDB query
 const buildQuery = (filters) => {
     const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
-    const query = {};
 
     // Add sorting logic
     if(selectedSort === 'title_asc') sortOption = { title: 1 }
@@ -16,8 +15,6 @@ const buildQuery = (filters) => {
     else if(selectedSort === 'rating_dsc') sortOption = { 'review.rating': -1 }
     else if(selectedSort === 'reviewDate_asc') sortOption = { 'review.reviewDate': 1 }
     else if(selectedSort === 'reviewDate_dsc') sortOption = { 'review.reviewDate': -1 }
-
-    Object.assign(query, sortOption);
 
     // Add searching logic
     /*if (searchQuery) {
@@ -38,6 +35,11 @@ const buildQuery = (filters) => {
         if (!liveChecked) query.type = { $ne: 'livealbum' };
         if (!epChecked) query.type = { $ne: 'ep' };
     }*/
+
+    // Make the query with sorting only
+    const query = {
+        sortOption,
+    }
 
     return query;
 };

@@ -19,13 +19,14 @@ router.route('/')
     .get(catchAsync(async (req, res, next) => {
         try {
             // Filter the entries
-            const filters = req.body.filters;
+            const filters = req.query.filters;
             console.log("Filters: " + filters);
             const query = buildQuery(filters);
+            const sort = query.sortOption;
 
             // Get the entries from the database
             // const entries = await Entry.find({});
-            const entries = await Entry.find(query);
+            const entries = await Entry.find({}).sort(sort);
             // console.log("Getting all entries");
             res.json(entries);
         } catch (err) {

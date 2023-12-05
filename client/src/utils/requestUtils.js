@@ -16,8 +16,11 @@ API_URL = 'https://music-list-backend-6p8g.onrender.com';
 // Get all entries
 const getEntries = async (filters) => {
     const url = API_URL + '/entry';
-    const response = await axios.get(url, 
-        { filters: filters }
+    const response = await axios.get(url,
+        {
+            params:
+                { filters: filters }
+        }
         , { withCredentials: true });
     return response.data;
 };
@@ -104,5 +107,7 @@ const getUserStatus = async () => {
     return userInfo;
 };
 
-export { getEntries, createEntry, getEntry, updateEntry, deleteEntry,
-    register, login, logout, getUserStatus };
+export {
+    getEntries, createEntry, getEntry, updateEntry, deleteEntry,
+    register, login, logout, getUserStatus
+};
