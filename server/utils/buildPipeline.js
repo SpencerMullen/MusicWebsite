@@ -21,7 +21,7 @@ const buildPipeline = (filters) => {
     }
 
     // Add filtering logic for checkboxes
-    /*if (onlyChecked) {
+    if (onlyChecked) {
         let checkboxFilters = [];
         if (liveChecked) checkboxFilters.push({ type: 'livealbum' });
         if (epChecked) checkboxFilters.push({ type: 'ep' });
@@ -48,7 +48,7 @@ const buildPipeline = (filters) => {
                 $or: typeFilters,
             },
         });
-    }*/
+    }
 
     // Add sorting logic
     if (selectedSort === 'title_asc') pipeline.push({ $sort: { title: 1 } });
