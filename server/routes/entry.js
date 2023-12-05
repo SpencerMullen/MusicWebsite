@@ -12,7 +12,7 @@ const multer = require('multer');
 const upload = multer({ storage: storage });
 const uuid = require('uuid');
 const { cloudinary } = require('../cloudinary');
-const { buildQuery } = require('../utils/queryEntries');
+const { buildPipeline } = require('../utils/buildPipeline');
 
 router.route('/')
     // Get all entries
@@ -21,15 +21,10 @@ router.route('/')
             // Filter the entries
             const filters = req.query.filters;
             console.log("Filters: " + filters);
-            const query = buildQuery(filters);
-            const sortOption = query.sortOption;
-
+            const pipeline = buildPipeline(filters);
+    
             // Get the entries from the database
-            // const entries = await Entry.find({});
-            const entries = await Entry.aggregate([
-                { $sort: sortOption },
-            ])
-            // console.log("Getting all entries");
+            const entries = await Entry.aggregate(pipeline);
             res.json(entries);
         } catch (err) {
             console.log(err);
