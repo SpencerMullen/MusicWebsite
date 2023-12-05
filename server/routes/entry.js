@@ -21,7 +21,7 @@ router.route('/')
             // Filter the entries
             const filters = req.body.filters;
             console.log("Filters: " + filters);
-            const query = buildQuery(filters);
+            // const query = buildQuery(filters);
 
             // Get the entries from the database
             const entries = await Entry.find({}/*query*/);
