@@ -17,9 +17,7 @@ API_URL = 'https://music-list-backend-6p8g.onrender.com';
 const getEntries = async (filters) => {
     const url = API_URL + '/entry';
     const response = await axios.get(url, 
-        { query: {
-            filters: filters
-        }}
+        { filters: filters }
         , { withCredentials: true });
     return response.data;
 };

@@ -12,15 +12,18 @@ const multer = require('multer');
 const upload = multer({ storage: storage });
 const uuid = require('uuid');
 const { cloudinary } = require('../cloudinary');
+const { buildQuery } = require('../utils/queryEntries');
 
 router.route('/')
     // Get all entries
     .get(catchAsync(async (req, res, next) => {
         // Filter the entries
         const filters = req.body.filters;
-        console.log("Filters: " + filters);
+        const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
+        const query = buildQuery(filters);
 
-        const entries = await Entry.find({});
+        // Get the entries from the database
+        const entries = await Entry.find(query);
         // console.log("Getting all entries");
         res.json(entries);
     }))
