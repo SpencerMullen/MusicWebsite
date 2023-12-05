@@ -5,14 +5,14 @@ import defaultImage from '../../assets/default.jpg'; // Import the default image
 import { getFormatDateYear } from '../../utils/formatUtils';
 
 const cardStyles = {
-  width: '300px',
+  width: '200px',
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
 };
 
 const imgSectionStyles = {
-  height: '300px', // Set a fixed height for the image section (making it a square)
+  height: '200px', // Set a fixed height for the image section (making it a square)
   width: '100%', // Make the image section cover the entire card width
   position: 'relative', // Add relative positioning
 };
