@@ -25,6 +25,7 @@ function ListPage({ userStatus }) {
     localStorage.setItem('liveChecked', liveChecked);
     localStorage.setItem('epChecked', epChecked);
     localStorage.setItem('onlyChecked', onlyChecked);
+    fetchData();
   }, [selectedSort, searchQuery, liveChecked, epChecked, onlyChecked]);
 
   // Pass state values and update functions as props to EntryList
