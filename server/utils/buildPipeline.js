@@ -57,14 +57,25 @@ const buildPipeline = (filters) => {
     }
 
     // Add sorting logic
-    if (selectedSort === 'title_asc') pipeline.push({ $sort: { title: 1 } });
-    else if (selectedSort === 'title_dsc') pipeline.push({ $sort: { title: -1 } });
-    // If sorting by artist, use the artist name without the leading "The " or "the "
-    else if (selectedSort === 'artist_asc' || selectedSort === 'artist_dsc') {
+    if (selectedSort === 'title_asc') {
+        pipeline.push({ $addFields: { titleSort: { $toLower: '$title' } } });
+        pipeline.push({ $sort: { titleSort: 1 } });
+        pipeline.push({ $unset: 'titleSort' });
+    } else if (selectedSort === 'title_dsc') { 
+        pipeline.push({ $addFields: { titleSort: { $toLower: '$title' } } });
+        pipeline.push({ $sort: { titleSort: -1 } });
+        pipeline.push({ $unset: 'titleSort' });
+    } else if (selectedSort === 'artist_asc' || selectedSort === 'artist_dsc') {
+        // If the artist starts with 'the ', remove it for sorting
         const sortDir = selectedSort === 'artist_asc' ? 1 : -1;
-        pipeline.push({ $addFields: { artistSort: { $cond: { if: { $regexMatch: { input: '$artist', regex: /^the /i } }, then: { $substr: ['$artist', 4, -1] }, else: '$artist' } } } });
-        pipeline.push({ $sort: { artistSort: sortDir } });
-        pipeline.push({ $unset: 'artistSort' });
+        // First add a lowercase version of the artist name
+        pipeline.push({ $addFields: { artistLower: { $toLower: '$artist' } } });
+        // Then remove 'the ' from the beginning of the artist name
+        pipeline.push({ $addFields: { artistSort: { $cond: { if: { $eq: [{ $substr: ['$artistLower', 0, 4] }, 'the '] }, then: { $substr: ['$artistLower', 4, { $strLenCP: '$artistLower' }] }, else: '$artistLower' } } } });
+        // Then sort by the artist name then by release date
+        pipeline.push({ $sort: { artistSort: sortDir, releaseDate: sortDir } });
+        // Then remove the temporary fields
+        pipeline.push({ $unset: ['artistLower', 'artistSort'] });
     }
     else if (selectedSort === 'releaseDate_asc') pipeline.push({ $sort: { releaseDate: 1 } });
     else if (selectedSort === 'releaseDate_dsc') pipeline.push({ $sort: { releaseDate: -1 } });
