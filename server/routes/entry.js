@@ -17,15 +17,19 @@ const { buildQuery } = require('../utils/queryEntries');
 router.route('/')
     // Get all entries
     .get(catchAsync(async (req, res, next) => {
-        // Filter the entries
-        const filters = req.body.filters;
-        const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
-        const query = buildQuery(filters);
+        try {
+            // Filter the entries
+            const filters = req.body.filters;
+            const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
+            const query = buildQuery(filters);
 
-        // Get the entries from the database
-        const entries = await Entry.find(query);
-        // console.log("Getting all entries");
-        res.json(entries);
+            // Get the entries from the database
+            const entries = await Entry.find(query);
+            // console.log("Getting all entries");
+            res.json(entries);
+        } catch (err) {
+            console.log(err);
+        }
     }))
     // Create a new entry
     .post(adminAuth, upload.single('image'), validateEntry, catchAsync(async (req, res, next) => {
