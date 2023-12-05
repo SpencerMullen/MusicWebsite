@@ -20,7 +20,7 @@ router.route('/')
         try {
             // Filter the entries
             const filters = req.query.filters;
-            console.log("Filters: " + filters);
+            // console.log("Filters: " +  JSON.stringify(filters));
             const pipeline = buildPipeline(filters);
     
             // Get the entries from the database

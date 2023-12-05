@@ -3,6 +3,7 @@ const { Entry } = require('../models/entry');
 // Helper function to build the MongoDB aggregation pipeline
 const buildPipeline = (filters) => {
     const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
+    console.log("filters: ", JSON.stringify(filters));
 
     // Initial pipeline stages
     let pipeline = [];
@@ -21,7 +22,7 @@ const buildPipeline = (filters) => {
     }
 
     // Add filtering logic for checkboxes
-    if (onlyChecked) {
+    if (onlyChecked === true) {
         let checkboxFilters = [];
         if (liveChecked) checkboxFilters.push({ type: 'livealbum' });
         if (epChecked) checkboxFilters.push({ type: 'ep' });
@@ -42,40 +43,47 @@ const buildPipeline = (filters) => {
         typeFilters.push({ type: 'album' });
         if (liveChecked) typeFilters.push({ type: 'livealbum' });
         if (epChecked) typeFilters.push({ type: 'ep' });
-    
+
         pipeline.push({
-            type: { $in: typeFilters.map(filter => filter.type) },
+            $match: {
+                $or: typeFilters,
+            },
         });
     }
 
     // Add sorting logic
     if (selectedSort === 'title_asc') pipeline.push({ $sort: { title: 1 } });
     else if (selectedSort === 'title_dsc') pipeline.push({ $sort: { title: -1 } });
+    // If sorting by artist, use the artist name without the leading "The " or "the "
     else if (selectedSort === 'artist_asc' || selectedSort === 'artist_dsc') {
-        const sortDirection = selectedSort === 'artist_asc' ? 1 : -1;
-        const regex = /^The\s+/i;
-        const replacement = '';
-
-        pipeline.push({
-            $addFields: {
-                sortArtist: {
-                    $regexReplace: {
-                        input: '$artist',
-                        find: regex,
-                        replacement: replacement,
-                    },
-                },
-            },
-        });
-        pipeline.push({ $sort: { sortArtist: sortDirection, releaseDate: 1 }, });
-        pipeline.push({ $unset: 'sortArtist' });
+        const sortDir = selectedSort === 'artist_asc' ? 1 : -1;
+        pipeline.push({ $addFields: { artistSort: { $cond: { if: { $regexMatch: { input: '$artist', regex: /^the /i } }, then: { $substr: ['$artist', 4, -1] }, else: '$artist' } } } });
+        pipeline.push({ $sort: { artistSort: sortDir } });
+        pipeline.push({ $unset: 'artistSort' });
     }
     else if (selectedSort === 'releaseDate_asc') pipeline.push({ $sort: { releaseDate: 1 } });
     else if (selectedSort === 'releaseDate_dsc') pipeline.push({ $sort: { releaseDate: -1 } });
-    else if (selectedSort === 'rating_asc') pipeline.push({ $sort: { 'review.rating': 1 } });
-    else if (selectedSort === 'rating_dsc') pipeline.push({ $sort: { 'review.rating': -1 } });
-    else if (selectedSort === 'reviewDate_asc') pipeline.push({ $sort: { 'review.reviewDate': 1 } });
-    else if (selectedSort === 'reviewDate_dsc') pipeline.push({ $sort: { 'review.reviewDate': -1 } });
+    else if (selectedSort === 'rating_asc') {
+        // If the reviewed field is false, use a temporary rating of 11
+        pipeline.push({ $addFields: { ratingSort: { $cond: { if: '$reviewed', then: '$review.rating', else: 11 } } } });
+        pipeline.push({ $sort: { ratingSort: 1 } });
+        pipeline.push({ $unset: 'ratingSort' });
+    } else if (selectedSort === 'rating_dsc') {
+        // If the reviewed field is false, use a temporary rating of -1
+        pipeline.push({ $addFields: { ratingSort: { $cond: { if: '$reviewed', then: '$review.rating', else: -1 } } } });
+        pipeline.push({ $sort: { ratingSort: -1 } });
+        pipeline.push({ $unset: 'ratingSort' });
+    } else if (selectedSort === 'reviewDate_asc') {
+        // If the reviewed field is false, use a temporary reviewDate of 1/1/3000
+        pipeline.push({ $addFields: { reviewDateSort: { $cond: { if: '$reviewed', then: '$review.reviewDate', else: new Date('3000-01-01') } } } });
+        pipeline.push({ $sort: { reviewDateSort: 1 } });
+        pipeline.push({ $unset: 'reviewDateSort' });
+    } else if (selectedSort === 'reviewDate_dsc') {
+        // If the reviewed field is false, use a temporary reviewDate of 1/1/1000
+        pipeline.push({ $addFields: { reviewDateSort: { $cond: { if: '$reviewed', then: '$review.reviewDate', else: new Date('1000-01-01') } } } });
+        pipeline.push({ $sort: { reviewDateSort: -1 } });
+        pipeline.push({ $unset: 'reviewDateSort' });
+    }
 
     return pipeline;
 };

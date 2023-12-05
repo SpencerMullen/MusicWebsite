@@ -76,11 +76,9 @@ app.use(session({
   saveUninitialized: false,
   store: store,
   cookie: { 
-    secure: true,
+    secure: process.env.NODE_ENV === 'production',
     maxAge: 1000 * 60 * 60 * 24, // 1 day
-    sameSite: 'none',
-    // domain: '.onrender.com',
-    
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
   }
 }));
 

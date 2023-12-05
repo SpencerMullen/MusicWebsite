@@ -5,11 +5,10 @@ let API_URL;
 if (process.env.NODE_ENV !== 'production') {
     API_URL = 'http://localhost:8080';
 } else {
-    API_URL = process.env.BACKEND_URL;
+    // API_URL = process.env.BACKEND_URL;
+    // process.env does not work for static sites on render so manually input the URL
+    API_URL = 'https://music-list-backend-6p8g.onrender.com';
 }
-
-// process.env does not work for static sites on render so manually input the URL
-API_URL = 'https://music-list-backend-6p8g.onrender.com';
 
 /* Entry API calls */
 
