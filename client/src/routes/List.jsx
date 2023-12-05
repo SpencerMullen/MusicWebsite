@@ -30,18 +30,23 @@ function ListPage({ userStatus }) {
   // Pass state values and update functions as props to EntryList
   const handleSortChange = (event) => {
     setSelectedSort(event.target.value);
+    fetchData();
   };
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+    fetchData();
   };
   const handleLiveCheckboxChange = (event) => {
     setLiveChecked(event.target.checked);
+    fetchData();
   };
   const handleEpCheckboxChange = (event) => {
     setEpChecked(event.target.checked);
+    fetchData();
   };
   const handleOnlyCheckboxChange = (event) => {
     setOnlyChecked(event.target.checked);
+    fetchData();
   };
 
   const fetchData = async () => {
