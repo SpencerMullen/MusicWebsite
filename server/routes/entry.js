@@ -22,11 +22,13 @@ router.route('/')
             const filters = req.query.filters;
             console.log("Filters: " + filters);
             const query = buildQuery(filters);
-            const sort = query.sortOption;
+            const sortOption = query.sortOption;
 
             // Get the entries from the database
             // const entries = await Entry.find({});
-            const entries = await Entry.find({}).sort(sort);
+            const entries = await Entry.aggregate([
+                { $sort: sortOption },
+            ])
             // console.log("Getting all entries");
             res.json(entries);
         } catch (err) {
