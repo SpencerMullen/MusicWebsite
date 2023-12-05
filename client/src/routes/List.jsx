@@ -44,10 +44,6 @@ function ListPage({ userStatus }) {
     setOnlyChecked(event.target.checked);
   };
 
-  // Offset is used to fetch more entries when user scrolls to bottom of page
-  // const [offset, setOffset] = useState(0);
-  // Limit is the number of entries to fetch at a time
-  // const limit = 40;
   const fetchData = async () => {
     const filters = {
       selectedSort,
@@ -57,27 +53,9 @@ function ListPage({ userStatus }) {
       onlyChecked,
     };
 
-    const newEntries = await getEntries(/*offset, limit, */filters);
+    const newEntries = await getEntries(filters);
     setEntries(newEntries);
-    // setEntries((prevEntries) => [...prevEntries, ...newEntries]);
-    // setOffset((prevOffset) => prevOffset + 40);
   };
-
-  // Fetch more entries when user scrolls to bottom of page
-  /*const handleScroll = () => {
-    const scrolledToBottom =
-      window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight;
-
-    if (scrolledToBottom) {
-      fetchData();
-    }
-  };
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [offset]);*/
 
   useEffect(() => {
     fetchData();

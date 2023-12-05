@@ -9,18 +9,16 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // process.env does not work for static sites on render so manually input the URL
-// API_URL = 'https://music-list-backend-6p8g.onrender.com';
+API_URL = 'https://music-list-backend-6p8g.onrender.com';
 
 /* Entry API calls */
 
 // Get all entries
-const getEntries = async (/*offset, limit, */filters) => {
+const getEntries = async (filters) => {
     const url = API_URL + '/entry';
     const response = await axios.get(url, 
         { query: {
-            // offset: offset,
-            // limit: limit,
-            filters: JSON.stringify(filters)
+            filters: filters
         }}
         , { withCredentials: true });
     return response.data;
