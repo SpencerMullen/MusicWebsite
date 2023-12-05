@@ -37,16 +37,16 @@ const buildPipeline = (filters) => {
             pipeline.push({ $match: { _id: null } });
         }
     } else {
-        let checkboxFilters = [];
-        if (liveChecked) checkboxFilters.push({ type: 'livealbum' });
-        if (epChecked) checkboxFilters.push({ type: 'ep' });
-
+        let typeFilters = [];
+        if (liveChecked) typeFilters.push({ type: 'livealbum' });
+        if (epChecked) typeFilters.push({ type: 'ep' });
+    
+        // Include albums by default
+        typeFilters.push({ type: 'album' });
+    
         pipeline.push({
             $match: {
-                $or: [
-                    { $or: checkboxFilters },
-                    { type: 'album' },
-                ]
+                $or: typeFilters,
             },
         });
     }
