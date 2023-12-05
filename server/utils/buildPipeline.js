@@ -7,7 +7,7 @@ const buildPipeline = (filters) => {
     // Initial pipeline stages
     let pipeline = [];
 
-    // Add matching stage for searchQuery
+    // Add filtering logic for search bar
     if (searchQuery) {
         const searchRegex = new RegExp(searchQuery, 'i');
         pipeline.push({
@@ -20,6 +20,24 @@ const buildPipeline = (filters) => {
         });
     }
 
+    // Add filtering logic for checkboxes
+    if (onlyChecked) {
+        let checkboxFilters = [];
+        if (liveChecked) checkboxFilters.push({ type: 'livealbum' });
+        if (epChecked) checkboxFilters.push({ type: 'ep' });
+
+        if (checkboxFilters.length > 0) {
+            pipeline.push({
+                $match: {
+                    $or: checkboxFilters,
+                },
+            });
+        }
+    } else {
+        if (!liveChecked) pipeline.push({ $match: { type: { $ne: 'livealbum' } } });
+        if (!epChecked) pipeline.push({ $match: { type: { $ne: 'ep' } } });
+    }
+
     // Add sorting logic
     if (selectedSort === 'title_asc') pipeline.push({ $sort: { title: 1 } });
     else if (selectedSort === 'title_dsc') pipeline.push({ $sort: { title: -1 } });
@@ -27,7 +45,7 @@ const buildPipeline = (filters) => {
         const sortDirection = selectedSort === 'artist_asc' ? 1 : -1;
         const regex = /^The\s+/i;
         const replacement = '';
-        
+
         pipeline.push({
             $addFields: {
                 sortArtist: {
