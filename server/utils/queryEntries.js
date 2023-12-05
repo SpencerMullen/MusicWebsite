@@ -8,37 +8,21 @@ const buildQuery = (filters) => {
     if (selectedSort === 'title_asc') sortOption = { title: 1 }
     else if (selectedSort === 'title_dsc') sortOption = { title: -1 }
     // Ignore "The " when sorting by artist
-    else if (selectedSort === 'artist_asc') {
+    else if (selectedSort === 'artist_asc' || selectedSort === 'artist_dsc') {
         sortOption = [
-            { $addFields: { lowerArtist: { $toLower: '$artist' } } },
             {
                 $addFields: {
-                    sortArtist: {
+                    lowerArtist: {
                         $cond: {
-                            if: { $regexMatch: { input: '$lowerArtist', regex: /^the\s+/ } }, then:
-                                { $substrCP: ['$lowerArtist', 4, { $strLenCP: '$lowerArtist' }] }, else: '$lowerArtist'
-                        }
-                    }
-                }
+                            if: { $regexMatch: { input: '$artist', regex: /^The\s+/ } },
+                            then: { $substrCP: ['$artist', 4, { $strLenCP: '$artist' }] },
+                            else: '$artist',
+                        },
+                    },
+                },
             },
-            { $sort: { sortArtist: 1, releaseDate: 1 } },
-            { $unset: ['lowerArtist', 'sortArtist'] }
-        ];
-    } else if (selectedSort === 'artist_dsc') {
-        sortOption = [
-            { $addFields: { lowerArtist: { $toLower: '$artist' } } },
-            {
-                $addFields: {
-                    sortArtist: {
-                        $cond: {
-                            if: { $regexMatch: { input: '$lowerArtist', regex: /^the\s+/ } }, then:
-                                { $substrCP: ['$lowerArtist', 4, { $strLenCP: '$lowerArtist' }] }, else: '$lowerArtist'
-                        }
-                    }
-                }
-            },
-            { $sort: { sortArtist: -1, releaseDate: 1 } },
-            { $unset: ['lowerArtist', 'sortArtist'] }
+            { $sort: { lowerArtist: selectedSort === 'artist_asc' ? 1 : -1, releaseDate: 1 } },
+            { $unset: 'lowerArtist' },
         ];
     } else if (selectedSort === 'releaseDate_asc') sortOption = { releaseDate: 1 }
     else if (selectedSort === 'releaseDate_dsc') sortOption = { releaseDate: -1 }
