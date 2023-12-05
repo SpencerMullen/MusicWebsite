@@ -53,7 +53,7 @@ const EntryCard = ({ entry }) => {
   }
 
   // Truncate the artist name if it's too long
-  const truncatedArtist = entry.artist.length > 30 ? `${entry.artist.slice(0, 30)}...` : entry.artist;
+  const truncatedArtist = entry.artist.length > 30 ? `${entry.artist.slice(0, 16)}...` : entry.artist;
 
   return (
     <Card style={cardStyles}>
