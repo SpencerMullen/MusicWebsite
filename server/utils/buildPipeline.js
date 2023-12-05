@@ -44,9 +44,7 @@ const buildPipeline = (filters) => {
         if (epChecked) typeFilters.push({ type: 'ep' });
     
         pipeline.push({
-            $match: {
-                $or: typeFilters,
-            },
+            type: { $in: typeFilters.map(filter => filter.type) },
         });
     }
 
@@ -69,7 +67,7 @@ const buildPipeline = (filters) => {
                 },
             },
         });
-        pipeline.push({ $sort: { sortArtist: sortDirection, releaseDate: 1 } });
+        pipeline.push({ $sort: { sortArtist: sortDirection, releaseDate: 1 }, });
         pipeline.push({ $unset: 'sortArtist' });
     }
     else if (selectedSort === 'releaseDate_asc') pipeline.push({ $sort: { releaseDate: 1 } });
