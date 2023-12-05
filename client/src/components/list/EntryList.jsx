@@ -21,11 +21,11 @@ const EntryList = (props) => {
         handleOnlyCheckboxChange={handleOnlyCheckboxChange}
       />
       <EntryListContent
-        selectedSort={selectedSort}
+        /*selectedSort={selectedSort}
         searchQuery={searchQuery}
         liveChecked={liveChecked}
         epChecked={epChecked}
-        onlyChecked={onlyChecked}
+        onlyChecked={onlyChecked}*/
         entries={entries}
       />
     </div>
