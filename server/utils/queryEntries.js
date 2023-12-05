@@ -9,20 +9,23 @@ const buildQuery = (filters) => {
     else if (selectedSort === 'title_dsc') sortOption = { title: -1 }
     // Ignore "The " when sorting by artist
     else if (selectedSort === 'artist_asc' || selectedSort === 'artist_dsc') {
+        const regex = /^The\s+/i;
+        const replacement = '';
+
         sortOption = [
             {
                 $addFields: {
-                    lowerArtist: {
-                        $cond: {
-                            if: { $regexMatch: { input: '$artist', regex: /^The\s+/ } },
-                            then: { $substrCP: ['$artist', 4, { $strLenCP: '$artist' }] },
-                            else: '$artist',
+                    sortArtist: {
+                        $regexReplace: {
+                            input: '$artist',
+                            find: regex,
+                            replacement: replacement,
                         },
                     },
                 },
             },
-            { $sort: { lowerArtist: selectedSort === 'artist_asc' ? 1 : -1, releaseDate: 1 } },
-            { $unset: 'lowerArtist' },
+            { $sort: { sortArtist: selectedSort === 'artist_asc' ? 1 : -1, releaseDate: 1 } },
+            { $unset: 'sortArtist' },
         ];
     } else if (selectedSort === 'releaseDate_asc') sortOption = { releaseDate: 1 }
     else if (selectedSort === 'releaseDate_dsc') sortOption = { releaseDate: -1 }
