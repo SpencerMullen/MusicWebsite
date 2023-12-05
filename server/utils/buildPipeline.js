@@ -38,14 +38,7 @@ const buildPipeline = (filters) => {
         }
     } else {
         // If onlyChecked is false, include albums by default
-        pipeline.push({
-            $match: {
-                $or: [
-                    { type: 'album' },
-                    { type: { $exists: false } }, // Include documents with no 'type' field
-                ],
-            },
-        });
+        pipeline.push({ $match: { type: 'album', } });
 
         // Include live albums if liveChecked is true
         if (liveChecked) {
