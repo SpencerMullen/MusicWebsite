@@ -10,21 +10,17 @@ function ListPage({ userStatus }) {
 
   const [selectedSort, setSelectedSort] = useState(localStorage.getItem('selectedSort') || 'artist_asc');
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') || '');
-  const [liveChecked, setLiveChecked] = useState(
-    localStorage.getItem('liveChecked') !== 'false'
-  );
-  const [epChecked, setEpChecked] = useState(
-    localStorage.getItem('epChecked') !== 'false'
-  );
+  const [liveChecked, setLiveChecked] = useState(localStorage.getItem('liveChecked') === 'true' || true);
+  const [epChecked, setEpChecked] = useState(localStorage.getItem('epChecked') === 'true' || true);
   const [onlyChecked, setOnlyChecked] = useState(localStorage.getItem('onlyChecked') === 'true' || false);
 
   useEffect(() => {
     // Update localStorage when state values change
     localStorage.setItem('selectedSort', selectedSort);
     localStorage.setItem('searchQuery', searchQuery);
-    localStorage.setItem('liveChecked', liveChecked);
-    localStorage.setItem('epChecked', epChecked);
-    localStorage.setItem('onlyChecked', onlyChecked);
+    localStorage.setItem('liveChecked', liveChecked.toString());
+    localStorage.setItem('epChecked', epChecked.toString());
+    localStorage.setItem('onlyChecked', onlyChecked.toString());
     fetchData();
   }, [selectedSort, searchQuery, liveChecked, epChecked, onlyChecked]);
 

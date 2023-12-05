@@ -59,3 +59,8 @@ For my site, I developed it so that I was the only one making create, update, an
 ## Other Notes
 - I finished this site in 2023 but have saved reviews for a couple of years.
 - Surround text using asterisks for bold and underscore for italics.
+
+## Lessons I Learned the Hard Way
+- Local Storage can only store strings so bool === true is false but bool === 'true' will be true
+- Do not filter, sort, or search on the frontend
+- It is very hard to know why your cookies/session isn't saved cross site

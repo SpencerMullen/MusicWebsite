@@ -2,7 +2,12 @@ const { Entry } = require('../models/entry');
 
 // Helper function to build the MongoDB aggregation pipeline
 const buildPipeline = (filters) => {
-    const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
+    const { selectedSort, searchQuery } = filters;
+    let { liveChecked, epChecked, onlyChecked } = filters;
+    // Since these values are from localStorage, they are strings so convert
+    liveChecked = liveChecked === 'true' ? true : false;
+    epChecked = epChecked === 'true' ? true : false;
+    onlyChecked = onlyChecked === 'true' ? true : false;
     console.log("filters: ", JSON.stringify(filters));
 
     // Initial pipeline stages
@@ -22,7 +27,7 @@ const buildPipeline = (filters) => {
     }
 
     // Add filtering logic for checkboxes
-    if (onlyChecked === true) {
+    if (onlyChecked) {
         let checkboxFilters = [];
         if (liveChecked) checkboxFilters.push({ type: 'livealbum' });
         if (epChecked) checkboxFilters.push({ type: 'ep' });
