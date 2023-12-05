@@ -3,10 +3,10 @@ import EntryCard from './EntryCard';
 
 
 const EntryListContent = (props) => {
-  const { entries } = props;
+  const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked, entries } = props;
 
   // Filter entries based on search query and checkboxes
-  /*const filteredEntries = entries.filter((entry) => {
+  const filteredEntries = entries.filter((entry) => {
     const { title, artist, type } = entry;
     const isLiveAlbum = type === 'livealbum';
     const isEP = type === 'ep';
@@ -92,11 +92,11 @@ const EntryListContent = (props) => {
     }
 
     return 0;
-  });*/
+  });
 
   return (
     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', padding: '16px' }}>
-      {entries.map((entry) => (
+      {filteredEntries.map((entry) => (
         <EntryCard key={entry.id} entry={entry} />
       ))}
     </div>

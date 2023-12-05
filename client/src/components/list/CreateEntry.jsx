@@ -83,7 +83,7 @@ const CreateEntryDialog = ({ open, onClose }) => {
       console.error('Error creating entry:', error);
     }
   };
-  
+
 
   return (
     <Dialog open={open} onClose={onClose}>
