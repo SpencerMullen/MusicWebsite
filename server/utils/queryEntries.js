@@ -19,16 +19,6 @@ const buildQuery = (filters) => {
     else if (selectedSort === 'reviewDate_asc') sortOption = { 'review.reviewDate': 1 }
     else if (selectedSort === 'reviewDate_dsc') sortOption = { 'review.reviewDate': -1 }
 
-    // Modify sortOption to handle "The" prefix
-    if (sortOption.artist) {
-        const originalSortFunction = sortOption.artist;
-        sortOption.artist = (a, b) => {
-            const artistA = removeThePrefix(a.artist);
-            const artistB = removeThePrefix(b.artist);
-            return originalSortFunction(artistA, artistB);
-        };
-    }
-
     // Add searching logic
     /*if (searchQuery) {
         const searchRegex = new RegExp(searchQuery, 'i');
