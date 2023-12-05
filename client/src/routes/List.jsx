@@ -11,12 +11,12 @@ function ListPage({ userStatus }) {
   const [selectedSort, setSelectedSort] = useState(localStorage.getItem('selectedSort') || 'artist_asc');
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') || '');
   const [liveChecked, setLiveChecked] = useState(
-    localStorage.getItem('liveChecked') !== 'false'
+    localStorage.getItem('liveChecked') || true
   );
   const [epChecked, setEpChecked] = useState(
-    localStorage.getItem('epChecked') !== 'false'
+    localStorage.getItem('epChecked') || true
   );
-  const [onlyChecked, setOnlyChecked] = useState(localStorage.getItem('onlyChecked') === 'true' || false);
+  const [onlyChecked, setOnlyChecked] = useState(localStorage.getItem('onlyChecked') || false);
 
   useEffect(() => {
     // Update localStorage when state values change
