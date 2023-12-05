@@ -40,11 +40,13 @@ const buildPipeline = (filters) => {
         let checkboxFilters = [];
         if (liveChecked) checkboxFilters.push({ type: 'livealbum' });
         if (epChecked) checkboxFilters.push({ type: 'ep' });
-        checkboxFilters.push({ type: 'album' });
 
         pipeline.push({
             $match: {
-                $or: checkboxFilters,
+                $or: [
+                    { $or: checkboxFilters },
+                    { type: 'album' },
+                ]
             },
         });
     }
