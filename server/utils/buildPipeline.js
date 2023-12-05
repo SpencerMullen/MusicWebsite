@@ -1,5 +1,3 @@
-const { Entry } = require('../models/entry');
-
 // Helper function to build the MongoDB aggregation pipeline
 const buildPipeline = (filters) => {
     const { selectedSort, searchQuery } = filters;
