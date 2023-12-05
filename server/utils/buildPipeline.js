@@ -38,11 +38,10 @@ const buildPipeline = (filters) => {
         }
     } else {
         let typeFilters = [];
-        if (liveChecked) typeFilters.push({ type: 'livealbum' });
-        if (epChecked) typeFilters.push({ type: 'ep' });
-    
         // Include albums by default
         typeFilters.push({ type: 'album' });
+        if (liveChecked) typeFilters.push({ type: 'livealbum' });
+        if (epChecked) typeFilters.push({ type: 'ep' });
     
         pipeline.push({
             $match: {
