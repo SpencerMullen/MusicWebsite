@@ -4,15 +4,43 @@ const { Entry } = require('../models/entry');
 const buildQuery = (filters) => {
     const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
 
-    // Remove the prefix "The " from the artist
-    const removeThePrefix = (str) => str.replace(/^The\s+/i, '');
-
     // Add sorting logic
     if (selectedSort === 'title_asc') sortOption = { title: 1 }
     else if (selectedSort === 'title_dsc') sortOption = { title: -1 }
-    else if (selectedSort === 'artist_asc') sortOption = { artist: 1, releaseDate: 1 }
-    else if (selectedSort === 'artist_dsc') sortOption = { artist: -1, releaseDate: 1 }
-    else if (selectedSort === 'releaseDate_asc') sortOption = { releaseDate: 1 }
+    // Ignore "The " when sorting by artist
+    else if (selectedSort === 'artist_asc') {
+        sortOption = [
+            { $addFields: { lowerArtist: { $toLower: '$artist' } } },
+            {
+                $addFields: {
+                    sortArtist: {
+                        $cond: {
+                            if: { $regexMatch: { input: '$lowerArtist', regex: /^the\s+/ } }, then:
+                                { $substrCP: ['$lowerArtist', 4, { $strLenCP: '$lowerArtist' }] }, else: '$lowerArtist'
+                        }
+                    }
+                }
+            },
+            { $sort: { sortArtist: 1, releaseDate: 1 } },
+            { $unset: ['lowerArtist', 'sortArtist'] }
+        ];
+    } else if (selectedSort === 'artist_dsc') {
+        sortOption = [
+            { $addFields: { lowerArtist: { $toLower: '$artist' } } },
+            {
+                $addFields: {
+                    sortArtist: {
+                        $cond: {
+                            if: { $regexMatch: { input: '$lowerArtist', regex: /^the\s+/ } }, then:
+                                { $substrCP: ['$lowerArtist', 4, { $strLenCP: '$lowerArtist' }] }, else: '$lowerArtist'
+                        }
+                    }
+                }
+            },
+            { $sort: { sortArtist: -1, releaseDate: 1 } },
+            { $unset: ['lowerArtist', 'sortArtist'] }
+        ];
+    } else if (selectedSort === 'releaseDate_asc') sortOption = { releaseDate: 1 }
     else if (selectedSort === 'releaseDate_dsc') sortOption = { releaseDate: -1 }
     else if (selectedSort === 'rating_asc') sortOption = { 'review.rating': 1 }
     else if (selectedSort === 'rating_dsc') sortOption = { 'review.rating': -1 }
