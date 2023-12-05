@@ -27,32 +27,56 @@ function ListPage({ userStatus }) {
     localStorage.setItem('onlyChecked', onlyChecked);
   }, [selectedSort, searchQuery, liveChecked, epChecked, onlyChecked]);
 
-  // Pass state values and update functions as props to EntryListBar
+  // Pass state values and update functions as props to EntryList
   const handleSortChange = (event) => {
     setSelectedSort(event.target.value);
   };
-
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
   const handleLiveCheckboxChange = (event) => {
     setLiveChecked(event.target.checked);
   };
-
   const handleEpCheckboxChange = (event) => {
     setEpChecked(event.target.checked);
   };
-
   const handleOnlyCheckboxChange = (event) => {
     setOnlyChecked(event.target.checked);
   };
 
-  // Fetch entries from server
+  // Offset is used to fetch more entries when user scrolls to bottom of page
+  // const [offset, setOffset] = useState(0);
+  // Limit is the number of entries to fetch at a time
+  // const limit = 40;
   const fetchData = async () => {
-    const fetchedEntries = await getEntries();
-    setEntries(fetchedEntries);
+    const filters = {
+      selectedSort,
+      searchQuery,
+      liveChecked,
+      epChecked,
+      onlyChecked,
+    };
+
+    const newEntries = await getEntries(/*offset, limit, */filters);
+    setEntries((prevEntries) => [...prevEntries, ...newEntries]);
+    // setOffset((prevOffset) => prevOffset + 40);
   };
+
+  // Fetch more entries when user scrolls to bottom of page
+  /*const handleScroll = () => {
+    const scrolledToBottom =
+      window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight;
+
+    if (scrolledToBottom) {
+      fetchData();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [offset]);*/
 
   useEffect(() => {
     fetchData();

@@ -16,6 +16,12 @@ const { cloudinary } = require('../cloudinary');
 router.route('/')
     // Get all entries
     .get(catchAsync(async (req, res, next) => {
+        // Offset and limit for infinite scroll
+        // const offset = parseInt(req.query.offset) || 0;
+        // const limit = /*parseInt(req.query.limit) ||*/ 40;
+        const filters = JSON.parse(req.query.filters);
+        console.log("Filters: " + filters);
+
         const entries = await Entry.find({});
         // console.log("Getting all entries");
         res.json(entries);
