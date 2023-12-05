@@ -76,16 +76,17 @@ function ListPage({ userStatus }) {
       </Grid>
       <Grid item xs={12}>
         <EntryList entries={entries}
-          selectedSort
-          searchQuery
-          liveChecked
-          epChecked
-          onlyChecked
-          handleSortChange
-          handleSearchChange
-          handleLiveCheckboxChange
-          handleEpCheckboxChange
-          handleOnlyCheckboxChange />
+          selectedSort={selectedSort}
+          searchQuery={searchQuery}
+          liveChecked={liveChecked}
+          epChecked={epChecked}
+          onlyChecked={onlyChecked}
+          handleSortChange={handleSortChange}
+          handleSearchChange={handleSearchChange}
+          handleLiveCheckboxChange={handleLiveCheckboxChange}
+          handleEpCheckboxChange={handleEpCheckboxChange}
+          handleOnlyCheckboxChange={handleOnlyCheckboxChange}
+        />
       </Grid>
     </Grid>
   );
