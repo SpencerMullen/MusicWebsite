@@ -5,6 +5,7 @@ const buildQuery = (filters) => {
     const { selectedSort, searchQuery, liveChecked, epChecked, onlyChecked } = filters;
 
     // Add sorting logic
+    let sortOption = {};
     if (selectedSort === 'title_asc') sortOption = { title: 1 }
     else if (selectedSort === 'title_dsc') sortOption = { title: -1 }
     // Ignore "The " when sorting by artist
