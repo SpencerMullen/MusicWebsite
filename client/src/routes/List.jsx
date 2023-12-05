@@ -58,7 +58,8 @@ function ListPage({ userStatus }) {
     };
 
     const newEntries = await getEntries(/*offset, limit, */filters);
-    setEntries((prevEntries) => [...prevEntries, ...newEntries]);
+    setEntries(newEntries);
+    // setEntries((prevEntries) => [...prevEntries, ...newEntries]);
     // setOffset((prevOffset) => prevOffset + 40);
   };
 

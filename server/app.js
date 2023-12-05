@@ -25,6 +25,7 @@ if(process.env.NODE_ENV !== 'production') {
 } else {
   dbURL = process.env.MONGODB_URL;
 }
+dbURL = process.env.MONGODB_URL;
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
