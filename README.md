@@ -50,11 +50,12 @@ The entry page contains information on the specific entry including cover art, t
 For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. Therefore, I am basically the only user (for now). This may change in the future if I decide to add support for other users being able to leave reviews on my site. Other users can still register but they have no commands.
 
 ## Potential Features
-- UI Update - Make better UI since it looks pretty basic
+- Small/Large Entry Icons - Make checkmark on list app bar
+- UI Overhaul - Make better UI since it looks pretty basic
 - Helmet - Add more security
 - Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
 - Home Page Random Album - Add a component in the home page that has a random album picker.
-- User Comments/Reviews - Implement support for user comments / reviews on albums.
+- User Comments/Reviews - Implement support for other user comments / reviews on albums.
 
 ## Other Notes
 - I finished this site in 2023 but have saved reviews for a couple of years.
