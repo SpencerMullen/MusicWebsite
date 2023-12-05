@@ -95,7 +95,7 @@ const EntryListContent = (props) => {
   });
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '16px', padding: '16px' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', padding: '16px' }}>
       {filteredEntries.map((entry) => (
         <EntryCard key={entry.id} entry={entry} />
       ))}

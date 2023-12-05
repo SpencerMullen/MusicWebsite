@@ -5,14 +5,10 @@ import EntryList from '../components/list/EntryList.jsx';
 import { useState, useEffect } from 'react';
 import { getEntries } from '../utils/requestUtils';
 
-function ListPage({ userStatus }) {
+function ListPage( { userStatus }) {
   const [entries, setEntries] = useState([]);
 
-  const [query, setQuery] = useState(
-    {
-
-    }
-  );
+  const [query, setQuery] = useState('');
   // Fetch entries from server
   const fetchData = async () => {
     const fetchedEntries = await getEntries();
@@ -25,9 +21,9 @@ function ListPage({ userStatus }) {
 
   // Render the top banner for creating new entries if the user is an admin
   const topBannerRender = () => {
-    if (!userStatus.isAuthenticated) return null;
+    if(!userStatus.isAuthenticated) return null;
     const isAdmin = userStatus.role === 'admin';
-    if (isAdmin) {
+    if(isAdmin) {
       return <TopBanner onCreateEntry={fetchData} />
     } else {
       return null;
@@ -40,7 +36,7 @@ function ListPage({ userStatus }) {
         {topBannerRender()}
       </Grid>
       <Grid item xs={12}>
-        <EntryList entries={entries} />
+        <EntryList entries={entries}/>
       </Grid>
     </Grid>
   );
