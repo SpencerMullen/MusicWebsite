@@ -2,7 +2,7 @@
 This site was made by Spencer Mullen to track some of his music reviews! 
 
 ## Site Deployment
-Frontend and Backend are both hosted on render
+Frontend and Backend are both hosted on render. The site is deployed live!
 - https://music-list-frontend.onrender.com/
 
 ## Quick Start
@@ -41,7 +41,7 @@ Here are what each of the pages on my site look like. Some features may change i
 The home page features a stock image of a vinyl record and a link to the list page.
 
 ### List
-The list page contains all of the entries on my site. You can search for any specific entries using the search bar or filter the list using the checkboxes. You can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry takes you to that entry's page.
+The list page contains all of the entries on my site. You can search for any specific entries using the search bar or filter the list using the checkboxes. You can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry takes you to that entry's page. I used MongoDB's aggregation pipeline to handle sorting, filtering, and searching.
 
 ### Entry
 The entry page contains information on the specific entry including cover art, title, artist, genre, release date and more. If I reviewed the album it also shows that information.
@@ -50,6 +50,8 @@ The entry page contains information on the specific entry including cover art, t
 For my site, I developed it so that I was the only one making create, update, and delete operations on the entries because they were my reviews. Therefore, I am basically the only user (for now). This may change in the future if I decide to add support for other users being able to leave reviews on my site. Other users can still register but they have no commands.
 
 ## Potential Features
+- Infinite Scroll - Load entries by chunks to reduce frontend load
+- Save Scroll Position - Save the Scroll position so if the user goes back to the list page they are at the same place
 - Small/Large Entry Icons - Make checkmark on list app bar
 - UI Overhaul - Make better UI since it looks pretty basic
 - Helmet - Add more security
@@ -60,8 +62,3 @@ For my site, I developed it so that I was the only one making create, update, an
 ## Other Notes
 - I finished this site in 2023 but have saved reviews for a couple of years.
 - Surround text using asterisks for bold and underscore for italics.
-
-## Lessons I Learned the Hard Way
-- Local Storage can only store strings so bool === true is false but bool === 'true' will be true
-- Do not filter, sort, or search on the frontend
-- It is very hard to know why your cookies/session isn't saved cross site

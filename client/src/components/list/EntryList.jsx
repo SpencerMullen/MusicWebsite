@@ -20,14 +20,7 @@ const EntryList = (props) => {
         handleEpCheckboxChange={handleEpCheckboxChange}
         handleOnlyCheckboxChange={handleOnlyCheckboxChange}
       />
-      <EntryListContent
-        /*selectedSort={selectedSort}
-        searchQuery={searchQuery}
-        liveChecked={liveChecked}
-        epChecked={epChecked}
-        onlyChecked={onlyChecked}*/
-        entries={entries}
-      />
+      <EntryListContent entries={entries} />
     </div>
   );
 };
