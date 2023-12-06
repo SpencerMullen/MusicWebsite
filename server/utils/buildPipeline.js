@@ -19,6 +19,7 @@ const buildPipeline = (filters) => {
                 $or: [
                     { title: searchRegex },
                     { artist: searchRegex },
+                    { genre: searchRegex },
                 ],
             },
         });
