@@ -6,7 +6,7 @@ const buildPipeline = (filters) => {
     liveChecked = liveChecked === 'true' ? true : false;
     epChecked = epChecked === 'true' ? true : false;
     onlyChecked = onlyChecked === 'true' ? true : false;
-    console.log("filters: ", JSON.stringify(filters));
+    // console.log("filters: ", JSON.stringify(filters));
 
     // Initial pipeline stages
     let pipeline = [];

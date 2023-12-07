@@ -9,10 +9,10 @@ router.post('/register', async (req, res) => {
     // console.log("Registering user");
     // console.log(req.body);
     // Register the user with the credentials with role 'user'
-    const newUser = await User.register({ username: req.body.username, role: 'user' }, req.body.password);
+    // const newUser = await User.register({ username: req.body.username, role: 'user' }, req.body.password);
     // console.log("User registered");
     // console.log(newUser);
-    res.json(newUser);
+    // res.json(newUser);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });

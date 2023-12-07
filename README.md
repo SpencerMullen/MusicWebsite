@@ -2,7 +2,7 @@
 This site was made by Spencer Mullen to track some of his music reviews! 
 
 ## Site Deployment
-Frontend and Backend are both hosted on render. The site is deployed live!
+Frontend and Backend are both hosted on render. The site is deployed live! Note: Can take a little while to initially load.
 - https://music-list-frontend.onrender.com/
 
 ## Quick Start
