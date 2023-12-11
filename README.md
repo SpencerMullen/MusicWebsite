@@ -39,7 +39,7 @@ Here are what each of the pages on my site look like. Some features may change i
 
 ### Home
 The home page features a stock image of a vinyl record and a link to the list page.
-![Alt text](./images/Home.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/Home.png?raw=true)
 
 ### List
 The list page contains all of the entries on my site. You can search for any specific entries using the search bar or filter the list using the checkboxes. You can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry takes you to that entry's page. I used MongoDB's aggregation pipeline to handle sorting, filtering, and searching.
