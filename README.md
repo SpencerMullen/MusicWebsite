@@ -43,11 +43,11 @@ The home page features a stock image of a vinyl record and a link to the list pa
 
 ### List
 The list page contains all of the entries on my site. You can search for any specific entries using the search bar or filter the list using the checkboxes. You can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry takes you to that entry's page. I used MongoDB's aggregation pipeline to handle sorting, filtering, and searching.
-![Alt text](./images/List.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/List.PNG?raw=true)
 
 ### Entry
 The entry page contains information on the specific entry including cover art, title, artist, genre, release date and more. If I reviewed the album it also shows that information.
-![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/List.PNG?raw=true)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/Entry.PNG?raw=true)
 
 ## CRUD Operations
 For my site, I developed it so that only users with type admin can call create, update, and delete operations on the entries. Any user can view the list and view specific entries. When logged into an admin account, a blue banner with the 'Create Entry' button will appear on the List page. A blue banner with 'Edit Entry', 'Delete Entry', 'Add/Edit Review', and 'Delete Review' buttons will also appear on any specific Entry page for admins.
