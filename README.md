@@ -47,24 +47,24 @@ The list page contains all of the entries on my site. You can search for any spe
 
 ### Entry
 The entry page contains information on the specific entry including cover art, title, artist, genre, release date and more. If I reviewed the album it also shows that information.
-![Alt text](./images/Entry.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/List.PNG?raw=true)
 
 ## CRUD Operations
 For my site, I developed it so that only users with type admin can call create, update, and delete operations on the entries. Any user can view the list and view specific entries. When logged into an admin account, a blue banner with the 'Create Entry' button will appear on the List page. A blue banner with 'Edit Entry', 'Delete Entry', 'Add/Edit Review', and 'Delete Review' buttons will also appear on any specific Entry page for admins.
 
-![Alt text](./images/CreateEntry.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/CreateEntry.PNG?raw=true)
 The create entry form where users can enter the album information and upload the cover image.
 
-![Alt text](./images/EditEntry.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/EditEntry.PNG?raw=true)
 The edit entry form is prefilled with the entry information. You can update the album information here.
 
-![Alt text](./images/DeleteEntry.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/DeleteEntry.PNG?raw=true)
 The delete entry form where users can delete entries. Also deletes the image off of Cloudinary so the image does not take unnecessary space.
 
-![Alt text](./images/AddEditReview.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/AddEditReview.PNG?raw=true)
 If the album is not reviewed or if you want to change the review you can do so here. It will preload any saved review information. You can also use bold by surrounding text with '*' and italics by surrounding text with '_'.
 
-![Alt text](./images/DeleteReview.png)
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/DeleteReview.PNG?raw=true)
 You can delete the review part of the entry here.
 
 ## Potential Features
