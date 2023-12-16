@@ -18,6 +18,7 @@ router.route('/')
                 artist: artist, 
                 release_title: title, 
                 format: format,
+                per_page: 15,
                 page: page
             });
             // console.log(searchResults);

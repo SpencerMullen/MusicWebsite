@@ -47,7 +47,7 @@ The list page contains all of the entries on my site. You can search for any spe
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/List.PNG?raw=true)
 
 ### Search
-The search page contains an interface where users can search for entries using the Discog API where they can then add new entries to the site.
+The search page contains an interface where users can search for entries using the Discogs API where they can then add new entries to the site. Hovering over any search result card puts a button on the card that opens a dialog for confirming to add the entry. The entry is added in the same way as manual entries but uses the Discogs image link instead of uploading to Cloudinary. Note: the API is limited in terms of queries per minute so I reduced each search to 15 results.
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/Search.PNG?raw=true)
 
 ### Entry
@@ -58,7 +58,10 @@ The entry page contains information on the specific entry including cover art, t
 For my site, I developed it so that only users with type admin can call create (manually), update, and delete operations on the entries. Any user can view the list and view specific entries. When logged into an admin account, a blue banner with the 'Create Entry' button will appear on the List page. A blue banner with 'Edit Entry', 'Delete Entry', 'Add/Edit Review', and 'Delete Review' buttons will also appear on any specific Entry page for admins.
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/CreateEntry.PNG?raw=true)
-The create entry form where users can enter the album information and upload the cover image.
+The create entry form where users can manually enter the album information and upload the cover image.
+
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/SearchAdd.PNG?raw=true)
+After selecting a specific entry searched using the Discogs API, a dialogue for adding some additional information is opened to be able to create an entry.
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/EditEntry.PNG?raw=true)
 The edit entry form is prefilled with the entry information. You can update the album information here.
