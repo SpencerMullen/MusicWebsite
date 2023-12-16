@@ -33,7 +33,7 @@ npm run dev
 - Joi - Joi helped me sanitize any user input data as well as validate the data against the schemas I created.
 - Cloudinary - To host images that represent the album cover, I used Cloudinary, an online image hosting service. Their Node API as well as Multer helped facilitate the image upload process. The database objects store a Cloudinary link to the image file.
 - Passport - I used the Passport Local Strategy to implement Authentication on my site. Using passport and express-session, I can authenticate users using the browser session once they have logged in.
-- Discogs API - I utilized the Discogs API to be able to search up entries and add them to the database. The npm package 'disconnect' made creating a client to communicate with the API esay. You can still manually add an entry for any specific cases.
+- Discogs API - I utilized the Discogs API to be able to search up entries and add them to the database. The npm package 'disconnect' made creating a client to communicate with the API esay. Users can still manually add an entry for any specific cases.
 
 ## Pages
 Here are what each of the pages on my site look like. Some features may change in the future but the overall structure should look the same.
@@ -43,7 +43,7 @@ The home page features a stock image of a vinyl record and a link to the list pa
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/home.PNG?raw=true)
 
 ### List
-The list page contains all of the entries on my site. You can search for any specific entries using the search bar or filter the list using the checkboxes. You can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry takes you to that entry's page. I used MongoDB's aggregation pipeline to handle sorting, filtering, and searching.
+The list page contains all of the entries on my site. Users can search for any specific entries using the search bar or filter the list using the checkboxes. Users can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry navigates to that entry's page. I used MongoDB's aggregation pipeline to handle sorting, filtering, and searching.
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/List.PNG?raw=true)
 
 ### Search
@@ -64,16 +64,16 @@ The create entry form where users can manually enter the album information and u
 After selecting a specific entry searched using the Discogs API, a dialogue for adding some additional information is opened to be able to create an entry.
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/EditEntry.PNG?raw=true)
-The edit entry form is prefilled with the entry information. You can update the album information here.
+The edit entry form is prefilled with the entry information. Users can update the album information here.
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/DeleteEntry.PNG?raw=true)
 The delete entry form where users can delete entries. Also deletes the image off of Cloudinary so the image does not take unnecessary space.
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/AddEditReview.PNG?raw=true)
-If the album is not reviewed or if you want to change the review you can do so here. It will preload any saved review information. You can also use bold by surrounding text with '*' and italics by surrounding text with '_'.
+Users can add or edit the review here. It will preload any saved review information. Users can also use bold by surrounding text with '*' and italics by surrounding text with '_'.
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/DeleteReview.PNG?raw=true)
-You can delete the review part of the entry here.
+Users can delete the review part of the entry here.
 
 ## Potential Features
 - Infinite Scroll - Load entries by chunks to reduce frontend load

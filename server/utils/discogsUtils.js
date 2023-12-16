@@ -3,7 +3,8 @@ const parseRelease = (result, type) => {
     // Split the string at the '-' and trim the whitespace
     const titleArtist = result.title.split('-');
     const title = titleArtist[1].trim();
-    const artist = titleArtist[0].trim();
+    // Artist and remove any numbers and parentheses
+    const artist = titleArtist[0].trim().replace(/\(\d+\)/, '');
 
     // Genre is an array of strings so join them with ', '
     // Style is more specific than genre
