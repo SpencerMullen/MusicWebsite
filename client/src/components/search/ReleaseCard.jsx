@@ -13,7 +13,7 @@ const imgSectionStyles = {
     width: '100%',
     position: 'relative',
     border: '1px solid #0000000F',
-    backgroundColor: '#000000A0',
+    backgroundColor: '#0000000F',
 };
 
 const imgStyles = {
