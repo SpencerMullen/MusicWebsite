@@ -1,4 +1,5 @@
 const parseRelease = (result, type) => {
+    // console.log(result);
     // The title and artist are formatted like 'Artist - Title'
     // Split the string at the '-' and trim the whitespace
     const titleArtist = result.title.split('-');
@@ -9,8 +10,10 @@ const parseRelease = (result, type) => {
     // Genre is an array of strings so join them with ', '
     // Style is more specific than genre
     let genre = '';
-    if (result.style) {
+    if (result.style.length > 0) {
         genre = result.style.join(', ');
+    } else {
+        genre = result.genre.join(', ');
     }
 
     // Year (discogs only has year)

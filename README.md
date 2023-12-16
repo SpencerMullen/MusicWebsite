@@ -33,7 +33,7 @@ npm run dev
 - Joi - Joi helped me sanitize any user input data as well as validate the data against the schemas I created.
 - Cloudinary - To host images that represent the album cover, I used Cloudinary, an online image hosting service. Their Node API as well as Multer helped facilitate the image upload process. The database objects store a Cloudinary link to the image file.
 - Passport - I used the Passport Local Strategy to implement Authentication on my site. Using passport and express-session, I can authenticate users using the browser session once they have logged in.
-- Discogs API - I utilized the Discogs API to be able to search up entries and add them to the database. The npm package 'disconnect' made creating a client to communicate with the API esay. Users can still manually add an entry for any specific cases.
+- Discogs API - I utilized the Discogs API to be able to search up entries and add them to the database. The npm package 'disconnect' made creating a client to communicate with the API esay. Users can still manually add an entry for any specific cases. Discogs also provides cover art which helps reduce load on my Cloudinary storage since I only have the free plan.
 
 ## Pages
 Here are what each of the pages on my site look like. Some features may change in the future but the overall structure should look the same.
@@ -55,7 +55,7 @@ The entry page contains information on the specific entry including cover art, t
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/Entry.PNG?raw=true)
 
 ## CRUD Operations
-For my site, I developed it so that only users with type admin can call create (manually), update, and delete operations on the entries. Any user can view the list and view specific entries. When logged into an admin account, a blue banner with the 'Create Entry' button will appear on the List page. A blue banner with 'Edit Entry', 'Delete Entry', 'Add/Edit Review', and 'Delete Review' buttons will also appear on any specific Entry page for admins.
+For my site, I developed it so that only users with type admin can call create (manually), update, and delete operations on the entries. Any user can view the list and view specific entries. When logged into an admin account, a blue banner with the 'Create Entry' button will appear on the List page. A blue banner with 'Edit Entry', 'Delete Entry', 'Add/Edit Review', and 'Delete Review' buttons will also appear on any specific Entry page for admins. Users can without admin status can search for entries and add them after providing a release date (helps with sorting).
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/CreateEntry.PNG?raw=true)
 The create entry form where users can manually enter the album information and upload the cover image.

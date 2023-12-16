@@ -8,7 +8,7 @@ module.exports.entrySchema = Joi.object({
     title: Joi.string().required(),
     artist: Joi.string().required(),
     releaseDate: Joi.date(),
-    genre: Joi.string().required(),
+    genre: Joi.string().allow('').required(),
     cover: Joi.object({
         url: Joi.string(),
         filename: Joi.string().allow('')
