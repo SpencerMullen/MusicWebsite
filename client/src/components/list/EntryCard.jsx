@@ -12,9 +12,12 @@ const cardStyles = {
 };
 
 const imgSectionStyles = {
-  height: '200px', // Set a fixed height for the image section (making it a square)
-  width: '100%', // Make the image section cover the entire card width
-  position: 'relative', // Add relative positioning
+  height: '200px', 
+  width: '100%',
+  position: 'relative', 
+  border: '1px solid #0000000A',
+  backgroundColor: '#00000030',
+
 };
 
 const imgStyles = {

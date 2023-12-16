@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Typography, Divider, Button } from '@mui/material';
-import { formatDate, formatType } from '../../utils/formatUtils';
+import { formatDate, formatType, getFormatDateYear } from '../../utils/formatUtils';
 
 const EntryDetails = ({ entry }) => {
   return (
@@ -35,10 +35,12 @@ const EntryDetails = ({ entry }) => {
         {/* Release Date */}
         <Grid item xs={12}>
           <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-            Release Date
+            Release Year
+            {/*Release Date*/}
           </Typography>
           <Typography variant="body2" sx={{fontSize: '1.2rem'}}>
-            {formatDate(entry.releaseDate)}
+            {getFormatDateYear(entry.releaseDate)}
+            {/*formatDate(entry.releaseDate)*/}
           </Typography>
         </Grid>
         {/* Genre */}

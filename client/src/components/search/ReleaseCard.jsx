@@ -12,6 +12,8 @@ const imgSectionStyles = {
     height: '200px',
     width: '100%',
     position: 'relative',
+    border: '1px solid #0000000A',
+    backgroundColor: '#00000030',
 };
 
 const imgStyles = {
