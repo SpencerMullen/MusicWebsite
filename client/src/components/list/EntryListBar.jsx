@@ -46,7 +46,7 @@ const EntryListBar = (props) => {
         onChange={handleSearchChange}
       />
 
-      <FormControl sx={{ width: '20%', marginLeft: '1rem' }}>
+      <FormControl sx={{ width: '20%', marginLeft: '1rem', minWidth: '150px' }}>
         <InputLabel id="sort-label" sx={{ zIndex: 0 }}>Sort by</InputLabel>
         <Select label="Sort by" value={selectedSort} onChange={handleSortChange}>
           <MenuItem value="artist_asc">Artist (A-Z)</MenuItem>
