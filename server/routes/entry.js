@@ -127,4 +127,59 @@ router.route('/:id')
         res.json({ message: 'Deleted' });
     }));
 
+router.route('/:id/image')
+    // Update an entry's image
+    .put(adminAuth, upload.single('image'), catchAsync(async (req, res, next) => {
+        // Get the file from the request
+        const result = req.file;
+        // Get the id and update the entry
+        const { id } = req.params;
+        const entry = await Entry.findOne({ id });
+        // Delete the image from Cloudinary using the filename
+        const filename = entry.cover.filename;
+        if (filename) {
+            // Delete the image from Cloudinary
+            await cloudinary.uploader.destroy(filename);
+        }
+        // Update the entry with the new image data
+        entry.cover.url = result.path;
+        entry.cover.filename = result.filename;
+        // Save the updated entry to the database
+        await entry.save();
+        // console.log("Updating entry image with id: " + req.params.id);
+        res.json(entry);
+    }));
+
+router.route('/discogs')
+    // Post a new entry from using search data from Discogs api
+    .post(adminAuth, catchAsync(async (req, res, next) => {
+        // Entry from the request
+        const reqEntry = req.body.entry;
+        // Create the new entry with Discogs data
+        const newEntry = new Entry({
+            id: uuid.v4(), // Generate a UUID
+            reviewed: false,
+            type: reqEntry.type,
+            title: reqEntry.title,
+            artist: reqEntry.artist,
+            releaseDate: convertToUTC(new Date(reqEntry.releaseDate)),
+            genre: reqEntry.genre,
+            cover: {
+                url: reqEntry.cover.url,
+                filename: reqEntry.cover.filename
+            },
+            review: {
+                rating: 0,
+                reviewDate: null,
+                reviewText: ""
+            }
+        });
+        // console.log("newEntry: " + newEntry);
+
+        // Save the new entry to the database
+        await newEntry.save();
+        // console.log("New entry created: " + newEntry);
+        res.json(newEntry);
+    }));
+
 module.exports = router;

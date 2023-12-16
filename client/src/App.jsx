@@ -5,6 +5,7 @@ import { getUserStatus } from './utils/requestUtils.js'
 import RootLayout from './routes/Root.jsx'
 import HomePage from './routes/Home.jsx'
 import ListPage from './routes/List.jsx'
+import SearchPage from './routes/Search.jsx'
 import EntryPage from './routes/Entry.jsx'
 import AboutPage from './routes/About.jsx'
 import LoginPage from './routes/Login.jsx'
@@ -42,6 +43,7 @@ function App() {
       children: [
         { path: '/', element: <HomePage userStatus={userStatus} /> },
         { path: '/list', element: <ListPage userStatus={userStatus} /> },
+        { path: '/search', element: <SearchPage userStatus={userStatus} /> },
         { path: '/entry/:id', element: <EntryPage userStatus={userStatus} /> },
         { path: '/about', element: <AboutPage /> },
         { path: '/login', element: <LoginPage userStatus={userStatus} handleUserStatus={handleUserStatus} /> },

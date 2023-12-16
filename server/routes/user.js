@@ -13,6 +13,8 @@ router.post('/register', async (req, res) => {
     // console.log("User registered");
     // console.log(newUser);
     // res.json(newUser);
+    // Register is disabled for now
+    res.status(503).json({ error: 'Registration is disabled' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });

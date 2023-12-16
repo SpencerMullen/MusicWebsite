@@ -1,7 +1,8 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { Button, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import EditEntryDialog from './EditEntry';
+import ImageUploadDialog from './UploadImage';
 import AddEditReviewDialog from './AddEditReview';
 import DeleteEntryDialog from './DeleteEntry';
 import DeleteReviewDialog from './DeleteReview';
@@ -15,7 +16,7 @@ const EntryButtonsBox = styled(Box)(({ theme }) => ({
     color: '#eeeeee',
     border: 'none',
     borderRadius: 0,
-  }));
+}));
 
 const EntryButtons = ({ entry, reloadEntry }) => {
     // State for opening/closing edit entry dialog
@@ -27,6 +28,17 @@ const EntryButtons = ({ entry, reloadEntry }) => {
     const handleEditClose = () => {
         reloadEntry();
         setEditOpen(false);
+    };
+
+    // State for opening/closing image upload dialog
+    const [imageOpen, setImageOpen] = useState(false);
+    const handleImageOpen = () => {
+        reloadEntry();
+        setImageOpen(true);
+    };
+    const handleImageClose = () => {
+        reloadEntry();
+        setImageOpen(false);
     };
 
     // State for opening/closing delete dialog
@@ -63,58 +75,70 @@ const EntryButtons = ({ entry, reloadEntry }) => {
     };
 
     return (
-    <>
-    <EntryButtonsBox elevation={2}>
-        <Button
-        variant="contained"
-        onClick = {handleEditOpen}
-        style={{
-            backgroundColor: '#ffffff',
-            color: '#000000',
-            margin: '1rem'
-        }}
-        >
-        Edit Entry
-        </Button>
-        <Button
-        variant="contained"
-        onClick = {handleDeleteEntryOpen}
-        style={{
-            backgroundColor: '#ffffff',
-            color: '#000000',
-            margin: '1rem',
-        }}
-        >
-        Delete Entry
-        </Button>
-        <Button
-        variant="contained"
-        onClick = {handleReviewOpen}
-        style={{
-            backgroundColor: '#ffffff',
-            color: '#000000',
-            margin: '1rem',
-        }}
-        >
-        Add/Edit Review
-        </Button>
-        <Button
-        variant="contained"
-        onClick = {handleDeleteReviewOpen}
-        style={{
-            backgroundColor: '#ffffff',
-            color: '#000000',
-            margin: '1rem',
-        }}
-        >
-        Delete Review
-        </Button>
-    </EntryButtonsBox>
-    <EditEntryDialog open={editOpen} onClose={handleEditClose} entry={entry} />
-    <AddEditReviewDialog open={reviewOpen} onClose={handleReviewClose} entry={entry} />
-    <DeleteEntryDialog open={deleteEntryOpen} onClose={handleDeleteEntryClose} entry={entry} />
-    <DeleteReviewDialog open={deleteReviewOpen} onClose={handleDeleteReviewClose} entry={entry} />
-    </>
+        <>
+            <EntryButtonsBox elevation={2}>
+                <Button
+                    variant="contained"
+                    onClick={handleEditOpen}
+                    style={{
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                        margin: '1rem'
+                    }}
+                >
+                    Edit Entry
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={handleImageOpen}
+                    style={{
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                        margin: '1rem',
+                    }}
+                >
+                    Upload Image
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={handleDeleteEntryOpen}
+                    style={{
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                        margin: '1rem',
+                    }}
+                >
+                    Delete Entry
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={handleReviewOpen}
+                    style={{
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                        margin: '1rem',
+                    }}
+                >
+                    Add/Edit Review
+                </Button>
+                <Button
+                    variant="contained"
+                    onClick={handleDeleteReviewOpen}
+                    style={{
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                        margin: '1rem',
+                    }}
+                >
+                    Delete Review
+                </Button>
+            </EntryButtonsBox>
+            <EditEntryDialog open={editOpen} onClose={handleEditClose} entry={entry} />
+            <ImageUploadDialog open={imageOpen} onClose={handleImageClose} entry={entry} />
+            <AddEditReviewDialog open={reviewOpen} onClose={handleReviewClose} entry={entry} />
+            <DeleteEntryDialog open={deleteEntryOpen} onClose={handleDeleteEntryClose} entry={entry} />
+            <DeleteReviewDialog open={deleteReviewOpen} onClose={handleDeleteReviewClose} entry={entry} />
+        </>
     );
 };
 

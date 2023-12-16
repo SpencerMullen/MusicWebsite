@@ -40,7 +40,7 @@ const EntrySchema = new Schema({
         },
         filename: {
             type: String,
-            required: true
+            // can be null if no image is uploaded can be empty
         }
     },
     review: {

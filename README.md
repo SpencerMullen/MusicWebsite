@@ -33,6 +33,7 @@ npm run dev
 - Joi - Joi helped me sanitize any user input data as well as validate the data against the schemas I created.
 - Cloudinary - To host images that represent the album cover, I used Cloudinary, an online image hosting service. Their Node API as well as Multer helped facilitate the image upload process. The database objects store a Cloudinary link to the image file.
 - Passport - I used the Passport Local Strategy to implement Authentication on my site. Using passport and express-session, I can authenticate users using the browser session once they have logged in.
+- Discogs API - I utilized the Discogs API to be able to search up entries and add them to the database. The npm package 'disconnect' made creating a client to communicate with the API esay. You can still manually add an entry for any specific cases.
 
 ## Pages
 Here are what each of the pages on my site look like. Some features may change in the future but the overall structure should look the same.
@@ -45,12 +46,16 @@ The home page features a stock image of a vinyl record and a link to the list pa
 The list page contains all of the entries on my site. You can search for any specific entries using the search bar or filter the list using the checkboxes. You can also use the dropdown to sort by artist, title, date, rating, or review date. Clicking on any specific entry takes you to that entry's page. I used MongoDB's aggregation pipeline to handle sorting, filtering, and searching.
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/List.PNG?raw=true)
 
+### Search
+The search page contains an interface where users can search for entries using the Discog API where they can then add new entries to the site.
+![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/Search.PNG?raw=true)
+
 ### Entry
 The entry page contains information on the specific entry including cover art, title, artist, genre, release date and more. If I reviewed the album it also shows that information.
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/Entry.PNG?raw=true)
 
 ## CRUD Operations
-For my site, I developed it so that only users with type admin can call create, update, and delete operations on the entries. Any user can view the list and view specific entries. When logged into an admin account, a blue banner with the 'Create Entry' button will appear on the List page. A blue banner with 'Edit Entry', 'Delete Entry', 'Add/Edit Review', and 'Delete Review' buttons will also appear on any specific Entry page for admins.
+For my site, I developed it so that only users with type admin can call create (manually), update, and delete operations on the entries. Any user can view the list and view specific entries. When logged into an admin account, a blue banner with the 'Create Entry' button will appear on the List page. A blue banner with 'Edit Entry', 'Delete Entry', 'Add/Edit Review', and 'Delete Review' buttons will also appear on any specific Entry page for admins.
 
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/CreateEntry.PNG?raw=true)
 The create entry form where users can enter the album information and upload the cover image.

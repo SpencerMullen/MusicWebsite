@@ -62,6 +62,18 @@ const deleteEntry = async (id) => {
     return response.data;
 }
 
+// Update an entry's image
+const updateEntryImage = async (id, formData) => {
+    const url = API_URL + '/entry/' + id + '/image';
+    const response = await axios.put(url, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        withCredentials: true
+    });
+    return response.data;
+}
+
 /* User API calls */
 
 // Register
@@ -106,7 +118,39 @@ const getUserStatus = async () => {
     return userInfo;
 };
 
+/* Discogs API calls */
+
+// Get releases by the search query
+const getReleases = async (artist, title, format, page) => {
+    const url = API_URL + '/discogs';
+    const response = await axios.get(url,
+        {
+            params:
+            {
+                artist: artist,
+                title: title,
+                format: format,
+                page: page
+            }
+        }
+        , { withCredentials: true });
+    return response.data;
+};
+
+// Post a new entry from using search data from Discogs api
+const postDiscogsEntry = async (entry) => {
+    const url = API_URL + '/entry/discogs';
+    const response = await axios.post(url, { entry: entry }, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        withCredentials: true
+    });
+    return response.data;
+}
+
 export {
-    getEntries, createEntry, getEntry, updateEntry, deleteEntry,
-    register, login, logout, getUserStatus
+    getEntries, createEntry, getEntry, updateEntry, deleteEntry, updateEntryImage,
+    register, login, logout, getUserStatus,
+    getReleases, postDiscogsEntry
 };

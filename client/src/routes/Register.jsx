@@ -7,6 +7,7 @@ function RegisterPage() {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [registrationDisabled, setRegistrationDisabled] = useState(false);
 
     const handleRegister = async () => {
         try {
@@ -18,10 +19,15 @@ function RegisterPage() {
                 // Handle registration success
                 navigate('/login');
             } else {
+                console.log(response.statusCode === 503);
                 // Handle registration failure
                 console.error('Registration failed:', response.message);
             }
         } catch (err) {
+            if (err.message.includes('503')) {
+                // Registration is currently disabled
+                setRegistrationDisabled(true);
+            }
             console.error('Error during registration:', err.message);
         }
     }
@@ -52,6 +58,11 @@ function RegisterPage() {
                 <Button variant="contained" color="primary" fullWidth onClick={handleRegister}>
                     Register
                 </Button>
+                {registrationDisabled && (
+                    <Typography variant="body2" style={{ marginTop: '10px', color: 'red' }}>
+                        Registration currently disabled
+                    </Typography>
+                )}
                 <Typography variant="body2" style={{ marginTop: '10px' }}>
                     Already have an account? <Link component={RouterLink} to="/login">Login</Link>
                 </Typography>

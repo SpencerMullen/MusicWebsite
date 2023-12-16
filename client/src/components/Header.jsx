@@ -5,7 +5,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import HeaderButton from './HeaderButton';
-import axios from 'axios';
 import { logout } from '../utils/requestUtils';
 export default function ButtonAppBar({ userStatus, handleUserStatus }) {
   const navigate = useNavigate();
@@ -28,6 +27,13 @@ export default function ButtonAppBar({ userStatus, handleUserStatus }) {
     } else {
       // User is not authenticated, render Login button
       return <HeaderButton text="Login" link="/login" />;
+    }
+  };
+
+  const renderSearchButton = () => {
+    if (userStatus && userStatus.isAuthenticated) {
+      // User is authenticated, render Search button
+      return <HeaderButton text="Search" link="/search" />;
     }
   };
 
@@ -54,6 +60,8 @@ export default function ButtonAppBar({ userStatus, handleUserStatus }) {
           <HeaderButton text="Home" link="/" />
           <HeaderButton text="List" link="/list" />
           {/* <HeaderButton text="About" link="/about" /> */}
+          {/* Search button */}
+          {renderSearchButton()}
           {/* Login and Logout buttons */}
           {renderAuthButton()}
         </Toolbar>

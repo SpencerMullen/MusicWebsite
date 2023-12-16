@@ -38,7 +38,7 @@ const EntryListBar = (props) => {
     >
       <TextField
         id="search"
-        label="Search"
+        label="Search for artist, title, or genre..."
         variant="outlined"
         size="small"
         sx={{ width: '50%' }}

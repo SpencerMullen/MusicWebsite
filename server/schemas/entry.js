@@ -7,11 +7,11 @@ module.exports.entrySchema = Joi.object({
     type: Joi.string().required(),
     title: Joi.string().required(),
     artist: Joi.string().required(),
-    releaseDate: Joi.date().required(),
+    releaseDate: Joi.date(),
     genre: Joi.string().required(),
     cover: Joi.object({
         url: Joi.string(),
-        filename: Joi.string()
+        filename: Joi.string().allow('')
     }),
     review: Joi.object({
         rating: Joi.number().min(0).max(10),

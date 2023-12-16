@@ -17,6 +17,7 @@ const ExpressError = require('./utils/expressError');
 // Routes
 const entryRoutes = require('./routes/entry');
 const userRoutes = require('./routes/user');
+const discogsRoutes = require('./routes/discogs');
 
 // Connect to MongoDB
 let dbURL;
@@ -96,6 +97,7 @@ passport.deserializeUser(User.deserializeUser());
 // Use routes
 app.use('/entry', entryRoutes);
 app.use('/', userRoutes);
+app.use('/discogs', discogsRoutes);
 
 // Middleware to log session
 /*app.use((req, res, next) => {
