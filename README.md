@@ -77,8 +77,7 @@ Users can delete the review part of the entry here.
 
 ## Potential Features
 - Infinite Scroll - Load entries by chunks to reduce frontend load
-- Save Scroll Position - Save the Scroll position so if the user goes back to the list page they are at the same place
-- Small/Large Entry Icons - Make checkmark on list app bar
+- Small/Large Entry Cards - Make checkmark on list app bar to choose card size
 - UI Overhaul - Make better UI since it looks pretty basic
 - Helmet - Add more security
 - Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
