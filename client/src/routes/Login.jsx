@@ -40,7 +40,7 @@ function LoginPage({ userStatus, handleUserStatus }) {
         <Container maxWidth="sm">
             <Paper elevation={3} style={{ padding: '20px', marginTop: '50px' }}>
                 <Typography variant="h5" gutterBottom>
-                    Login (Admin Only)
+                    Login
                 </Typography>
                 <TextField
                     label="Username"
