@@ -9,8 +9,9 @@ const EntryListContent = (props) => {
 
   // Restore scroll position on mount
   useEffect(() => {
-    const savedScrollPosition = localStorage.getItem('entryListScrollPosition');
+    const savedScrollPosition = localStorage.getItem('entryListScrollPosition' || 0);
     if (scrollRef.current && savedScrollPosition) {
+      console.log("scroll pos: ", savedScrollPosition);
       scrollRef.current.scrollTop = savedScrollPosition;
     }
   }, []);
@@ -18,6 +19,7 @@ const EntryListContent = (props) => {
   // Save scroll position when unmounting
   useEffect(() => {
     return () => {
+      console.log("scroll pos: ", scrollRef.current.scrollTop);
       localStorage.setItem('entryListScrollPosition', scrollRef.current.scrollTop);
     };
   }, []);
@@ -29,6 +31,6 @@ const EntryListContent = (props) => {
       ))}
     </div>
   );
-};
+}
 
 export default EntryListContent;
