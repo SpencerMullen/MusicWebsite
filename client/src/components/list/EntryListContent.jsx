@@ -2,30 +2,15 @@ import React, { useEffect, useRef } from 'react';
 import EntryCard from './EntryCard';
 
 const EntryListContent = (props) => {
-  const { entries } = props;
+  const { entries, scrollPosition } = props;
 
-  // Create a ref for the scrolling container
-  const scrollRef = useRef(null);
-
-  // Restore scroll position on mount
+  // Scroll to previous position when entries change
   useEffect(() => {
-    const savedScrollPosition = localStorage.getItem('entryListScrollPosition' || 0);
-    if (scrollRef.current && savedScrollPosition) {
-      console.log("scroll pos: ", savedScrollPosition);
-      scrollRef.current.scrollTop = savedScrollPosition;
-    }
-  }, []);
-
-  // Save scroll position when unmounting
-  useEffect(() => {
-    return () => {
-      console.log("scroll pos: ", scrollRef.current.scrollTop);
-      localStorage.setItem('entryListScrollPosition', scrollRef.current.scrollTop);
-    };
-  }, []);
+    window.scrollTo(0, scrollPosition);
+  }, [entries]);
 
   return (
-    <div ref={scrollRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', padding: '16px', overflowY: 'auto' }}>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '16px', padding: '16px', overflowY: 'scroll' }}>
       {entries.map((entry) => (
         <EntryCard key={entry.id} entry={entry} />
       ))}
