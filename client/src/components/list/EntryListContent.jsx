@@ -4,7 +4,7 @@ import EntryCard from './EntryCard';
 const EntryListContent = (props) => {
   const { entries, scrollPosition } = props;
 
-  // Scroll to previous position when entries change
+  // Scroll to previous position
   useEffect(() => {
     window.scrollTo(0, scrollPosition);
   }, [entries]);

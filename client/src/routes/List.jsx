@@ -43,8 +43,13 @@ function ListPage({ userStatus }) {
   const handleOnlyCheckboxChange = (event) => {
     setOnlyChecked(event.target.checked);
   };
+  // Debounce scroll event handler
+  let scrollTimeout;
   const handleScroll = () => {
-    setScrollPosition(parseInt(window.scrollY));
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      setScrollPosition(window.scrollY);
+    }, 200); // 200ms debounce
   };
 
   const fetchData = async () => {
