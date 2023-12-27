@@ -62,8 +62,8 @@ function ListPage({ userStatus }) {
       onlyChecked,
     };
 
-    //const newEntries = await getEntries(filters);
-    const newEntries = [];
+    const newEntries = await getEntries(filters);
+    /*const newEntries = [];
     for (let i = 0; i < 100; i++) {
       newEntries.push({
         id: i,
@@ -83,7 +83,7 @@ function ListPage({ userStatus }) {
           reviewText: ""
         }
       });
-    }
+    }*/
 
     setEntries(newEntries);
     setLoaded(true);
