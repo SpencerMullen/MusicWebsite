@@ -4,7 +4,7 @@ import EntryListContent from './EntryListContent';
 
 const EntryList = (props) => {
   const { entries, selectedSort, searchQuery, liveChecked, epChecked, onlyChecked, handleSortChange, handleSearchChange,
-    handleLiveCheckboxChange, handleEpCheckboxChange, handleOnlyCheckboxChange, scrollPosition } = props;
+    handleLiveCheckboxChange, handleEpCheckboxChange, handleOnlyCheckboxChange, scrollPosition, loaded } = props;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -23,6 +23,7 @@ const EntryList = (props) => {
       <EntryListContent
         entries={entries}
         scrollPosition={scrollPosition}
+        loaded={loaded}
       />
     </div>
   );

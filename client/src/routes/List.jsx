@@ -7,6 +7,7 @@ import { getEntries } from '../utils/requestUtils';
 
 function ListPage({ userStatus }) {
   const [entries, setEntries] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const [selectedSort, setSelectedSort] = useState(localStorage.getItem('selectedSort') || 'artist_asc');
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') || '');
@@ -61,8 +62,8 @@ function ListPage({ userStatus }) {
       onlyChecked,
     };
 
-    const newEntries = await getEntries(filters);
-    /*const newEntries = [];
+    //const newEntries = await getEntries(filters);
+    const newEntries = [];
     for (let i = 0; i < 100; i++) {
       newEntries.push({
         id: i,
@@ -82,9 +83,10 @@ function ListPage({ userStatus }) {
           reviewText: ""
         }
       });
-    }*/
+    }
 
     setEntries(newEntries);
+    setLoaded(true);
   };
 
   useEffect(() => {
@@ -128,6 +130,7 @@ function ListPage({ userStatus }) {
           handleEpCheckboxChange={handleEpCheckboxChange}
           handleOnlyCheckboxChange={handleOnlyCheckboxChange}
           scrollPosition={scrollPosition}
+          loaded={loaded}
         />
       </Grid>
     </Grid>
