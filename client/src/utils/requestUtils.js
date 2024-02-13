@@ -76,7 +76,6 @@ const updateEntryImage = async (id, formData) => {
 
 // Update an entry's image by inputting a new image url
 const updateEntryImage2 = async (id, imageUrl) => {
-    console.log("UTILS");
     const url = API_URL + '/entry/' + id + '/image2';
     const response = await axios.put(url, { imageUrl: imageUrl }, {
         headers: {

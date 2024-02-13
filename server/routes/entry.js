@@ -80,6 +80,13 @@ router.route('/:id')
         // Entry from the request and add releaseDate and reviewDate to prevent day errors
         // console.log("REQ", req.body.entry);
         reqEntry = JSON.parse(req.body.entry);
+
+        // If the filename is null, set it to an empty string
+        let filename = reqEntry.cover.filename;
+        if (reqEntry.cover.filename === null) {
+            filename = "";
+        }
+
         // If dates aren't in UTC change them
         const updatedEntry = {
             id: reqEntry.id,
@@ -91,7 +98,7 @@ router.route('/:id')
             genre: reqEntry.genre,
             cover: {
                 url: reqEntry.cover.url,
-                filename: reqEntry.cover.filename
+                filename: filename
             },
             review: {
                 rating: reqEntry.review.rating,
@@ -153,7 +160,6 @@ router.route('/:id/image')
 router.route('/:id/image2')
     // Update an entry's image by inputting a new image url
     .put(adminAuth, catchAsync(async (req, res, next) => {
-        console.log("ROUTE");
         // Get the id and update the entry
         const { id } = req.params;
         const entry = await Entry.findOne({ id });
@@ -165,7 +171,7 @@ router.route('/:id/image2')
         }
         // Update the entry with the new image data
         entry.cover.url = req.body.imageUrl;
-        entry.cover.filename = null;
+        entry.cover.filename = "";
         // Save the updated entry to the database
         await entry.save();
         // console.log("Updating entry image with id: " + req.params.id);

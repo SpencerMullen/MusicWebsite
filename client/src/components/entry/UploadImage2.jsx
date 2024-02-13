@@ -20,7 +20,6 @@ const ImageUploadDialog2 = ({ open, onClose, entry }) => {
     };
 
     const handleFormSubmit = async () => {
-        console.log("FORM");
         if (!imageUrl) {
             // Handle case where no URL is entered
             return;
