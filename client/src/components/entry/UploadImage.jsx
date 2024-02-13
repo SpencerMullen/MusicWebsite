@@ -10,7 +10,7 @@ import {
     Typography,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { updateEntryImage } from '../../utils/requestUtils'; // Replace with your actual image upload function
+import { updateEntryImage } from '../../utils/requestUtils'; 
 import { useNavigate } from 'react-router-dom';
 
 const ImageUploadDialog = ({ open, onClose, entry }) => {

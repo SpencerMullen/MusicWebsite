@@ -128,7 +128,7 @@ router.route('/:id')
     }));
 
 router.route('/:id/image')
-    // Update an entry's image
+    // Update an entry's image by uploading a new image
     .put(adminAuth, upload.single('image'), catchAsync(async (req, res, next) => {
         // Get the file from the request
         const result = req.file;
@@ -144,6 +144,28 @@ router.route('/:id/image')
         // Update the entry with the new image data
         entry.cover.url = result.path;
         entry.cover.filename = result.filename;
+        // Save the updated entry to the database
+        await entry.save();
+        // console.log("Updating entry image with id: " + req.params.id);
+        res.json(entry);
+    }));
+
+router.route('/:id/image2')
+    // Update an entry's image by inputting a new image url
+    .put(adminAuth, catchAsync(async (req, res, next) => {
+        console.log("ROUTE");
+        // Get the id and update the entry
+        const { id } = req.params;
+        const entry = await Entry.findOne({ id });
+        // Delete the image from Cloudinary using the filename
+        const filename = entry.cover.filename;
+        if (filename) {
+            // Delete the image from Cloudinary
+            await cloudinary.uploader.destroy(filename);
+        }
+        // Update the entry with the new image data
+        entry.cover.url = req.body.imageUrl;
+        entry.cover.filename = null;
         // Save the updated entry to the database
         await entry.save();
         // console.log("Updating entry image with id: " + req.params.id);

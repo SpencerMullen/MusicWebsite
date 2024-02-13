@@ -74,6 +74,19 @@ const updateEntryImage = async (id, formData) => {
     return response.data;
 }
 
+// Update an entry's image by inputting a new image url
+const updateEntryImage2 = async (id, imageUrl) => {
+    console.log("UTILS");
+    const url = API_URL + '/entry/' + id + '/image2';
+    const response = await axios.put(url, { imageUrl: imageUrl }, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        withCredentials: true
+    });
+    return response.data;
+}
+
 /* User API calls */
 
 // Register
@@ -150,7 +163,8 @@ const postDiscogsEntry = async (entry) => {
 }
 
 export {
-    getEntries, createEntry, getEntry, updateEntry, deleteEntry, updateEntryImage,
+    getEntries, createEntry, getEntry, updateEntry, deleteEntry, 
+    updateEntryImage, updateEntryImage2,
     register, login, logout, getUserStatus,
     getReleases, postDiscogsEntry
 };

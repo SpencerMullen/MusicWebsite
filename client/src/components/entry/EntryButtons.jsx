@@ -3,6 +3,7 @@ import { Button, Box } from '@mui/material';
 import { styled } from '@mui/system';
 import EditEntryDialog from './EditEntry';
 import ImageUploadDialog from './UploadImage';
+import ImageUploadDialog2 from './UploadImage2';
 import AddEditReviewDialog from './AddEditReview';
 import DeleteEntryDialog from './DeleteEntry';
 import DeleteReviewDialog from './DeleteReview';
@@ -39,6 +40,17 @@ const EntryButtons = ({ entry, reloadEntry }) => {
     const handleImageClose = () => {
         reloadEntry();
         setImageOpen(false);
+    };
+
+    // State for opening/closing image upload 2 dialog
+    const [imageOpen2, setImageOpen2] = useState(false);
+    const handleImageOpen2 = () => {
+        reloadEntry();
+        setImageOpen2(true);
+    };
+    const handleImageClose2 = () => {
+        reloadEntry();
+        setImageOpen2(false);
     };
 
     // State for opening/closing delete dialog
@@ -101,6 +113,17 @@ const EntryButtons = ({ entry, reloadEntry }) => {
                 </Button>
                 <Button
                     variant="contained"
+                    onClick={handleImageOpen2}
+                    style={{
+                        backgroundColor: '#ffffff',
+                        color: '#000000',
+                        margin: '1rem',
+                    }}
+                >
+                    Image URL
+                </Button>
+                <Button
+                    variant="contained"
                     onClick={handleDeleteEntryOpen}
                     style={{
                         backgroundColor: '#ffffff',
@@ -135,6 +158,7 @@ const EntryButtons = ({ entry, reloadEntry }) => {
             </EntryButtonsBox>
             <EditEntryDialog open={editOpen} onClose={handleEditClose} entry={entry} />
             <ImageUploadDialog open={imageOpen} onClose={handleImageClose} entry={entry} />
+            <ImageUploadDialog2 open={imageOpen2} onClose={handleImageClose2} entry={entry} />
             <AddEditReviewDialog open={reviewOpen} onClose={handleReviewClose} entry={entry} />
             <DeleteEntryDialog open={deleteEntryOpen} onClose={handleDeleteEntryClose} entry={entry} />
             <DeleteReviewDialog open={deleteReviewOpen} onClose={handleDeleteReviewClose} entry={entry} />
