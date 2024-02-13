@@ -81,12 +81,6 @@ router.route('/:id')
         // console.log("REQ", req.body.entry);
         reqEntry = JSON.parse(req.body.entry);
 
-        // If the filename is null, set it to an empty string
-        let filename = reqEntry.cover.filename;
-        if (reqEntry.cover.filename === null) {
-            filename = "";
-        }
-
         // If dates aren't in UTC change them
         const updatedEntry = {
             id: reqEntry.id,

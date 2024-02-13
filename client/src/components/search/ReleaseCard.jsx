@@ -111,10 +111,6 @@ const ReleaseCard = ({ release, open, openDialog, onClose, setEntry }) => {
             {/* Modal */}
             <Dialog open={open} onClose={handleCardClose}>
                 <DialogTitle>Add Release</DialogTitle>
-                <DialogContent>
-                    {/* Add content for the modal */}
-                    {/* You can pass any additional information about the release to the modal */}
-                </DialogContent>
             </Dialog>
         </Card>
     );
