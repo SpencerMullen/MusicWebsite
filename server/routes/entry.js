@@ -80,7 +80,6 @@ router.route('/:id')
         // Entry from the request and add releaseDate and reviewDate to prevent day errors
         // console.log("REQ", req.body.entry);
         reqEntry = JSON.parse(req.body.entry);
-
         // If dates aren't in UTC change them
         const updatedEntry = {
             id: reqEntry.id,
@@ -92,7 +91,7 @@ router.route('/:id')
             genre: reqEntry.genre,
             cover: {
                 url: reqEntry.cover.url,
-                filename: filename
+                filename: reqEntry.cover.filename
             },
             review: {
                 rating: reqEntry.review.rating,
