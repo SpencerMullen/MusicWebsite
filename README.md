@@ -3,7 +3,7 @@ This site was made by Spencer Mullen to track some of his music reviews!
 
 ## Site Deployment
 Frontend and Backend are both hosted on render. The site is deployed live! Note: Can take a little while to initially load because free render sites "spin down" due to inactivity.
-- https://music-list-frontend.onrender.com/
+- https://spencermusic.onrender.com/
 
 ## Quick Start
 If you want to run the site UI locally follow the steps listed below:
@@ -33,7 +33,7 @@ npm run dev
 - Joi - Joi helped me sanitize any user input data as well as validate the data against the schemas I created.
 - Cloudinary - To host images that represent the album cover, I used Cloudinary, an online image hosting service. Their Node API as well as Multer helped facilitate the image upload process. The database objects store a Cloudinary link to the image file.
 - Passport - I used the Passport Local Strategy to implement Authentication on my site. Using passport and express-session, I can authenticate users using the browser session once they have logged in.
-- Discogs API - I utilized the Discogs API to be able to search up entries and add them to the database. The npm package 'disconnect' made creating a client to communicate with the API esay. Users can still manually add an entry for any specific cases. Discogs also provides cover art which helps reduce load on my Cloudinary storage since I only have the free plan.
+- Discogs API - I utilized the Discogs API to be able to search up entries and add them to the database. The npm package 'disconnect' made creating a client to communicate with the API esay. Users can still manually add an entry for any specific cases. Discogs also provides cover art which helps reduce load on my Cloudinary storage since I only have the free plan. However, the API seems slow sometimes when loading images so I am looking to spread out where I get the cover art.
 
 ## Pages
 Here are what each of the pages on my site look like. Some features may change in the future but the overall structure should look the same.
@@ -77,6 +77,7 @@ Users can delete the review part of the entry here.
 
 ## Potential Features
 - Infinite Scroll - Load entries by chunks to reduce frontend load
+- More Mobile Friendly UI Support
 - Small/Large Entry Cards - Make checkmark on list app bar to choose card size
 - UI Overhaul - Make better UI since it looks pretty basic
 - Helmet - Add more security
