@@ -26,7 +26,7 @@ const EntryReview = ({ entry }) => {
                 Rating
               </Typography>
               <Typography variant="body2" sx={{ fontSize: '4rem', textAlign: 'center' }}>
-                {entry.review.rating}{/*/10*/}
+                {entry.review.rating}/10
               </Typography>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}>
