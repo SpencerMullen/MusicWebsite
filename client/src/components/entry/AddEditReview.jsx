@@ -65,7 +65,7 @@ const AddEditReviewDialog = ({ open, onClose, entry }) => {
                             value={rating}
                             onChange={handleRatingChange}
                             valueLabelDisplay="auto"
-                            step={1}
+                            step={0.5}
                             marks
                             min={0}
                             max={10}
