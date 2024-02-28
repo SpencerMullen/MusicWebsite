@@ -70,12 +70,23 @@ const buildPipeline = (filters) => {
         // First add a lowercase version of the artist name
         pipeline.push({ $addFields: { artistLower: { $toLower: '$artist' } } });
         // Then remove 'the ' from the beginning of the artist name
-        pipeline.push({ $addFields: { artistSort: { $cond: { if: { $eq: [{ $substr: ['$artistLower', 0, 4] }, 'the '] }, then: { $substr: ['$artistLower', 4, { $strLenCP: '$artistLower' }] }, else: '$artistLower' } } } });
+        pipeline.push({
+            $addFields: {
+                artistSort: {
+                    $cond: {
+                        if: { $eq: [{ $substrCP: ['$artistLower', 0, 4] }, 'the '] },
+                        then: { $substrCP: ['$artistLower', 4, { $strLenCP: '$artistLower' }] },
+                        else: '$artistLower'
+                    }
+                }
+            }
+        });
         // Then sort by the artist name then by release date
         pipeline.push({ $sort: { artistSort: sortDir, releaseDate: sortDir } });
         // Then remove the temporary fields
         pipeline.push({ $unset: ['artistLower', 'artistSort'] });
     }
+    
     else if (selectedSort === 'releaseDate_asc') pipeline.push({ $sort: { releaseDate: 1 } });
     else if (selectedSort === 'releaseDate_dsc') pipeline.push({ $sort: { releaseDate: -1 } });
     else if (selectedSort === 'rating_asc') {
