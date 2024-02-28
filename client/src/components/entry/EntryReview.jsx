@@ -25,7 +25,7 @@ const EntryReview = ({ entry }) => {
               <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
                 Rating
               </Typography>
-              <Typography variant="body2" sx={{ fontSize: '4rem' }}>
+              <Typography variant="body2" sx={{ fontSize: '4rem', textAlign: 'center' }}>
                 {entry.review.rating}{/*/10*/}
               </Typography>
             </div>
