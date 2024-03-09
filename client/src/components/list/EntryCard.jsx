@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import defaultImage from '../../assets/default.jpg'; // Import the default image
@@ -9,12 +10,13 @@ const cardStyles = {
   display: 'flex',
   flexDirection: 'column',
   overflow: 'hidden',
+  position: 'relative',
 };
 
 const imgSectionStyles = {
-  height: '200px', 
+  height: '200px',
   width: '100%',
-  position: 'relative', 
+  position: 'relative',
   backgroundColor: '#0000000F',
 
 };
@@ -43,7 +45,23 @@ const subtitleStyles = {
   whiteSpace: 'nowrap',
 };
 
+const overlayStyles = {
+  position: 'absolute',
+  top: '0',
+  left: '0',
+  width: '100%',
+  height: '100%',
+  background: 'rgba(255, 255, 255, 0.5)',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  opacity: '0.8',
+  transition: 'opacity 0.3s ease',
+};
+
 const EntryCard = ({ entry }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   let imageUrl = entry.cover.url || defaultImage;
 
   // Check if the image URL is a valid URL
@@ -54,11 +72,18 @@ const EntryCard = ({ entry }) => {
     imageUrl = defaultImage;
   }
 
+  // If the entry is reviewed, get the rating
+  let rating = entry.reviewed ? entry.review.rating : null;
+
   // Truncate the artist name if it's too long
   const truncatedArtist = entry.artist.length > 18 ? `${entry.artist.slice(0, 14)}...` : entry.artist;
 
   return (
-    <Card style={cardStyles}>
+    <Card
+      style={cardStyles}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <Link to={`/entry/${entry.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
         <div style={imgSectionStyles}>
           <CardMedia
@@ -68,6 +93,14 @@ const EntryCard = ({ entry }) => {
             alt={entry.title}
             style={imgStyles}
           />
+          {isHovered && (
+            <div style={overlayStyles}>
+              <Typography variant="h6" color="black" sx={{ fontWeight: 'bold', fontSize: '2rem', textAlign: 'center' }}>
+                {/*Rating when hovered*/}
+                {rating ? `${rating}/10` : 'Not Reviewed'}
+              </Typography>
+            </div>
+          )}
         </div>
         <CardContent>
           <Typography variant="h6" sx={titleStyles}>
