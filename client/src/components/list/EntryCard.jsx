@@ -95,9 +95,17 @@ const EntryCard = ({ entry }) => {
           />
           {isHovered && (
             <div style={overlayStyles}>
-              <Typography variant="h6" color="black" sx={{ fontWeight: 'bold', fontSize: '2rem', textAlign: 'center' }}>
+              <Typography
+                variant="h6"
+                color="black"
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: rating ? '2.5rem' : '1.5rem', // Conditionally set font size
+                  textAlign: 'center'
+                }}
+              >
                 {/*Rating when hovered*/}
-                {rating ? `${rating}/10` : 'Not Reviewed'}
+                {rating ? `${rating}` : 'Not Reviewed'}
               </Typography>
             </div>
           )}
