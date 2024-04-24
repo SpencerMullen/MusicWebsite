@@ -8,11 +8,13 @@ const EntryListBar = (props) => {
     liveChecked,
     epChecked,
     onlyChecked,
+    reviewedChecked,
     handleSortChange,
     handleSearchChange,
     handleLiveCheckboxChange,
     handleEpCheckboxChange,
     handleOnlyCheckboxChange,
+    handleReviewedCheckboxChange,
   } = props;
 
   /*useEffect(() => {
@@ -46,7 +48,7 @@ const EntryListBar = (props) => {
         onChange={handleSearchChange}
       />
 
-      <FormControl sx={{ width: '20%', marginLeft: '1rem', minWidth: '150px' }}>
+      <FormControl sx={{ width: '15%', marginLeft: '1rem', minWidth: '150px' }}>
         <InputLabel id="sort-label" sx={{ zIndex: 0 }}>Sort by</InputLabel>
         <Select label="Sort by" value={selectedSort} onChange={handleSortChange}>
           <MenuItem value="artist_asc">Artist (A-Z)</MenuItem>
@@ -61,27 +63,32 @@ const EntryListBar = (props) => {
           <MenuItem value="reviewDate_asc">Review Date (Old-New)</MenuItem>
         </Select>
       </FormControl>
+      {/* Filter checkboxes */}
+      {/* Put an outline behind the livechecked, epchecked, and onlychecked checkboxes */}
+
+        <Checkbox
+          checked={liveChecked}
+          onChange={handleLiveCheckboxChange}
+        />
+        <ListItemText primary="Live" sx={{ marginX: '0.1rem' }} />
+
+        <Checkbox
+          checked={epChecked}
+          onChange={handleEpCheckboxChange}
+        />
+        <ListItemText primary="EP" sx={{ marginX: '0.1rem' }} />
+
+        <Checkbox
+          checked={onlyChecked}
+          onChange={handleOnlyCheckboxChange}
+        />
+        <ListItemText primary="Only Live/EP" sx={{ marginX: '0.1rem' }} />
 
       <Checkbox
-        checked={liveChecked}
-        onChange={handleLiveCheckboxChange}
-        sx={{ marginLeft: '1rem' }}
+        checked={reviewedChecked}
+        onChange={handleReviewedCheckboxChange}
       />
-      <ListItemText primary="Live" sx={{ marginLeft: '0.2rem' }} />
-
-      <Checkbox
-        checked={epChecked}
-        onChange={handleEpCheckboxChange}
-        sx={{ marginLeft: '1rem' }}
-      />
-      <ListItemText primary="EP" sx={{ marginLeft: '0.2rem' }} />
-
-      <Checkbox
-        checked={onlyChecked}
-        onChange={handleOnlyCheckboxChange}
-        sx={{ marginLeft: '1rem' }}
-      />
-      <ListItemText primary="Only?" sx={{ marginLeft: '0.2rem' }} />
+      <ListItemText primary="Only Reviewed" sx={{ marginX: '0.2rem' }} />
     </Box>
   );
 };

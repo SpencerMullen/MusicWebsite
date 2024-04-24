@@ -14,6 +14,7 @@ function ListPage({ userStatus }) {
   const [liveChecked, setLiveChecked] = useState(localStorage.getItem('liveChecked') === 'true' || true);
   const [epChecked, setEpChecked] = useState(localStorage.getItem('epChecked') === 'true' || true);
   const [onlyChecked, setOnlyChecked] = useState(localStorage.getItem('onlyChecked') === 'true' || false);
+  const [reviewedChecked, setReviewedChecked] = useState(localStorage.getItem('reviewedChecked') === 'true' || false);
   // Save scroll position in localStorage
   const [scrollPosition, setScrollPosition] = useState(parseInt(localStorage.getItem('scrollPosition')) || 0);
 
@@ -24,9 +25,10 @@ function ListPage({ userStatus }) {
     localStorage.setItem('liveChecked', liveChecked.toString());
     localStorage.setItem('epChecked', epChecked.toString());
     localStorage.setItem('onlyChecked', onlyChecked.toString());
+    localStorage.setItem('reviewedChecked', reviewedChecked.toString());
     localStorage.setItem('scrollPosition', scrollPosition.toString());
     fetchData();
-  }, [selectedSort, searchQuery, liveChecked, epChecked, onlyChecked, scrollPosition]);
+  }, [selectedSort, searchQuery, liveChecked, epChecked, onlyChecked, reviewedChecked, scrollPosition]);
 
   // Pass state values and update functions as props to EntryList
   const handleSortChange = (event) => {
@@ -44,6 +46,11 @@ function ListPage({ userStatus }) {
   const handleOnlyCheckboxChange = (event) => {
     setOnlyChecked(event.target.checked);
   };
+  const handleReviewedCheckboxChange = (event) => {
+    setReviewedChecked(event.target.checked);
+    // log the event
+    console.log(event.target.checked);
+  }
   // Debounce scroll event handler
   let scrollTimeout;
   const handleScroll = () => {
@@ -60,6 +67,7 @@ function ListPage({ userStatus }) {
       liveChecked,
       epChecked,
       onlyChecked,
+      reviewedChecked,
     };
 
     const newEntries = await getEntries(filters);
@@ -124,11 +132,13 @@ function ListPage({ userStatus }) {
           liveChecked={liveChecked}
           epChecked={epChecked}
           onlyChecked={onlyChecked}
+          reviewedChecked={reviewedChecked}
           handleSortChange={handleSortChange}
           handleSearchChange={handleSearchChange}
           handleLiveCheckboxChange={handleLiveCheckboxChange}
           handleEpCheckboxChange={handleEpCheckboxChange}
           handleOnlyCheckboxChange={handleOnlyCheckboxChange}
+          handleReviewedCheckboxChange={handleReviewedCheckboxChange}
           scrollPosition={scrollPosition}
           loaded={loaded}
         />

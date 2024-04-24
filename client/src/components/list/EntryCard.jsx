@@ -28,7 +28,7 @@ const imgStyles = {
 };
 
 const titleStyles = {
-  fontSize: '1rem',
+  fontSize: '0.9rem',
   lineHeight: '1.2rem',
   maxHeight: '2.4rem',
   overflow: 'hidden',
@@ -37,7 +37,7 @@ const titleStyles = {
 };
 
 const subtitleStyles = {
-  fontSize: '0.9rem',
+  fontSize: '0.8rem',
   lineHeight: '1.2rem',
   maxHeight: '2.4rem',
   overflow: 'hidden',
@@ -74,9 +74,6 @@ const EntryCard = ({ entry }) => {
 
   // If the entry is reviewed, get the rating
   let rating = entry.reviewed ? entry.review.rating : null;
-
-  // Truncate the artist name if it's too long
-  const truncatedArtist = entry.artist.length > 18 ? `${entry.artist.slice(0, 14)}...` : entry.artist;
 
   return (
     <Card
@@ -115,7 +112,7 @@ const EntryCard = ({ entry }) => {
             {entry.title}
           </Typography>
           <Typography variant="subtitle2" sx={subtitleStyles}>
-            {`${truncatedArtist} | ${getFormatDateYear(entry.releaseDate)}`}
+            {getFormatDateYear(entry.releaseDate) + " | " + entry.artist}
           </Typography>
         </CardContent>
       </Link>

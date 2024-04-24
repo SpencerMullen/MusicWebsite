@@ -1,11 +1,12 @@
 // Helper function to build the MongoDB aggregation pipeline
 const buildPipeline = (filters) => {
     const { selectedSort, searchQuery } = filters;
-    let { liveChecked, epChecked, onlyChecked } = filters;
+    let { liveChecked, epChecked, onlyChecked, reviewedChecked } = filters;
     // Since these values are from localStorage, they are strings so convert
     liveChecked = liveChecked === 'true' ? true : false;
     epChecked = epChecked === 'true' ? true : false;
     onlyChecked = onlyChecked === 'true' ? true : false;
+    reviewedChecked = reviewedChecked === 'true' ? true : false;
     // console.log("filters: ", JSON.stringify(filters));
 
     // Initial pipeline stages
@@ -53,6 +54,11 @@ const buildPipeline = (filters) => {
                 $or: typeFilters,
             },
         });
+    }
+
+    // If reviewed is checked, only include entries with reviewed set to true
+    if (reviewedChecked) {
+        pipeline.push({ $match: { reviewed: true } });
     }
 
     // Add sorting logic

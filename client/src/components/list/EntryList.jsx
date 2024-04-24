@@ -3,8 +3,9 @@ import EntryListBar from './EntryListBar';
 import EntryListContent from './EntryListContent';
 
 const EntryList = (props) => {
-  const { entries, selectedSort, searchQuery, liveChecked, epChecked, onlyChecked, handleSortChange, handleSearchChange,
-    handleLiveCheckboxChange, handleEpCheckboxChange, handleOnlyCheckboxChange, scrollPosition, loaded } = props;
+  const { entries, selectedSort, searchQuery, liveChecked, epChecked, onlyChecked, reviewedChecked, handleSortChange, 
+    handleSearchChange, handleLiveCheckboxChange, handleEpCheckboxChange, handleOnlyCheckboxChange, handleReviewedCheckboxChange,
+     scrollPosition, loaded } = props;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -14,11 +15,13 @@ const EntryList = (props) => {
         liveChecked={liveChecked}
         epChecked={epChecked}
         onlyChecked={onlyChecked}
+        reviewedChecked={reviewedChecked}
         handleSortChange={handleSortChange}
         handleSearchChange={handleSearchChange}
         handleLiveCheckboxChange={handleLiveCheckboxChange}
         handleEpCheckboxChange={handleEpCheckboxChange}
         handleOnlyCheckboxChange={handleOnlyCheckboxChange}
+        handleReviewedCheckboxChange={handleReviewedCheckboxChange}
       />
       <EntryListContent
         entries={entries}
