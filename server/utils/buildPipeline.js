@@ -87,6 +87,18 @@ const buildPipeline = (filters) => {
                 }
             }
         });
+        // Or if the artist starts with 'a ', remove it for sorting
+        pipeline.push({
+            $addFields: {
+                artistSort: {
+                    $cond: {
+                        if: { $eq: [{ $substrCP: ['$artistSort', 0, 2] }, 'a '] },
+                        then: { $substrCP: ['$artistSort', 2, { $strLenCP: '$artistSort' }] },
+                        else: '$artistSort'
+                    }
+                }
+            }
+        });
         // Then sort by the artist name then by release date
         pipeline.push({ $sort: { artistSort: sortDir, releaseDate: sortDir } });
         // Then remove the temporary fields
