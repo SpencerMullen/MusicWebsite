@@ -75,11 +75,15 @@ Users can add or edit the review here. It will preload any saved review informat
 ![Alt text](https://github.com/SpencerMullen/MusicWebsite/blob/main/images/DeleteReview.PNG?raw=true)
 Users can delete the review part of the entry here.
 
+## Tasks
+- Checkbox labels should interact with the checkbox
+- '0' rating should not be unreviewed
+
 ## Potential Features
 - Infinite Scroll - Load entries by chunks to reduce frontend load
 - More Mobile Friendly UI Support
 - Small/Large Entry Cards - Make checkmark on list app bar to choose card size
-- UI Overhaul - Make better UI since it looks pretty basic
+- UI Overhaul - Make better UI since it is basic MVP
 - Helmet - Add more security
 - Home Page Recommended Album - Add a component in the home page that has a featured album and a graphic.
 - Home Page Random Album - Add a component in the home page that has a random album picker.
