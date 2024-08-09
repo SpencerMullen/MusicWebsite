@@ -102,7 +102,7 @@ const EntryCard = ({ entry }) => {
                 }}
               >
                 {/*Rating when hovered*/}
-                {rating ? `${rating}` : 'Not Reviewed'}
+                {entry.reviewed ? `${rating}` : 'Not Reviewed'}
               </Typography>
             </div>
           )}

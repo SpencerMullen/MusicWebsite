@@ -9,12 +9,12 @@ router.post('/register', async (req, res) => {
     // console.log("Registering user");
     // console.log(req.body);
     // Register the user with the credentials with role 'user'
-    // const newUser = await User.register({ username: req.body.username, role: 'user' }, req.body.password);
-    // console.log("User registered");
-    // console.log(newUser);
-    // res.json(newUser);
+    const newUser = await User.register({ username: req.body.username, role: 'user' }, req.body.password);
+    console.log("User registered");
+    console.log(newUser);
+    res.json(newUser);
     // Register is disabled for now
-    res.status(503).json({ error: 'Registration is disabled' });
+    // res.status(503).json({ error: 'Registration is disabled' });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Internal Server Error' });
