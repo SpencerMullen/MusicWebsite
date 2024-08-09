@@ -97,7 +97,7 @@ const EntryCard = ({ entry }) => {
                 color="black"
                 sx={{
                   fontWeight: 'bold',
-                  fontSize: rating ? '2.5rem' : '1.5rem', // Conditionally set font size
+                  fontSize: entry.reviewed ? '2.5rem' : '1.5rem', // Conditionally set font size
                   textAlign: 'center'
                 }}
               >
